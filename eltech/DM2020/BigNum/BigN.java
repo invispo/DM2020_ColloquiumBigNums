@@ -12,9 +12,9 @@ public class BigN
 	/*Само число хранится в value - это список. В 0ой ячейке младший разряд, в 1 больше и т.д.
 	Например, число 36004256360, в 0ой - 360, в 1ой - 256, во 2ой - 4, в 3ей - 36*/
 	private ArrayList<Integer> value = new ArrayList<Integer>();
-	
+
 	private BigN(){}
-	
+
 	/**
 	* Конструктор, с помощью которого можно ввести большое целое число
 	* Если строка src пустая, то в value будет 0 элементов
@@ -48,7 +48,7 @@ public class BigN
 		}
 		Collections.reverse(value);
 	}
-	
+
 	/**
 	* Сложение 2-x больших целых чисел. Вернёт при сложении НОВОЕ большое целое число
 	*
@@ -84,7 +84,7 @@ public class BigN
 			buffBigN.value.add(over);
 		return buffBigN;
 	}
-	
+
 	/**
 	* Вывод большого целого числа в виде строки
 	* Если в value нуль элементов, то вернёт пустую строку
@@ -108,36 +108,61 @@ public class BigN
 		Collections.reverse(value);
 		return builder.toString();
 	}
-	
-	/**
-    * Умножение двух больших натуральных чисел. O(this.value.size()*other.value.size())
-    *
-    * @param BigN other - число, на которое нужно умножить исходное
-    * @return BigN result - новое число, получающееся в результате умножения
-    *
-    * @version 0.1
-    * @author Яловега Николай
-    */
-    public BigN multiply(BigN other)
-    {
-        int base = 1000;
-        BigN result = new BigN();
-        int i, j, carry, cur;
 
-        for (i = 0; i < this.value.size() + other.value.size(); ++i)
-            result.value.add(0);
+    /**
+         * Умножение двух больших натуральных чисел. O(this.value.size()*other.value.size())
+         *
+         * @param BigN other - число, на которое нужно умножить исходное
+         * @return BigN result - новое число, получающееся в результате умножения
+         *
+         * @version 0.2
+         * @author Яловега Никита
+         */
+         public BigN multiply(BigN other)
+         {
+             int base = 1000;
+             BigN result = new BigN();
+             int i, j, carry, cur;
+             boolean f1, f2;
 
-        for (i = 0; i < this.value.size(); ++i)
-            for (j = 0, carry = 0; j < other.value.size() || carry != 0; ++j)
-            {
-                cur = result.value.get(i+j) + this.value.get(i) * (j < other.value.size() ? other.value.get(j) : 0) + carry;
-                result.value.set(i+j, cur % base);
-                carry = cur / base;
-            }
+             f1 = other.isZero();
+             f2 = this.isZero();
+             if (!f1 && !f2 )
+             {
+                 for (i = 0; i < this.value.size() + other.value.size(); ++i)
+                     result.value.add(0);
 
-        for (i = result.value.size()-1; result.value.get(i) == 0; --i)
-    	   result.value.remove(i);
+                 for (i = 0; i < this.value.size(); ++i)
+                     for (j = 0, carry = 0; j < other.value.size() || carry != 0; ++j)
+                     {
+                         cur = result.value.get(i+j) + this.value.get(i) * (j < other.value.size() ? other.value.get(j) : 0) + carry;
+                         result.value.set(i+j, cur % base);
+                         carry = cur / base;
+                     }
 
-        return result;
-	}
-}
+                 for (i = result.value.size()-1; result.value.get(i) == 0; --i)
+             	   result.value.remove(i);
+             }
+             else
+                 if (f1)
+                   result = other;
+                 else
+                   result = this;
+
+             return result;
+     	}
+
+         /**
+         * Проверка большого числа на 0.
+         *
+         * @param BigN num - число для проверки
+         * @return boolean - результат проверки
+         *
+         * @version 1
+         * @author Яловега Никита
+         */
+         public boolean isZero()
+         {
+             return this.toString().equals("0");
+         }
+     }
