@@ -3,8 +3,8 @@ package eltech.DM2020.BigNum;
 import java.util.*;
 
 	/**
-	* Класс, который позволяет манипулировать с большими натуральными числами
-	* @version 0.02
+	* Класс, который позволяет манипулировать с большими натуральными числами + {0}
+	* @version 0.03
 	* @author Сычев Александр, Яловега Никита
 	*/
 public class BigN
@@ -167,16 +167,9 @@ public class BigN
                  result.value.set(i+j, cur % base);
                  carry = cur / base;
              }
-
-<<<<<<< HEAD
-         for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
-     	     result.value.remove(i);
-=======
+			 
         for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
-     	   result.value.remove(i);
->>>>>>> upstream/master
-
-        return result;
+     	    result.value.remove(i);
  	}
 
     /**
@@ -213,7 +206,7 @@ public class BigN
     * @version 1
     * @author Яловега Никита
     */
-    public boolean isMoreThan(BigN other) {
+    private boolean isMoreThan(BigN other) {
         return this.compareTo(other) > 0;
     }
 
@@ -224,7 +217,7 @@ public class BigN
     * @version 1
     * @author Яловега Никита
     */
-    public boolean isLessThan(BigN other) {
+    private boolean isLessThan(BigN other) {
         return this.compareTo(other) < 0;
     }
 
@@ -235,7 +228,7 @@ public class BigN
     * @version 1
     * @author Яловега Никита
     */
-    public boolean isMoreOrEquals(BigN other) {
+    private boolean isMoreOrEquals(BigN other) {
         return this.compareTo(other) >= 0;
     }
 
@@ -246,7 +239,7 @@ public class BigN
     * @version 1
     * @author Яловега Никита
     */
-    public boolean isLessOrEquals(BigN other) {
+    private boolean isLessOrEquals(BigN other) {
         return this.compareTo(other) <= 0;
     }
 
@@ -257,7 +250,7 @@ public class BigN
     * @version 1
     * @author Яловега Никита
     */
-    public boolean isEquals(BigN other) {
+    private boolean isEquals(BigN other) {
         return this.compareTo(other) == 0;
     }
 
