@@ -3,12 +3,13 @@ package eltech.DM2020.BigNum;
 import java.util.*;
 import java.math.*;
 
-public class colloquium
+public class Colloquium
 {
 	public static void start()
 	{
-		BigN a = new BigN("15764237684689231694326194856139246321784629731648231649833512946324001242315764237684689231694326194856139246");
-		System.out.println(a + "\n" + a.testFunc());
+		//Тестируте!)
+		BigN a = new BigN("6194856");
+		System.out.println( a.multiply( new BigN("561392463") ).add( new BigN("5051") ) ); // 3477745467775379
 	}
 }
 
