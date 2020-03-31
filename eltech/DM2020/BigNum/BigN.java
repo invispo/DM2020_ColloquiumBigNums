@@ -11,7 +11,7 @@ public class BigN
 {
 	/*Само число хранится в value - это список. В 0ой ячейке младший разряд, в 1 больше и т.д.
 	Например, число 36004256360, в 0ой - 360, в 1ой - 256, во 2ой - 4, в 3ей - 36*/
-	public ArrayList<Integer> value = new ArrayList<Integer>();
+	private ArrayList<Integer> value = new ArrayList<Integer>();
 
 	private BigN(){}
 
@@ -124,7 +124,7 @@ public class BigN
          for (i = 0; i < this.value.size() + other.value.size(); ++i)
              result.value.add(0);
 
-         for (i = 0; i < this.value.size(); ++i)
+        for (i = 0; i < this.value.size(); ++i)
              for (j = 0, carry = 0; j < other.value.size() || carry != 0; ++j)
              {
                  cur = result.value.get(i+j) + this.value.get(i) * (j < other.value.size() ? other.value.get(j) : 0) + carry;
@@ -132,10 +132,10 @@ public class BigN
                  carry = cur / base;
              }
 
-         for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
+        for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
      	   result.value.remove(i);
 
-         return result;
+        return result;
  	}
 
      /**
@@ -150,5 +150,24 @@ public class BigN
      public boolean isZero()
      {
          return this.toString().equals("0");
+     }
+
+     /**
+     * Какая-то функция
+     *
+     * @param из неть
+     * @return не важно
+     *
+     * @version 0.000001
+     * @author Test
+     */
+     public int testFunc()
+     {
+		 Scanner in = new Scanner(System.in);
+		 String buff;
+		 int res;
+		 buff = in.nextLine();
+		 res = Integer.valueOf(buff);
+         return res * 47;
      }
  }

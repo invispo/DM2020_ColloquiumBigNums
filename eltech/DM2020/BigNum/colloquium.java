@@ -7,21 +7,8 @@ public class colloquium
 {
 	public static void start()
 	{
-		String buffS;
-		Scanner in = new Scanner(System.in);
-		
-		buffS = in.nextLine();
-		BigN a = new BigN(buffS);
-		System.out.println(a.value);
-		buffS = in.nextLine();
-		BigN b = new BigN(buffS);
-		
-		System.out.println("\n" + a.multiply(b));
-		System.out.println("\n" + (new BigInteger(a.toString())).multiply(new BigInteger(b.toString())) );
-		if(a.multiply(b).toString().equals( (new BigInteger(a.toString())).multiply(new BigInteger(b.toString())).toString() ))
-			System.out.println("\nYes");
-		else
-			System.out.println("\nNo");
+		BigN a = new BigN("15764237684689231694326194856139246321784629731648231649833512946324001242315764237684689231694326194856139246");
+		System.out.println(a + "\n" + a.testFunc());
 	}
 }
 
