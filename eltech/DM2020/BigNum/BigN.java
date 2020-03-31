@@ -109,6 +109,7 @@ public class BigN
 		return builder.toString();
 	}
 
+
     /**
      * Умножение двух больших натуральных чисел. O(this.value.size()*other.value.size())
      *
@@ -136,22 +137,105 @@ public class BigN
              }
 
          for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
-     	   result.value.remove(i);
+     	     result.value.remove(i);
 
          return result;
  	}
 
-     /**
-     * Проверка большого числа на 0.
-     *
-     * @param BigN num - число для проверки
-     * @return boolean - результат проверки
-     *
-     * @version 1
-     * @author Яловега Никита
-     */
-     public boolean isZero()
-     {
-         return this.toString().equals("0");
-     }
+        /**
+        * Сравнение двух больших натуральных чисел.
+        *
+        * @param BigN other - второе число для сравнения с исходным
+        * @return int - 0 если равны, -1 если меньше other, 1 если больше other
+        *
+        * @version 1
+        * @author Яловега Никита
+        */
+        public int compareTo(BigN other)
+        {
+            int i;
+            if (this.value.size() > other.value.size())
+                return 1;
+            else if (this.value.size() < other.value.size())
+                return -1;
+
+            for(i = 0; i < this.value.size(); ++i)
+                if (this.value.get(i) > other.value.get(i))
+                    return 1;
+                else if (this.value.get(i) < other.value.get(i))
+                    return -1;
+
+            return 0;
+        }
+
+
+        /**
+        * @param BigN other
+        * @return boolean - true если this больше other, иначе false
+        *
+        * @version 1
+        * @author Яловега Никита
+        */
+        public boolean isMoreThan(BigN other) {
+            return this.compareTo(other) > 0;
+        }
+
+        /**
+        * @param BigN other
+        * @return boolean - true если this меньше other, иначе false
+        *
+        * @version 1
+        * @author Яловега Никита
+        */
+        public boolean isLessThan(BigN other) {
+            return this.compareTo(other) < 0;
+        }
+
+        /**
+        * @param BigN other
+        * @return boolean - true если this больше или равен other, иначе false
+        *
+        * @version 1
+        * @author Яловега Никита
+        */
+        public boolean isMoreOrEquals(BigN other) {
+            return this.compareTo(other) >= 0;
+        }
+
+        /**
+        * @param BigN other
+        * @return boolean - true если this меньше или равен other, иначе false
+        *
+        * @version 1
+        * @author Яловега Никита
+        */
+        public boolean isLessOrEquals(BigN other) {
+            return this.compareTo(other) <= 0;
+        }
+
+        /**
+        * @param BigN other
+        * @return boolean - true если this равен other, иначе false
+        *
+        * @version 1
+        * @author Яловега Никита
+        */
+        public boolean isEquals(BigN other) {
+            return this.compareTo(other) == 0;
+        }
+
+
+        /**
+        * Проверка большого числа на 0.
+        *
+        * @param BigN num - число для проверки
+        * @return boolean - результат проверки
+        *
+        * @version 1
+        * @author Яловега Никита
+        */
+        public boolean isZero()
+        {
+            return this.toString().equals("0");
+        }
  }
