@@ -21,14 +21,13 @@ public class BigN
 	*
 	* @param String src - представление большого натурального числа в виде строки
 	*
-	* @version 1
+	* @version 1.1
 	* @author Сычев Александр
 	*/
 	public BigN(String src)
 	{
 		int n, i;
 		n = src.length();
-		for(i = 0; i < n % Constants.digits; i++)
 		if(n % Constants.digits == 1)
 		{
 			src = "00" + src;
@@ -39,13 +38,11 @@ public class BigN
 			src = "0" + src;
 			n++;
 		}
-		for (i = 0; i <= n-3 && Integer.valueOf(src.substring(i, i+3)) == 0; i+=3);
-		if(n <= 3)
-			i = 0;
-		for(; i <= n-3; i+=3)
-		{
+		for (i = 0; i < n-3 && Integer.valueOf(src.substring(i, i+3)) == 0; i+=3);
+		src = src.substring(i, n);
+		n = src.length();
+		for(i = 0; i <= n-3; i+=3)
 			value.add(Integer.valueOf(src.substring(i, i+3)));
-		}
 		Collections.reverse(value);
 	}
 
