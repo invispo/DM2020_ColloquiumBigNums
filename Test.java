@@ -1,9 +1,9 @@
 import eltech.DM2020.BigNum.*;
 
-public class test
+public class Test
 {
 	public static void main(String[] args)
 	{
-		colloquium.start();
+		Colloquium.start();
 	}
 }

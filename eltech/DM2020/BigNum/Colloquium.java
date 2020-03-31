@@ -3,25 +3,13 @@ package eltech.DM2020.BigNum;
 import java.util.*;
 import java.math.*;
 
-public class colloquium
+public class Colloquium
 {
 	public static void start()
 	{
-		String buffS;
-		Scanner in = new Scanner(System.in);
-		
-		buffS = in.nextLine();
-		BigN a = new BigN(buffS);
-		
-		buffS = in.nextLine();
-		BigN b = new BigN(buffS);
-		
-		System.out.println("\n" + a.multiply(b));
-		System.out.println("\n" + (new BigInteger(a.toString())).multiply(new BigInteger(b.toString())) );
-		if(a.multiply(b).toString().equals( (new BigInteger(a.toString())).multiply(new BigInteger(b.toString())).toString() ))
-			System.out.println("\nYes");
-		else
-			System.out.println("\nNo");
+		//Тестируте!)
+		BigN a = new BigN("6194856");
+		System.out.println( a.multiply( new BigN("561392463") ).add( new BigN("5051") ) ); // 3477745467775379
 	}
 }
 
