@@ -12,16 +12,16 @@ public class colloquium
 		
 		buffS = in.nextLine();
 		BigN a = new BigN(buffS);
-		System.out.println(a);
-		/*
+		
 		buffS = in.nextLine();
 		BigN b = new BigN(buffS);
+		
 		System.out.println("\n" + a.multiply(b));
 		System.out.println("\n" + (new BigInteger(a.toString())).multiply(new BigInteger(b.toString())) );
 		if(a.multiply(b).toString().equals( (new BigInteger(a.toString())).multiply(new BigInteger(b.toString())).toString() ))
 			System.out.println("\nYes");
 		else
-			System.out.println("\nNo");*/
+			System.out.println("\nNo");
 	}
 }
 
