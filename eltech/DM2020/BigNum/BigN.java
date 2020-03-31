@@ -110,59 +110,48 @@ public class BigN
 	}
 
     /**
-         * Умножение двух больших натуральных чисел. O(this.value.size()*other.value.size())
-         *
-         * @param BigN other - число, на которое нужно умножить исходное
-         * @return BigN result - новое число, получающееся в результате умножения
-         *
-         * @version 0.2
-         * @author Яловега Никита
-         */
-         public BigN multiply(BigN other)
-         {
-             int base = 1000;
-             BigN result = new BigN();
-             int i, j, carry, cur;
-             boolean f1, f2;
+     * Умножение двух больших натуральных чисел. O(this.value.size()*other.value.size())
+     *
+     * @param BigN other - число, на которое нужно умножить исходное
+     * @return BigN result - новое число, получающееся в результате умножения
+     *
+     * @version 0.3333
+     * @author Яловега Никита
+     */
+     public BigN multiply(BigN other)
+     {
+         int base = 1000;
+         BigN result = new BigN();
+         int i, j, carry, cur;
 
-             f1 = other.isZero();
-             f2 = this.isZero();
-             if (!f1 && !f2 )
+         for (i = 0; i < this.value.size() + other.value.size(); ++i)
+             result.value.add(0);
+
+         for (i = 0; i < this.value.size(); ++i)
+             for (j = 0, carry = 0; j < other.value.size() || carry != 0; ++j)
              {
-                 for (i = 0; i < this.value.size() + other.value.size(); ++i)
-                     result.value.add(0);
-
-                 for (i = 0; i < this.value.size(); ++i)
-                     for (j = 0, carry = 0; j < other.value.size() || carry != 0; ++j)
-                     {
-                         cur = result.value.get(i+j) + this.value.get(i) * (j < other.value.size() ? other.value.get(j) : 0) + carry;
-                         result.value.set(i+j, cur % base);
-                         carry = cur / base;
-                     }
-
-                 for (i = result.value.size()-1; result.value.get(i) == 0; --i)
-             	   result.value.remove(i);
+                 cur = result.value.get(i+j) + this.value.get(i) * (j < other.value.size() ? other.value.get(j) : 0) + carry;
+                 result.value.set(i+j, cur % base);
+                 carry = cur / base;
              }
-             else
-                 if (f1)
-                   result = other;
-                 else
-                   result = this;
 
-             return result;
-     	}
+         for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
+     	   result.value.remove(i);
 
-         /**
-         * Проверка большого числа на 0.
-         *
-         * @param BigN num - число для проверки
-         * @return boolean - результат проверки
-         *
-         * @version 1
-         * @author Яловега Никита
-         */
-         public boolean isZero()
-         {
-             return this.toString().equals("0");
-         }
+         return result;
+ 	}
+
+     /**
+     * Проверка большого числа на 0.
+     *
+     * @param BigN num - число для проверки
+     * @return boolean - результат проверки
+     *
+     * @version 1
+     * @author Яловега Никита
+     */
+     public boolean isZero()
+     {
+         return this.toString().equals("0");
      }
+ }
