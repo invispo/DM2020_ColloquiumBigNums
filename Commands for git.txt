@@ -14,5 +14,6 @@
  git push -u Col master
  git clone https://github.com/The220th/DM2020_ColloquiumBigNums
  git fetch или git pull
+ git pull request
  git push request
  cmdkey /delete:LegacyGeneric:target=git:https://github.com
