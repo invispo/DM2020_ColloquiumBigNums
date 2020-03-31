@@ -10,10 +10,10 @@
  git commit -m "[Ваш комментарий]"
  git branch
 №2
- git remote add Col https://github.com/The220th/DM2020_ColloquiumBigNums
- git push -u Col master
  git clone https://github.com/The220th/DM2020_ColloquiumBigNums
- git fetch или git pull
- git pull request
- git push request
+ git pull
+ git push
+ git mv old new
+ 
+ 
  cmdkey /delete:LegacyGeneric:target=git:https://github.com
