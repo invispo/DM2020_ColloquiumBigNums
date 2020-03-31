@@ -12,7 +12,7 @@ public class colloquium
 		
 		buffS = in.nextLine();
 		BigN a = new BigN(buffS);
-		
+		System.out.println(a.value);
 		buffS = in.nextLine();
 		BigN b = new BigN(buffS);
 		

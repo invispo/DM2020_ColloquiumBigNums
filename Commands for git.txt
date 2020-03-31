@@ -13,3 +13,4 @@
  git remote add Col https://github.com/The220th/DM2020_ColloquiumBigNums
  git push -u Col master
  git clone https://github.com/The220th/DM2020_ColloquiumBigNums
+ git fetch или git pull

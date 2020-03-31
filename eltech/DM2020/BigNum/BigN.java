@@ -11,7 +11,7 @@ public class BigN
 {
 	/*Само число хранится в value - это список. В 0ой ячейке младший разряд, в 1 больше и т.д.
 	Например, число 36004256360, в 0ой - 360, в 1ой - 256, во 2ой - 4, в 3ей - 36*/
-	private ArrayList<Integer> value = new ArrayList<Integer>();
+	public ArrayList<Integer> value = new ArrayList<Integer>();
 
 	private BigN(){}
 
