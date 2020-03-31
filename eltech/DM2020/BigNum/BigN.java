@@ -151,23 +151,4 @@ public class BigN
      {
          return this.toString().equals("0");
      }
-
-     /**
-     * Какая-то функция
-     *
-     * @param из неть
-     * @return не важно
-     *
-     * @version 0.000001
-     * @author Test
-     */
-     public int testFunc()
-     {
-		 Scanner in = new Scanner(System.in);
-		 String buff;
-		 int res;
-		 buff = in.nextLine();
-		 res = Integer.valueOf(buff);
-         return res * 47;
-     }
  }
