@@ -3,7 +3,7 @@ package eltech.DM2020.BigNum;
 import java.util.*;
 import java.math.*;
 
-public class Colloquium
+public class colloquium
 {
 	public static void start()
 	{
