@@ -5,7 +5,7 @@ import java.util.*;
 	/**
 	* Класс, который позволяет манипулировать с большими натуральными числами
 	* @version 0.02
-	* @author Сычев Александр, Яловега Николай
+	* @author Сычев Александр, Яловега Никита
 	*/
 public class BigN
 {
@@ -82,6 +82,42 @@ public class BigN
 		return buffBigN;
 	}
 
+    /**
+    *  Разность двух больших натуральных чисел O(this.value.size())
+    *
+    *  @param BigN other - число, которое вычитаем из исходного
+    *  @return BigN result - новое число, получающееся в результате вычитания
+    *
+    *  @version 0.1
+    *  @author Яловега Никита
+    */
+    public BigN subtract(BigN other)
+    {
+        int base = 1000;
+        int i, j, carry, cur;
+        BigN result = this;
+
+        if (this.isMoreOrEquals(other))
+        {
+            carry = 0;
+            for (i = 0; i < other.value.size() || carry != 0; ++i)
+            {
+                cur = result.value.get(i) - (carry + (i < other.value.size() ? other.value.get(i) : 0));
+                carry = cur < 0 ? 1 : 0;
+                if (carry == 1)
+                    result.value.set(i, cur+base);
+                else
+                    result.value.set(i, cur);
+            }
+
+            for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
+                result.value.remove(i);
+        }
+        else
+            throw new ArithmeticException("Вычитание невозможно в натуральных числах");
+        return result;
+    }
+
 	/**
 	* Вывод большого целого числа в виде строки
 	* Если в value нуль элементов, то вернёт пустую строку
@@ -132,23 +168,111 @@ public class BigN
                  carry = cur / base;
              }
 
+<<<<<<< HEAD
+         for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
+     	     result.value.remove(i);
+=======
         for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
      	   result.value.remove(i);
+>>>>>>> upstream/master
 
         return result;
  	}
 
-     /**
-     * Проверка большого числа на 0.
-     *
-     * @param BigN num - число для проверки
-     * @return boolean - результат проверки
-     *
-     * @version 1
-     * @author Яловега Никита
-     */
-     public boolean isZero()
-     {
-         return this.toString().equals("0");
-     }
+    /**
+    * Сравнение двух больших натуральных чисел.
+    *
+    * @param BigN other - второе число для сравнения с исходным
+    * @return int - 0 если равны, -1 если меньше other, 1 если больше other
+    *
+    * @version 1
+    * @author Яловега Никита
+    */
+    public int compareTo(BigN other)
+    {
+        int i;
+        if (this.value.size() > other.value.size())
+            return 1;
+        else if (this.value.size() < other.value.size())
+            return -1;
+
+        for(i = 0; i < this.value.size(); ++i)
+            if (this.value.get(i) > other.value.get(i))
+                return 1;
+            else if (this.value.get(i) < other.value.get(i))
+                return -1;
+
+        return 0;
+    }
+
+
+    /**
+    * @param BigN other
+    * @return boolean - true если this больше other, иначе false
+    *
+    * @version 1
+    * @author Яловега Никита
+    */
+    public boolean isMoreThan(BigN other) {
+        return this.compareTo(other) > 0;
+    }
+
+    /**
+    * @param BigN other
+    * @return boolean - true если this меньше other, иначе false
+    *
+    * @version 1
+    * @author Яловега Никита
+    */
+    public boolean isLessThan(BigN other) {
+        return this.compareTo(other) < 0;
+    }
+
+    /**
+    * @param BigN other
+    * @return boolean - true если this больше или равен other, иначе false
+    *
+    * @version 1
+    * @author Яловега Никита
+    */
+    public boolean isMoreOrEquals(BigN other) {
+        return this.compareTo(other) >= 0;
+    }
+
+    /**
+    * @param BigN other
+    * @return boolean - true если this меньше или равен other, иначе false
+    *
+    * @version 1
+    * @author Яловега Никита
+    */
+    public boolean isLessOrEquals(BigN other) {
+        return this.compareTo(other) <= 0;
+    }
+
+    /**
+    * @param BigN other
+    * @return boolean - true если this равен other, иначе false
+    *
+    * @version 1
+    * @author Яловега Никита
+    */
+    public boolean isEquals(BigN other) {
+        return this.compareTo(other) == 0;
+    }
+
+
+    /**
+    * Проверка большого числа на 0.
+    *
+    * @param BigN num - число для проверки
+    * @return boolean - результат проверки
+    *
+    * @version 1
+    * @author Яловега Никита
+    */
+    public boolean isZero()
+    {
+        return this.toString().equals("0");
+    }
  }
