@@ -170,6 +170,7 @@ public class BigN
 			 
         for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
      	    result.value.remove(i);
+        return result;
  	}
 
     /**
