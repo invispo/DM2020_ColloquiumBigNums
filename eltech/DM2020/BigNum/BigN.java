@@ -269,4 +269,24 @@ public class BigN
     {
         return this.toString().equals("0");
     }
+	
+	/**
+    * Умножение числа на 10^x
+    *
+    * @param int x - степень
+    * @return BigN result - результат умножения
+    *
+    * @version 1
+    * @author Семенов Алексей, Сычев Александр
+    */
+    public BigN multiplyBy10x(int x)
+    {
+		BigN one = new BigN("1");
+		if(x == 0) return one;
+		String buff = this.toString();
+		String repeated = "0".repeat(x);
+		buff += repeated;
+		BigN result = new BigN(buff);
+		return result;
+    }
  }
