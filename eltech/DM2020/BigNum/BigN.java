@@ -21,13 +21,16 @@ public class BigN
 	*
 	* @param String src - представление большого натурального числа в виде строки
 	*
-	* @version 1.1
+	* @version 1.2
 	* @author Сычев Александр
 	*/
-	public BigN(String src)
+	public BigN(String src) throws IllegalArgumentException
 	{
 		int n, i;
+		src = src.trim();
 		n = src.length();
+		if (src.charAt(0) == '-')
+			throw new IllegalArgumentException("В натуральных числа + {0} не может быть отрицательных");
 		if(n % Constants.digits == 1)
 		{
 			src = "00" + src;
@@ -91,7 +94,7 @@ public class BigN
     *  @version 0.1
     *  @author Яловега Никита
     */
-    public BigN subtract(BigN other)
+    public BigN subtract(BigN other) throws ArithmeticException
     {
         int base = 1000;
         int i, j, carry, cur;
@@ -177,21 +180,23 @@ public class BigN
     * Сравнение двух больших натуральных чисел.
     *
     * @param BigN other - второе число для сравнения с исходным
-    * @return int - 0 если равны, отрицательное если меньше other, положительное если больше other
+    * @return int - 0 если равны, -1 если меньше other, 1 если больше other
     *
-    * @version 1
-    * @author Семенов Алексей
+    * @version 2
+    * @author Яловега Никита, Семенов Алексей
     */
     public int compareTo(BigN other)
     {
 		String src, compared;
+		int buffCompared;
 		src = this.toString();
 		compared = other.toString();
 		if(src.length() > compared.length())
 			return 1;
 		else if(src.length() < compared.length())
 			return -1;
-        return this.toString().compareTo(other.toString());
+		buffCompared = src.compareTo(compared);
+        return buffCompared > 0 ? 1 : (buffCompared < 0 ? -1 : 0 );
     }
 
 
