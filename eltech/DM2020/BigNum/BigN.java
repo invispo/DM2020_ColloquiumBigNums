@@ -177,26 +177,21 @@ public class BigN
     * Сравнение двух больших натуральных чисел.
     *
     * @param BigN other - второе число для сравнения с исходным
-    * @return int - 0 если равны, -1 если меньше other, 1 если больше other
+    * @return int - 0 если равны, отрицательное если меньше other, положительное если больше other
     *
     * @version 1
-    * @author Яловега Никита
+    * @author Семенов Алексей
     */
     public int compareTo(BigN other)
     {
-        int i;
-        if (this.value.size() > other.value.size())
-            return 1;
-        else if (this.value.size() < other.value.size())
-            return -1;
-
-        for(i = 0; i < this.value.size(); ++i)
-            if (this.value.get(i) > other.value.get(i))
-                return 1;
-            else if (this.value.get(i) < other.value.get(i))
-                return -1;
-
-        return 0;
+		String src, compared;
+		src = this.toString();
+		compared = other.toString();
+		if(src.length() > compared.length())
+			return 1;
+		else if(src.length() < compared.length())
+			return -1;
+        return this.toString().compareTo(other.toString());
     }
 
 
