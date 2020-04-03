@@ -7,7 +7,9 @@ public class Colloquium
 {
 	public static void start()
 	{
-		
+		BigN a = new BigN("153387");
+        BigN b = new BigN("780273");
+        System.out.println(a.gcd(b));
 	}
 }
 
