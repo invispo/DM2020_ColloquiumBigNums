@@ -294,16 +294,24 @@ public class BigN
     * @param int x - степень
     * @return BigN result - результат умножения
     *
-    * @version 1
-    * @author Семенов Алексей, Сычев Александр
+    * @version 1.1
+    * @author Семенов Алексей, Сычев Александр, Деменьтев Дмитрий
     */
     public BigN multiplyBy10x(int x)
     {
-		BigN one = new BigN("1");
-		if(x == 0) return one;
-		String buff = this.toString();
-		String repeated = "0".repeat(x);
-		buff += repeated;
+		String buff = this.toString();;
+		if(x < 0) 
+		{
+			if(x*-1 >= buff.length())
+				return new BigN("0");
+			buff = buff.substring(0,buff.length()+x);
+		}
+		else if(x == 0) return this;
+		else
+		{
+			String repeated = "0".repeat(x);
+			buff += repeated;
+		}
 		BigN result = new BigN(buff);
 		return result;
     }
@@ -342,8 +350,8 @@ public class BigN
     * @param BigN other - делитель
     * @return BigN result - результат деления нацело
     *
-    * @version 1
-    * @author Семенов Алексей
+    * @version 1.1
+    * @author Семенов Алексей, Деменьтев Дмитрий
     */
     public BigN divide(BigN other) throws ArithmeticException
     {
@@ -360,7 +368,7 @@ public class BigN
 		if(other.toString().equals("1"))
 			return this;
 		Integer diff = this.toString().length()-other.toString().length();
-		while(diff > 0)
+		while(diff >= 0)
 		{
 			buffOther = other.multiplyBy10x(diff);
 			while(buffThis.isMoreOrEquals(buffOther))
@@ -369,11 +377,6 @@ public class BigN
 				result = result.add(one.multiplyBy10x(diff));
 			}
 			diff--;
-		}
-		while(buffThis.isMoreOrEquals(other))
-		{
-			buffThis = buffThis.subtract(other);
-			result = result.increment();
 		}
 		return result;
     }
