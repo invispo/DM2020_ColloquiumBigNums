@@ -9,7 +9,9 @@ public class Colloquium
 	{
 		//Тестируте!)
 		BigN a = new BigN("6194856");
+		BigZ b = new BigZ("-1523156832235569513241236459168732159478123");
 		System.out.println( a.multiply( new BigN("561392463") ).add( new BigN("5051") ) ); // 3477745467775379
+		System.out.println("\n\t" + b);
 	}
 }
 
