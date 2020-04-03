@@ -290,4 +290,59 @@ public class BigN
 		BigN result = new BigN(buff);
 		return result;
     }
+	
+	/**
+    * инкремент
+    *
+    * @return BigN, увеличенное на 1
+    *
+    * @version 1
+    * @author Семенов Алексей
+    */
+    public BigN increment()
+    {
+		return this.add(new BigN("1"));
+    }
+	
+	/**
+    * Деление нацело
+    *
+    * @param BigN other - делитель
+    * @return BigN result - результат деления нацело
+    *
+    * @version 1
+    * @author Семенов Алексей
+    */
+    public BigN divide(BigN other) throws ArithmeticException
+    {
+		BigN result = new BigN("0");
+		BigN one = new BigN("1");
+		BigN buffThis = new BigN(this.toString());
+		BigN buffOther = new BigN();
+		if(other.isZero()) 
+			throw new ArithmeticException("Делить на ноль нельзя!");
+		if(this.isLessThan(other)) 
+			return result;
+		else if(this.isEquals(other)) 
+			return result.add(one);
+		if(other.toString().equals("1"))
+			return this;
+		Integer diff = this.toString().length()-other.toString().length();
+		while(diff > 0)
+		{
+			buffOther = other.multiplyBy10x(diff);
+			while(buffThis.isMoreOrEquals(buffOther))
+			{
+				buffThis = buffThis.subtract(buffOther);
+				result = result.add(one.multiplyBy10x(diff));
+			}
+			diff--;
+		}
+		while(buffThis.isMoreOrEquals(other))
+		{
+			buffThis = buffThis.subtract(other);
+			result = result.add(one);
+		}
+		return result;
+    }
  }
