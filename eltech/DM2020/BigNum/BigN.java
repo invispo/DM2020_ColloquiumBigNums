@@ -315,7 +315,26 @@ public class BigN
 		BigN result = new BigN(buff);
 		return result;
     }
-	
+    
+	/**
+	 * вычитание из BigN другого BigN(если получится положительный результат)
+	 *
+	 * @param BigN other - вычитаемое, BigN k - коофициент домножения other
+	 * @return BigN result - результат вычитания из this other*k
+	 *
+	 * @version 1
+	 * @author Кашапова Ольга
+	*/
+	public BigN subtructByK(BigN other, BigN k) throws ArithmeticException
+	{
+		if(this.compareTo(other.multiply(k)) == 1 ){
+			BigN result = new BigN(this.subtract(other.multiply(k)).toString());
+            return result;
+		}
+		else
+			throw new ArithmeticException("Вычитание невозможно в натуральных числах.");
+	}
+    
 	/**
     * инкремент исходного (this) большого натурального числа
     *
@@ -380,4 +399,26 @@ public class BigN
 		}
 		return result;
     }
+    
+    /**
+    * остаток от деления
+    *
+    * @param BigN other - делитель
+    * @return BigN result - остаток от деления this на other
+    *
+    * @version 1
+    * @author Деменьтев Дмитрий
+    */
+    public BigN mod(BigN other) throws ArithmeticException
+    {
+		BigN result = new BigN("0");
+		if (this.isLessThan(other)) return this;
+        else if (this.equals(other)) return result;
+        else
+        {
+            result = this.subtract(other.multiply(this.divide(other)));
+        }
+		return result;
+    }
+    
  }
