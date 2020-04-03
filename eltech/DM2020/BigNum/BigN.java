@@ -444,4 +444,18 @@ public class BigN
 		return buffThis.add(buffOther);
     }
     
+    /**
+    * нок(this;other)
+    *
+    * @param BigN other - второе число для нахождения нок
+    * @return BigN result - нок(this;other)
+    *
+    * @version 1
+    * @author Деменьтев Дмитрий
+    */
+    public BigN lcm(BigN other)
+    {
+		return this.multiply(other).divide(this.gcd(other));
+    }
+    
  }
