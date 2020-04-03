@@ -7,9 +7,7 @@ public class Colloquium
 {
 	public static void start()
 	{
-		BigN a = new BigN("6194856");
-		BigN b = new BigN("1523156832235569513241236459168732159478123");
-		System.out.println(b.divide(a));
+		
 	}
 }
 

@@ -4,7 +4,7 @@ import java.util.*;
 
 	/**
 	* Класс, который позволяет манипулировать с большими натуральными числами + {0}
-	* @version 0.03
+	* @version 0.04
 	* @author Сычев Александр, Яловега Никита, Семенов Алексей
 	*/
 public class BigN
@@ -255,6 +255,23 @@ public class BigN
     private boolean isEquals(BigN other) {
         return this.compareTo(other) == 0;
     }
+	
+	/**
+	* Сравнение BigN, согласно спецификации Java
+	*
+    * @return эквивалентность
+	*
+	* @version 1
+	* @author Сычев Александр
+	*/
+	@Override
+    public boolean equals(Object other) 
+	{
+		if (other == this) return true; 
+		if (other == null) return false;
+		if( this.getClass() != other.getClass() ) return false;
+		return this.isEquals((BigN)other);
+    } 
 
 
     /**
@@ -292,16 +309,31 @@ public class BigN
     }
 	
 	/**
-    * инкремент
+    * инкремент исходного (this) большого натурального числа
     *
-    * @return BigN, увеличенное на 1
+    * @return исходное BigN, увеличенное на 1
     *
-    * @version 1
-    * @author Семенов Алексей
+    * @version 2
+    * @author Семенов Алексей, Сычев Александр
     */
     public BigN increment()
     {
-		return this.add(new BigN("1"));
+		int over, n, i, buff1, buff2;
+		boolean f;
+		n = this.value.size();
+		for (i = 0, f = true; i < n && f ; i++)
+		{
+			if(this.value.get(i) + 1 >= 1000)
+				this.value.set(i, 0);
+			else
+			{
+				this.value.set(i, this.value.get(i) + 1);
+				f = false;
+			}
+		}
+		if(f)
+			this.value.add(1);
+		return this;
     }
 	
 	/**
@@ -324,7 +356,7 @@ public class BigN
 		if(this.isLessThan(other)) 
 			return result;
 		else if(this.isEquals(other)) 
-			return result.add(one);
+			return result.increment();
 		if(other.toString().equals("1"))
 			return this;
 		Integer diff = this.toString().length()-other.toString().length();
@@ -341,7 +373,7 @@ public class BigN
 		while(buffThis.isMoreOrEquals(other))
 		{
 			buffThis = buffThis.subtract(other);
-			result = result.add(one);
+			result = result.increment();
 		}
 		return result;
     }
