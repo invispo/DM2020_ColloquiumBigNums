@@ -409,7 +409,7 @@ public class BigN
     * @version 1
     * @author Деменьтев Дмитрий
     */
-    public BigN mod(BigN other) throws ArithmeticException
+    public BigN mod(BigN other)
     {
 		BigN result = new BigN("0");
 		if (this.isLessThan(other)) return this;
@@ -419,6 +419,29 @@ public class BigN
             result = this.subtract(other.multiply(this.divide(other)));
         }
 		return result;
+    }
+    
+    /**
+    * нод(this;other)
+    *
+    * @param BigN other - второе число для нахождения нод
+    * @return BigN result - нод(this;other)
+    *
+    * @version 1
+    * @author Деменьтев Дмитрий
+    */
+    public BigN gcd(BigN other)
+    {
+		BigN buffThis = new BigN(this.toString());
+        BigN buffOther = new BigN(other.toString());
+		while (!buffThis.isZero() && !buffOther.isZero())
+        {
+            if (buffThis.isMoreThan(buffOther)) 
+                buffThis = buffThis.mod(buffOther);
+            else
+                buffOther = buffOther.mod(buffThis);
+        }
+		return buffThis.add(buffOther);
     }
     
  }
