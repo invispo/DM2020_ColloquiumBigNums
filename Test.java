@@ -4,6 +4,7 @@ public class Test
 {
 	public static void main(String[] args)
 	{
-		Colloquium.start();
+		BigN a = new BigN("005000");
+		System.out.println(a.decrement().toString());
 	}
 }
