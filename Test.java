@@ -4,7 +4,7 @@ public class Test
 {
 	public static void main(String[] args)
 	{
-		BigN a = new BigN("005000");
-		System.out.println(a.decrement().toString());
+		/*Тут ничего менять не надо*/
+		Colloquium.start();
 	}
 }
