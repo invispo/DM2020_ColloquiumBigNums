@@ -157,20 +157,20 @@ public class BigN
      */
      public BigN multiply(BigN other)
      {
-         int base = 1000;
-         BigN result = new BigN();
-         int i, j, carry, cur;
+        int base = 1000;
+        BigN result = new BigN();
+        int i, j, carry, cur;
 
-         for (i = 0; i < this.value.size() + other.value.size(); ++i)
-             result.value.add(0);
+        for (i = 0; i < this.value.size() + other.value.size(); ++i)
+            result.value.add(0);
 
         for (i = 0; i < this.value.size(); ++i)
-             for (j = 0, carry = 0; j < other.value.size() || carry != 0; ++j)
-             {
-                 cur = result.value.get(i+j) + this.value.get(i) * (j < other.value.size() ? other.value.get(j) : 0) + carry;
-                 result.value.set(i+j, cur % base);
-                 carry = cur / base;
-             }
+            for (j = 0, carry = 0; j < other.value.size() || carry != 0; ++j)
+            {
+                cur = result.value.get(i+j) + this.value.get(i) * (j < other.value.size() ? other.value.get(j) : 0) + carry;
+                result.value.set(i+j, cur % base);
+                carry = cur / base;
+            }
 			 
         for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
      	    result.value.remove(i);
@@ -468,32 +468,31 @@ public class BigN
     */
 	
 	 public BigN decrement()
-{
-	/*
-	 * Предполагается, что число "правильное"
-	 * Т.е. не может быть 0 0 0 или 0 9 и т.д.
-	 */
-
-	boolean f;
-	int n = this.value.size(), i;
-
-	if (n == 1 && this.value.get(0) == 0) return this;
-
-	for (i = 0, f = true; i < n && f ; i++)
 	{
-		if(this.value.get(i) - 1 >= 0) {
-			this.value.set(i, value.get(i) - 1);
-			f = false;
-		}
-		else
-		{
-			this.value.set(i, 999);
-		}
-	}
+		/*
+		 * Предполагается, что число "правильное"
+		 * Т.е. не может быть 0 0 0 или 0 9 и т.д.
+		 */
 
-	return this;
-}
-    
+		boolean f;
+		int n = this.value.size(), i;
+
+		if (n == 1 && this.value.get(0) == 0) return this;
+
+		for (i = 0, f = true; i < n && f ; i++)
+		{
+			if(this.value.get(i) - 1 >= 0) {
+				this.value.set(i, value.get(i) - 1);
+				f = false;
+			}
+			else
+			{
+				this.value.set(i, 999);
+			}
+		}
+
+		return this;
+	}
  }
  
  
