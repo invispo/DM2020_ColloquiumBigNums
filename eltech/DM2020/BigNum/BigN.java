@@ -457,5 +457,43 @@ public class BigN
     {
 		return this.multiply(other).divide(this.gcd(other));
     }
+	
+	/**
+    * Декремент исходного (this) большого натурального числа
+    *
+    * @return исходное BigN, уменьшенное на 1
+    *
+    * @version 1
+    * @author Цветков Иван, Хайруллов Айрат, Муродов Ахмад
+    */
+	
+	 public BigN decrement()
+{
+	/*
+	 * Предполагается, что число "правильное"
+	 * Т.е. не может быть 0 0 0 или 0 9 и т.д.
+	 */
+
+	boolean f;
+	int n = this.value.size(), i;
+
+	if (n == 1 && this.value.get(0) == 0) return this;
+
+	for (i = 0, f = true; i < n && f ; i++)
+	{
+		if(this.value.get(i) - 1 >= 0) {
+			this.value.set(i, value.get(i) - 1);
+			f = false;
+		}
+		else
+		{
+			this.value.set(i, 999);
+		}
+	}
+
+	return this;
+}
     
  }
+ 
+ 
