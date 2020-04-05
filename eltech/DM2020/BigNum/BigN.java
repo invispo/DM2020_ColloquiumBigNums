@@ -459,12 +459,12 @@ public class BigN
     }
 	
 	/**
-    * Декремент исходного (this) большого натурального числа
+    * инкремент исходного (this) большого натурального числа
     *
-    * @return исходное BigN, уменьшенное на 1
+    * @return исходное BigN, увеличенное на 1
     *
     * @version 1
-    * @author Цветков Иван, Хайруллов Айрат, Муродов Ахмад
+    * @author Муродов Ахмад, Цветков Иван, Хайруллов Айрат
     */
 	
 	 public BigN decrement()
@@ -483,6 +483,8 @@ public class BigN
 	{
 		if(this.value.get(i) - 1 >= 0) {
 			this.value.set(i, value.get(i) - 1);
+			if(this.value.get(i)==0&&i==n-1) {
+			this.value.remove(i);}
 			f = false;
 		}
 		else

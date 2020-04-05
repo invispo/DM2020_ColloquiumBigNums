@@ -4,7 +4,8 @@ public class Test
 {
 	public static void main(String[] args)
 	{
-		BigN a = new BigN("005000");
-		System.out.println(a.decrement().toString());
+		BigZ a = new BigZ("1000");
+		BigZ b = new BigZ("-1");
+		System.out.println(a.add(b).toString());
 	}
 }
