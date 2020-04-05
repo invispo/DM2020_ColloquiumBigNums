@@ -327,7 +327,7 @@ public class BigN
 	*/
 	public BigN subtructByK(BigN other, BigN k) throws ArithmeticException
 	{
-		if(this.compareTo(other.multiply(k)) == 1 ){
+		if(this.compareTo(other.multiply(k)) >= 0 ){
 			BigN result = new BigN(this.subtract(other.multiply(k)).toString());
             return result;
 		}
@@ -443,4 +443,54 @@ public class BigN
         }
 		return buffThis.add(buffOther);
     }
- }
+    
+    /**
+    * нок(this;other)
+    *
+    * @param BigN other - второе число для нахождения нок
+    * @return BigN result - нок(this;other)
+    *
+    * @version 1
+    * @author Деменьтев Дмитрий
+    */
+    public BigN lcm(BigN other)
+    {
+		return this.multiply(other).divide(this.gcd(other));
+    }
+	
+	/**
+    * Декремент исходного (this) большого натурального числа
+    *
+    * @return исходное BigN, уменьшенное на 1
+    *
+    * @version 1
+	* @author Цветков Nван, Хайруллов Айрат, Муродов Ахмад
+	*
+    */
+	
+	public BigN decrement()
+	{
+		/*
+		* Предполагается, что число "правильное"
+		* Т.е. не может быть 0 0 0 или 0 9 и т.д.
+		*/
+		boolean f;
+		int n = this.value.size(), i;
+
+		if (n == 1 && this.value.get(0) == 0) return this;
+
+		for (i = 0, f = true; i < n && f ; i++)
+		{
+			if(this.value.get(i) - 1 >= 0) 
+			{
+				this.value.set(i, value.get(i) - 1);
+				f = false;
+			}
+			else
+				this.value.set(i, 999);
+		}
+		return this;
+	}
+}
+ 
+ 
