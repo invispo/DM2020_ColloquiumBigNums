@@ -4,8 +4,7 @@ public class Test
 {
 	public static void main(String[] args)
 	{
-		BigZ a = new BigZ("1000");
-		BigZ b = new BigZ("-1");
-		System.out.println(a.add(b).toString());
+		/*Тут ничего менять не надо*/
+		Colloquium.start();
 	}
 }
