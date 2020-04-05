@@ -4,7 +4,7 @@ import java.util.*;
 
 	/**
 	* Класс, который позволяет манипулировать с большими натуральными числами + {0}
-	* @version 0.03
+	* @version 0.04
 	* @author Сычев Александр, Яловега Никита, Семенов Алексей
 	*/
 public class BigN
@@ -255,6 +255,23 @@ public class BigN
     private boolean isEquals(BigN other) {
         return this.compareTo(other) == 0;
     }
+	
+	/**
+	* Сравнение BigN, согласно спецификации Java
+	*
+    * @return эквивалентность
+	*
+	* @version 1
+	* @author Сычев Александр
+	*/
+	@Override
+    public boolean equals(Object other) 
+	{
+		if (other == this) return true; 
+		if (other == null) return false;
+		if( this.getClass() != other.getClass() ) return false;
+		return this.isEquals((BigN)other);
+    } 
 
 
     /**
@@ -277,17 +294,206 @@ public class BigN
     * @param int x - степень
     * @return BigN result - результат умножения
     *
-    * @version 1
-    * @author Семенов Алексей, Сычев Александр
+    * @version 1.1
+    * @author Семенов Алексей, Сычев Александр, Деменьтев Дмитрий
     */
     public BigN multiplyBy10x(int x)
     {
-		BigN one = new BigN("1");
-		if(x == 0) return one;
-		String buff = this.toString();
-		String repeated = "0".repeat(x);
-		buff += repeated;
+		String buff = this.toString();;
+		if(x < 0) 
+		{
+			if(x*-1 >= buff.length())
+				return new BigN("0");
+			buff = buff.substring(0,buff.length()+x);
+		}
+		else if(x == 0) return this;
+		else
+		{
+			String repeated = "0".repeat(x);
+			buff += repeated;
+		}
 		BigN result = new BigN(buff);
 		return result;
     }
+    
+	/**
+	 * вычитание из BigN другого BigN(если получится положительный результат)
+	 *
+	 * @param BigN other - вычитаемое, BigN k - коофициент домножения other
+	 * @return BigN result - результат вычитания из this other*k
+	 *
+	 * @version 1
+	 * @author Кашапова Ольга
+	*/
+	public BigN subtructByK(BigN other, BigN k) throws ArithmeticException
+	{
+		if(this.compareTo(other.multiply(k)) >= 0 ){
+			BigN result = new BigN(this.subtract(other.multiply(k)).toString());
+            return result;
+		}
+		else
+			throw new ArithmeticException("Вычитание невозможно в натуральных числах.");
+	}
+    
+	/**
+    * инкремент исходного (this) большого натурального числа
+    *
+    * @return исходное BigN, увеличенное на 1
+    *
+    * @version 2
+    * @author Семенов Алексей, Сычев Александр
+    */
+    public BigN increment()
+    {
+		int over, n, i, buff1, buff2;
+		boolean f;
+		n = this.value.size();
+		for (i = 0, f = true; i < n && f ; i++)
+		{
+			if(this.value.get(i) + 1 >= 1000)
+				this.value.set(i, 0);
+			else
+			{
+				this.value.set(i, this.value.get(i) + 1);
+				f = false;
+			}
+		}
+		if(f)
+			this.value.add(1);
+		return this;
+    }
+	
+	/**
+    * Деление нацело
+    *
+    * @param BigN other - делитель
+    * @return BigN result - результат деления нацело
+    *
+    * @version 1.1
+    * @author Семенов Алексей, Деменьтев Дмитрий
+    */
+    public BigN divide(BigN other) throws ArithmeticException
+    {
+		BigN result = new BigN("0");
+		BigN one = new BigN("1");
+		BigN buffThis = new BigN(this.toString());
+		BigN buffOther = new BigN();
+		if(other.isZero()) 
+			throw new ArithmeticException("Делить на ноль нельзя!");
+		if(this.isLessThan(other)) 
+			return result;
+		else if(this.isEquals(other)) 
+			return result.increment();
+		if(other.toString().equals("1"))
+			return this;
+		Integer diff = this.toString().length()-other.toString().length();
+		while(diff >= 0)
+		{
+			buffOther = other.multiplyBy10x(diff);
+			while(buffThis.isMoreOrEquals(buffOther))
+			{
+				buffThis = buffThis.subtract(buffOther);
+				result = result.add(one.multiplyBy10x(diff));
+			}
+			diff--;
+		}
+		return result;
+    }
+    
+    /**
+    * остаток от деления
+    *
+    * @param BigN other - делитель
+    * @return BigN result - остаток от деления this на other
+    *
+    * @version 1
+    * @author Деменьтев Дмитрий
+    */
+    public BigN mod(BigN other)
+    {
+		BigN result = new BigN("0");
+		if (this.isLessThan(other)) return this;
+        else if (this.equals(other)) return result;
+        else
+        {
+            result = this.subtract(other.multiply(this.divide(other)));
+        }
+		return result;
+    }
+    
+    /**
+    * нод(this;other)
+    *
+    * @param BigN other - второе число для нахождения нод
+    * @return BigN result - нод(this;other)
+    *
+    * @version 1
+    * @author Деменьтев Дмитрий
+    */
+    public BigN gcd(BigN other)
+    {
+		BigN buffThis = new BigN(this.toString());
+        BigN buffOther = new BigN(other.toString());
+		while (!buffThis.isZero() && !buffOther.isZero())
+        {
+            if (buffThis.isMoreThan(buffOther)) 
+                buffThis = buffThis.mod(buffOther);
+            else
+                buffOther = buffOther.mod(buffThis);
+        }
+		return buffThis.add(buffOther);
+    }
+    
+    /**
+    * нок(this;other)
+    *
+    * @param BigN other - второе число для нахождения нок
+    * @return BigN result - нок(this;other)
+    *
+    * @version 1
+    * @author Деменьтев Дмитрий
+    */
+    public BigN lcm(BigN other)
+    {
+		return this.multiply(other).divide(this.gcd(other));
+    }
+	
+	/**
+    * Декремент исходного (this) большого натурального числа
+    *
+    * @return исходное BigN, уменьшенное на 1
+    *
+    * @version 1
+    * @author Цветков Иван, Хайруллов Айрат, Муродов Ахмад
+    */
+	
+	 public BigN decrement()
+{
+	/*
+	 * Предполагается, что число "правильное"
+	 * Т.е. не может быть 0 0 0 или 0 9 и т.д.
+	 */
+
+	boolean f;
+	int n = this.value.size(), i;
+
+	if (n == 1 && this.value.get(0) == 0) return this;
+
+	for (i = 0, f = true; i < n && f ; i++)
+	{
+		if(this.value.get(i) - 1 >= 0) {
+			this.value.set(i, value.get(i) - 1);
+			f = false;
+		}
+		else
+		{
+			this.value.set(i, 999);
+		}
+	}
+
+	return this;
+}
+    
  }
+ 
+ 
