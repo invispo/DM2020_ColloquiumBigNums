@@ -460,38 +460,40 @@ public class BigN
 	
 	/**
     * Декремент исходного (this) большого натурального числа
-    *
-    * @return исходное BigN, уменьшенное на 1
+	* Если число равно 0, то бросит исключение
+	*
+    * @return исходное BigN, увеличенное на 1
     *
     * @version 1
-	* @author Цветков Nван, Хайруллов Айрат, Муродов Ахмад
-	*
+    * @author Муродов Ахмад, Цветков Иван, Хайруллов Айрат
     */
 	
-	 public BigN decrement()
+	public BigN decrement() throws ArithmeticException
 	{
-		/*
-		 * Предполагается, что число "правильное"
-		 * Т.е. не может быть 0 0 0 или 0 9 и т.д.
-		 */
 
 		boolean f;
 		int n = this.value.size(), i;
 
-		if (n == 1 && this.value.get(0) == 0) return this;
+		if (n == 1 && this.value.get(0) == 0) 
+			throw new ArithmeticException("Декремент невозможен в натуральных числах + {0}");
+		if (n == 1 && this.value.get(0) == 1) 
+		{
+			this.value.set(0, 0);
+			return this;
+		}
 
 		for (i = 0, f = true; i < n && f ; i++)
 		{
-			if(this.value.get(i) - 1 >= 0) {
+			if(this.value.get(i) - 1 >= 0) 
+			{
 				this.value.set(i, value.get(i) - 1);
+				if(this.value.get(i)==0 && i == n-1) 
+					this.value.remove(i);
 				f = false;
 			}
 			else
-			{
 				this.value.set(i, 999);
-			}
 		}
-
 		return this;
 	}
 }

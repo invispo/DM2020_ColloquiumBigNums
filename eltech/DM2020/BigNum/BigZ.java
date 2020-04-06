@@ -4,7 +4,7 @@ import java.util.*;
 	/**
 	* Класс, который позволяет манипулировать с большими целыми числами
 	* @version 0.01
-	* @author Сычев Александр
+	* @author Сычев Александр, Цветков Иван, Хайруллов Айрат, Муродов Ахмад
 	*/
 public class BigZ
 {
@@ -67,5 +67,47 @@ public class BigZ
 	public boolean checkPositive()
 	{
 		return isPositive;
+	}
+	
+	/**
+	* Сложение 2-x больших целых чисел. Вернёт при сложении НОВОЕ большое целое число
+	*
+    * @param BigN src - число, которое прибавляется к исходному
+    * @return BigN result - новое число, получающееся в результате сложения
+	*
+	* @version 1
+	* @author Цветков Иван, Хайруллов Айрат, Муродов Ахмад
+	*/
+
+	public BigZ add(BigZ src)
+	{
+		BigZ result = new BigZ();
+
+		if (this.isPositive == src.isPositive)
+		{
+			result.Number = this.Number.add(src.Number);
+			result.isPositive = this.isPositive;
+			return result;
+		}
+		else
+		{
+			int compared = this.Number.compareTo(src.Number);
+			if (compared > 0)
+			{
+				result.Number = this.Number.subtract(src.Number);
+				result.isPositive = this.isPositive; 
+			}
+			else if (compared < 0)
+			{
+				result.Number = src.Number.subtract(this.Number);
+				result.isPositive = src.isPositive; 
+			}
+			else
+			{
+				result.Number = new BigN("000");
+				result.isPositive = true;
+			}
+		}
+		return result;
 	}
 }
