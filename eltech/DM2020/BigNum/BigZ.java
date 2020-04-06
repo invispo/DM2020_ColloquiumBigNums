@@ -34,7 +34,7 @@ public class BigZ
 			isPositive = true;
 		Number = new BigN( isPositive ? src : src.substring(1, src.length()) );
 		if(!isPositive && Number.compareTo(new BigN("0")) == 0)
-			isPositive = true
+			isPositive = true;
 	}
 	
 	private BigZ(){}
