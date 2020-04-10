@@ -413,13 +413,13 @@ public class BigN
     public BigN mod(BigN other)
     {
 		BigN result = new BigN("0");
-		if (this.isLessThan(other)) return this;
-        else if (this.equals(other)) return result;
-        else
-        {
-            result = this.subtract(other.multiply(this.divide(other)));
-        }
-		return result;
+		if (this.isLessThan(other)) 
+			return this;
+        else 
+			if (this.equals(other)) 
+				return result;
+			else
+				return result = this.subtract(other.multiply(this.divide(other)));
     }
     
     /**
