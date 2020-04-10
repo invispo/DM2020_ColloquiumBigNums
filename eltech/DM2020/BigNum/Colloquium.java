@@ -3,13 +3,23 @@ package eltech.DM2020.BigNum;
 import java.util.*;
 import java.math.*;
 
+/**
+* Класс, который содержит интерфейс
+* @version 0.01
+* @author Семенов Алексей, Сычев Александр
+* Главный SQA - Семенов Алексей
+*/
 public class Colloquium
 {
 	public static void start()
 	{
-		//Тестируте!)
-		BigN a = new BigN("6194856");
-		System.out.println( a.multiply( new BigN("561392463") ).add( new BigN("5051") ) ); // 3477745467775379
+		BigN a = new BigN("1245215");
+		BigZ b = new BigZ("-21521");
+		BigQ c = new BigQ("145125/-2151323");
+		String buff = "";
+		Scanner in = new Scanner(System.in);
+		buff = in.nextLine();
+		System.out.println( new BigQ(buff) + "\n" + b.abs() + "\n" + c);
 	}
 }
 
