@@ -498,17 +498,19 @@ public class BigN
 	}
 	
 	/**
-    * Клонирование объекта
+    * Проверка на чётность
 	*
-    * @return копию BigN
+    * @return boolean true в случае, если чётное, и false, если не чётное
     *
     * @version 1
     * @author Ручкин Даниил
     */
-	public BigN checkParity() 
+	public boolean checkParity() 
 	{
-		BigN result = new BigN();
-		return result;
+		if( this.value.get(0) % 2 == 0)
+			return true;
+		else
+			return false;
 	}
 	
 	/**
