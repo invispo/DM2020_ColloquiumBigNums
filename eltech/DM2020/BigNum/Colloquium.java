@@ -19,7 +19,9 @@ public class Colloquium
 		String buff = "";
 		Scanner in = new Scanner(System.in);
 		buff = in.nextLine();
-		System.out.println( new BigQ(buff) + "\n" + b.abs() + "\n" + c);
+		BigQ res = c.multiply(new BigQ(buff));
+
+		System.out.println( new BigQ(buff) + "\n" + res + "\n" + c);
 	}
 }
 
