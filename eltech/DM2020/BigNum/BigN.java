@@ -30,7 +30,7 @@ public class BigN
 		src = src.trim();
 		n = src.length();
 		if (src.charAt(0) == '-')
-			throw new IllegalArgumentException("В натуральных числа + {0} не может быть отрицательных");
+			throw new IllegalArgumentException("В натуральных числа + {0} не может быть отрицательных\n");
 		if(n % Constants.digits == 1)
 		{
 			src = "00" + src;
@@ -118,7 +118,7 @@ public class BigN
                 result.value.remove(i);
         }
         else
-            throw new ArithmeticException("Вычитание невозможно в натуральных числах");
+            throw new ArithmeticException("Вычитание невозможно в натуральных числах\n");
         return result;
     }
 
@@ -332,7 +332,7 @@ public class BigN
             return result;
 		}
 		else
-			throw new ArithmeticException("Вычитание невозможно в натуральных числах.");
+			throw new ArithmeticException("Вычитание невозможно в натуральных числах.\n");
 	}
     
 	/**
@@ -379,7 +379,7 @@ public class BigN
 		BigN buffThis = new BigN(this.toString());
 		BigN buffOther = new BigN();
 		if(other.isZero()) 
-			throw new ArithmeticException("Делить на ноль нельзя!");
+			throw new ArithmeticException("Делить на ноль нельзя!\n");
 		if(this.isLessThan(other)) 
 			return result;
 		else if(this.isEquals(other)) 
@@ -474,7 +474,7 @@ public class BigN
 		int n = this.value.size(), i;
 
 		if (n == 1 && this.value.get(0) == 0) 
-			throw new ArithmeticException("Декремент невозможен в натуральных числах + {0}");
+			throw new ArithmeticException("Декремент невозможен в натуральных числах + {0}\n");
 		if (n == 1 && this.value.get(0) == 1) 
 		{
 			this.value.set(0, 0);

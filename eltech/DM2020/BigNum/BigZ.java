@@ -24,9 +24,9 @@ public class BigZ
 	public BigZ(String src) throws IllegalArgumentException
 	{
 		if(src == null)
-			throw new IllegalArgumentException("Неверный аргемент: строка не может быть не инициализированной");
+			throw new IllegalArgumentException("Неверный аргумент: строка не может быть не инициализированной\n");
 		if(src.equals(""))
-			throw new IllegalArgumentException("Неверный аргемент: строка не может быть пустой");
+			throw new IllegalArgumentException("Неверный аргумент: строка не может быть пустой\n");
 		src = src.trim();
 		if (src.charAt(0) == '-')
 			isPositive = false;
@@ -49,7 +49,7 @@ public class BigZ
 	public BigZ(BigN one) throws IllegalArgumentException
 	{
 		if(one == null)
-			throw new IllegalArgumentException("Неверный аргемент: большое натуральное число должно быть инициализированно");
+			throw new IllegalArgumentException("Неверный аргумент: большое натуральное число должно быть инициализированно\n");
 		Number = one.clone();
 		isPositive = true;
 	}
@@ -214,7 +214,7 @@ public class BigZ
 	* @version 1
 	* @author Пурин Артём, Семенов Алексей, Сычев Александр
 	*/
-	public BigZ divide(BigZ other)
+	public BigZ multiply(BigZ other)
 	{
 		BigZ result = new BigZ( this.Number.multiply( other.Number ) );
 		result.isPositive = !(this.isPositive ^ other.isPositive);
