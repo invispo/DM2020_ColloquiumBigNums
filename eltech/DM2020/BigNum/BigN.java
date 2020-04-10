@@ -318,7 +318,7 @@ public class BigN
     }
     
 	/**
-	 * вычитание из BigN другого BigN(если получится положительный результат)
+	 * вычитание из BigN другого BigN, умноженного на k(если получится положительный результат)
 	 *
 	 * @param BigN other - вычитаемое, BigN k - коофициент домножения other
 	 * @return BigN result - результат вычитания из this other*k
@@ -329,11 +329,11 @@ public class BigN
 	public BigN subtructByK(BigN other, BigN k) throws ArithmeticException
 	{
 		if(this.compareTo(other.multiply(k)) >= 0 ){
-			BigN result = new BigN(this.subtract(other.multiply(k)).toString());
+			BigN result = this.subtract(other.multiply(k));
             return result;
 		}
 		else
-			throw new ArithmeticException("Вычитание невозможно в натуральных числах.\n");
+			throw new ArithmeticException("Вычитание невозможно в натуральных числах\n");
 	}
     
 	/**
@@ -377,7 +377,7 @@ public class BigN
     {
 		BigN result = new BigN("0");
 		BigN one = new BigN("1");
-		BigN buffThis = new BigN(this.toString());
+		BigN buffThis = this.clone();
 		BigN buffOther = new BigN();
 		if(other.isZero()) 
 			throw new ArithmeticException("Делить на ноль нельзя!\n");
@@ -433,8 +433,8 @@ public class BigN
     */
     public BigN gcd(BigN other)
     {
-		BigN buffThis = new BigN(this.toString());
-        BigN buffOther = new BigN(other.toString());
+		BigN buffThis = this.clone();
+        BigN buffOther = other.clone();
 		while (!buffThis.isZero() && !buffOther.isZero())
         {
             if (buffThis.isMoreThan(buffOther)) 

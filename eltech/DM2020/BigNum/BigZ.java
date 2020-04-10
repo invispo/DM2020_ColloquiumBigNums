@@ -137,7 +137,7 @@ public class BigZ
 			}
 			else
 			{
-				result.Number = new BigN("000");
+				result.Number = new BigN("0");
 				result.isPositive = true;
 			}
 		}
