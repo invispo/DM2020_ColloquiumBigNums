@@ -52,9 +52,15 @@ public class BigQ
 		src = src.trim();
 		SlashIndex = src.indexOf("/");
 		if (SlashIndex == -1)
-			throw new IllegalArgumentException("Неверный аргумент: нет знака дроби\n");
-		this.p = new BigZ( src.substring(0, SlashIndex) );
-		this.q = new BigZ( src.substring(SlashIndex+1, src.length()) );
+		{
+			this.p = new BigZ(src);
+			this.q = new BigZ("1");
+		}
+		else
+		{
+			this.p = new BigZ( src.substring(0, SlashIndex) );
+			this.q = new BigZ( src.substring(SlashIndex+1, src.length()) );
+		}
 		if( q.equals( new BigZ("0") ) )
 			throw new ArithmeticException("В знаменателе не может быть нуля\n");
 	}
@@ -70,7 +76,7 @@ public class BigQ
 	@Override
 	public String toString()
 	{
-		return this.p.toString() + "/" + q.toString();
+		return ( this.checkPositive() ? "" : "-") + this.p.abs().toString() + ( q.abs().equals(new BigZ("1")) ? "" : ("/" + q.abs().toString()) );
 	}
 	
 	/**
@@ -119,6 +125,23 @@ public class BigQ
 		return result;
 	}
 	
+	/**
+	* Сравнение BigQ, согласно спецификации Java
+	*
+    * @return эквивалентность
+	*
+	* @version 1
+	* @author Сычев Александр
+	*/
+	@Override
+    public boolean equals(Object otherObj) 
+	{
+		if (otherObj == this) return true; 
+		if (otherObj == null) return false;
+		if( this.getClass() != otherObj.getClass() ) return false;
+		BigQ other = (BigQ)otherObj;
+		return this.p.equals(other.p) && this.q.equals(other.q);
+    } 
 }
 
 

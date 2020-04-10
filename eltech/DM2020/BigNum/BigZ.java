@@ -249,6 +249,24 @@ public class BigZ
 	{
 		return this.add( other.multiplyByMinusOne() );
 	}
+	
+	/**
+	* Сравнение BigZ, согласно спецификации Java
+	*
+    * @return эквивалентность
+	*
+	* @version 1
+	* @author Сычев Александр
+	*/
+	@Override
+    public boolean equals(Object otherObj) 
+	{
+		if (otherObj == this) return true; 
+		if (otherObj == null) return false;
+		if( this.getClass() != otherObj.getClass() ) return false;
+		BigZ other = (BigZ)otherObj;
+		return this.Number.equals(other.Number) && this.checkPositive() == other.checkPositive();
+    } 
 }
 
 

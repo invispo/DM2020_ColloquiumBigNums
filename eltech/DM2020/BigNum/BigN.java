@@ -265,12 +265,13 @@ public class BigN
 	* @author Сычев Александр
 	*/
 	@Override
-    public boolean equals(Object other) 
+    public boolean equals(Object otherObj) 
 	{
-		if (other == this) return true; 
-		if (other == null) return false;
-		if( this.getClass() != other.getClass() ) return false;
-		return this.isEquals((BigN)other);
+		if (otherObj == this) return true; 
+		if (otherObj == null) return false;
+		if( this.getClass() != otherObj.getClass() ) return false;
+		BigN other = (BigN)otherObj;
+		return this.isEquals(other);
     } 
 
 

@@ -3,6 +3,12 @@ package eltech.DM2020.BigNum;
 import java.util.*;
 import java.math.*;
 
+/**
+* Класс, который содержит интерфейс
+* @version 0.01
+* @author Семенов Алексей, Сычев Александр
+* Главный SQA - Семенов Алексей
+*/
 public class Colloquium
 {
 	public static void start()
@@ -13,7 +19,7 @@ public class Colloquium
 		String buff = "";
 		Scanner in = new Scanner(System.in);
 		buff = in.nextLine();
-		System.out.println( new BigQ(buff) + "\n" + b.abs());
+		System.out.println( new BigQ(buff) + "\n" + b.abs() + "\n" + c);
 	}
 }
 
