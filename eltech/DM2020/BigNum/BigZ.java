@@ -3,7 +3,7 @@ package eltech.DM2020.BigNum;
 import java.util.*;
 	/**
 	* Класс, который позволяет манипулировать с большими целыми числами
-	* @version 0.01
+	* @version 0.02
 	* @author Сычев Александр, Цветков Иван, Хайруллов Айрат, Муродов Ахмад
 	*/
 public class BigZ
@@ -37,9 +37,26 @@ public class BigZ
 			isPositive = true;
 	}
 	
+	/**
+	* Конструктор, с помощью которого можно инициализировать большое целое число
+	* Если большое натурально число one == null, то бросит исключение
+	*
+	* @param BigN one - большое натурально число
+	*
+	* @version 1
+	* @author Сычев Александр
+	*/
+	public BigZ(BigN one) throws IllegalArgumentException
+	{
+		if(one == null)
+			throw new IllegalArgumentException("Неверный аргемент: большое натуральное число должно быть инициализированно");
+		Number = one.clone();
+		isPositive = true;
+	}
+	
 	private BigZ(){}
 	
-		/**
+	/**
 	* Вывод большого целого числа в виде строки
 	*
     * @return Представление числа в виде строки
@@ -80,7 +97,6 @@ public class BigZ
 	* @version 1
 	* @author Цветков Иван, Хайруллов Айрат, Муродов Ахмад
 	*/
-
 	public BigZ add(BigZ src)
 	{
 		BigZ result = new BigZ();
@@ -112,4 +128,132 @@ public class BigZ
 		}
 		return result;
 	}
+	
+	/**
+    * Клонирование объекта
+	*
+    * @return копию BigZ
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+	@Override
+	public BigZ clone() 
+	{
+		BigZ result = new BigZ();
+		result.Number = this.Number.clone();
+		result.isPositive = this.isPositive;
+		return result;
+	}
+	
+	/**
+	* Умножение на -1
+	*
+    * @return BigZ result - исходное число, умноженное на -1
+	*
+	* @version 1
+	* @author Михаил Сорокин, Семенов Алексей
+	*/
+	public BigZ multiplyByMinusOne()
+	{
+		BigZ result = this.clone();
+		result.isPositive = !this.isPositive;
+		return result;
+	}
+	
+
+	
+	/**
+	* Деление нацело целых чисел
+	*
+    * @param BigZ other - число, на которое делится исходное
+    * @return BigZ result - результат деления
+	*
+	* @version 1
+	* @author Петрова Вероника, Семенов Алексей, Сычев Александр
+	*/
+	public BigZ divide(BigZ other)
+	{
+		BigZ result = new BigZ( this.Number.divide( other.Number ) );
+		result.isPositive = !(this.isPositive ^ other.isPositive);
+		return result;
+	}
+	
+	/**
+	* Остаток от деления целых чисел
+	*
+	* Данное вычисление остатка от деления основано на том, 
+	* что остаток от деления должен быть положительным, на примерах:
+	* 121 = 7*17 + 2
+	* 121 = -7*(-17) + 2
+	* -121 = 7*(-18) + 5
+	* -121 = -7*18 + 5
+	*
+    * @param BigZ other - число, на которое делится исходное
+    * @return BigZ result - остаток от деления
+	*
+	* @version 1
+	* @author Семенов Алексей, Дементьев Дмитрий
+	*/
+	public BigZ mod(BigZ other)
+	{
+		BigZ result;
+		if(this.checkPositive())
+			result = new BigZ( this.Number.mod(other.Number) );
+		else
+			result = new BigZ( other.Number.subtract(this.Number.mod(other.Number)) );
+		return result;
+	}
+	
+	/**
+	* Умножение целых чисел
+	*
+    * @param BigZ other - число, на которое делится исходное
+    * @return BigZ result - результат деления
+	*
+	* @version 1
+	* @author Пурин Артём, Семенов Алексей, Сычев Александр
+	*/
+	public BigZ divide(BigZ other)
+	{
+		BigZ result = new BigZ( this.Number.multiply( other.Number ) );
+		result.isPositive = !(this.isPositive ^ other.isPositive);
+		return result;
+	}
+
+	/**
+	* Вычитание целых чисел
+	*
+    * @param BigZ other - число, на которое делится исходное
+    * @return BigZ result - результат деления
+	*
+	* @version 1
+	* @author Степовик Виктор, Логинова Алина, Сычев Александр
+	*/
+	public BigZ subtract(BigZ other)
+	{
+		return this.add( other.multiplyByMinusOne() );
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

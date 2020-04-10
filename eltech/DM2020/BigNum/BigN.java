@@ -467,7 +467,6 @@ public class BigN
     * @version 1
     * @author Муродов Ахмад, Цветков Иван, Хайруллов Айрат
     */
-	
 	public BigN decrement() throws ArithmeticException
 	{
 
@@ -496,6 +495,49 @@ public class BigN
 		}
 		return this;
 	}
+	
+	/**
+    * Клонирование объекта
+	*
+    * @return копию BigN
+    *
+    * @version 1
+    * @author Ручкин Даниил
+    */
+	public BigN checkParity() 
+	{
+		BigN result = new BigN();
+		return result;
+	}
+	
+	/**
+    * Клонирование объекта
+	*
+    * @return копию BigN
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+	@Override
+	public BigN clone() 
+	{
+		BigN result = new BigN();
+		result.value = new ArrayList<Integer>(this.value);
+		return result;
+	}
+	
+	/**
+    * Конвертация в BigZ
+    *
+    * @return BigZ result - целое число
+    *
+    * @version 1
+    * @author Семенов Алексей
+    */
+    public BigZ toBigZ()
+    {
+		return new BigZ(this);
+    }
 }
  
  
