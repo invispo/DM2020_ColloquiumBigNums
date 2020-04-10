@@ -12,7 +12,7 @@ public class BigQ
 	private BigZ p; // Числитель
 	private BigZ q; // Знаменатель
 	
-	private BigZ(){}
+	private BigQ(){}
 	
 	/**
 	* Конструктор, с помощью которого можно ввести большое рациональное число
@@ -29,7 +29,7 @@ public class BigQ
 			throw new IllegalArgumentException("Неверный аргумент: числа должны быть инициализированны\n");
 		this.p = p;
 		this.q = q;
-		if( q.equals( new BigZ("0"); ) )
+		if( q.equals( new BigZ("0") ) )
 			throw new ArithmeticException("В знаменателе не может быть нуля\n");
 	}
 		
@@ -50,13 +50,27 @@ public class BigQ
 		if(src.equals(""))
 			throw new IllegalArgumentException("Неверный аргумент: строка не может быть пустой\n");
 		src = src.trim();
-		SlashIndex = src.indexOf("\/");
+		SlashIndex = src.indexOf("/");
 		if (SlashIndex == -1)
 			throw new IllegalArgumentException("Неверный аргумент: нет знака дроби\n");
 		this.p = new BigZ( src.substring(0, SlashIndex) );
 		this.q = new BigZ( src.substring(SlashIndex+1, src.length()) );
-		if( q.equals( new BigZ("0"); ) )
+		if( q.equals( new BigZ("0") ) )
 			throw new ArithmeticException("В знаменателе не может быть нуля\n");
+	}
+	
+	/**
+	* Вывод большого рационального числа в виде строки
+	*
+    * @return String - представление числа в виде строки
+	*
+	* @version 1
+	* @author Сычев Александр
+	*/
+	@Override
+	public String toString()
+	{
+		return this.p.toString() + "/" + q.toString();
 	}
 	
 	/**

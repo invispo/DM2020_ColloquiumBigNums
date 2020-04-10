@@ -7,14 +7,10 @@ public class Colloquium
 {
 	public static void start()
 	{
-		BigN a = new BigN("2");
-		System.out.println(a);
-		int i = 0;
-		while(i < 20)
-		{
-			i++;
-			System.out.println(a.decrement());
-		}
+		String buff = "";
+		Scanner in = new Scanner(System.in);
+		buff = in.nextLine();
+		System.out.println( new BigQ(buff) );
 	}
 }
 
