@@ -157,7 +157,99 @@ public class BigQ
 		if( this.getClass() != otherObj.getClass() ) return false;
 		BigQ other = (BigQ)otherObj;
 		return this.p.equals(other.p) && this.q.equals(other.q);
-    } 
+    }
+
+   	//НЕ СДЕЛАН ПЕРЕХОД ИЗ Z в N
+ //    /**
+	// * Сокращение дробей
+	// *
+ //    * @return BigQ - сокращенную дробь
+	// *
+	// * @version 1
+	// * @author Хамитов Абулкаир
+	// */
+	// public BigQ reduce()
+	// {
+	// 	BigQ result = this.clone();
+ //        BigZ gcd = new BigZ(result.p.Number.gcd(result.q.Number));
+	// 	result.p = result.p.divide(gcd);
+	// 	result.q = result.q.divide(gcd);
+
+	// 	return result;
+	// }
+
+ //    /**
+	// * Сложение чисел
+	// *
+ //    * @return BigQ - результат суммы двух дробей
+	// *
+	// * @version 1
+	// * @author Хамитов Абулкаир
+	// */
+	// public BigQ add(BigQ other)
+	// {
+	// 	BigQ result = new BigQ();
+
+	// 	result.q = this.q.multiply(other.q);
+	// 	result.p = ( this.p.multiply(other.q) ).add(other.p.multiply(this.q));
+	// 	result.reduce();
+	// 	return result;
+	// }
+
+
+	// /**
+	// * Вычитание чисел
+	// *
+ //    * @return BigQ - результат вычитание двух дробей
+	// *
+	// * @version 1
+	// * @author Хамитов Абулкаир
+	// */
+	// public BigQ subtract(BigQ other)
+	// {
+	// 	BigQ result = new BigQ();
+
+	// 	result.q = this.q.multiply(other.q);
+	// 	result.p = ( this.p.multiply(other.q) ).subtract(other.p.multiply(this.q));
+	// 	result.reduce();
+	// 	return result;
+	// }
+
+	// /**
+	// * Умножение чисел
+	// *
+ //    * @return BigQ - результат умножения двух дробей
+	// *
+	// * @version 1
+	// * @author Хамитов Абулкаир
+	// */
+	// public BigQ divide(BigQ other)
+	// {
+	// 	BigQ result = new BigQ();
+
+	// 	result.q = this.q.multiply(other.q);
+	// 	result.p = this.p.multiply(other.p);
+	// 	result.reduce();
+	// 	return result;
+	// }
+
+	// /**
+	// * Деление чисел
+	// *
+ //    * @return BigQ - результат деления двух дробей
+	// *
+	// * @version 1
+	// * @author Хамитов Абулкаир
+	// */
+	// public BigQ multiply(BigQ other)
+	// {
+	// 	BigQ result = new BigQ();
+
+	// 	result.q = this.q.multiply(other.p);
+	// 	result.p = this.p.multiply(other.q);
+	// 	result.reduce();
+	// 	return result;
+	// }
 }
 
 
