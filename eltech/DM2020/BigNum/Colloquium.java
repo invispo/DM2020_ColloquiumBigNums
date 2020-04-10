@@ -7,10 +7,13 @@ public class Colloquium
 {
 	public static void start()
 	{
+		BigN a = new BigN("1245215");
+		BigZ b = new BigZ("-21521");
+		BigQ c = new BigQ("145125/-2151323");
 		String buff = "";
 		Scanner in = new Scanner(System.in);
 		buff = in.nextLine();
-		System.out.println( new BigQ(buff) );
+		System.out.println( new BigQ(buff) + "\n" + b.abs());
 	}
 }
 

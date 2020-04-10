@@ -5,7 +5,7 @@ import java.util.*;
 /**
 * Класс, который позволяет манипулировать с большими рациональными числами
 * @version 0.01
-* @author Аюпов Ренат
+* @author Аюпов Ренат, Сычев Александр
 */
 public class BigQ
 {
@@ -27,8 +27,8 @@ public class BigQ
 	{
 		if(p == null || q == null)
 			throw new IllegalArgumentException("Неверный аргумент: числа должны быть инициализированны\n");
-		this.p = p;
-		this.q = q;
+		this.p = p.clone();
+		this.q = q.clone();
 		if( q.equals( new BigZ("0") ) )
 			throw new ArithmeticException("В знаменателе не может быть нуля\n");
 	}
@@ -74,6 +74,23 @@ public class BigQ
 	}
 	
 	/**
+	* Клонирование объекта
+	*
+    * @return BigQ - копия
+	*
+	* @version 1
+	* @author Сычев Александр
+	*/
+	@Override
+	public BigQ clone()
+	{
+		BigQ result = new BigQ();
+		result.p = this.p.clone();
+		result.q = this.q.clone();
+		return result;
+	}
+	
+	/**
 	* Проверка знака большого рациональное числа
 	*
     * @return boolean - знак рационального числа
@@ -85,4 +102,37 @@ public class BigQ
 	{
 		return !(p.checkPositive() ^ q.checkPositive());
 	}
+	
+	/**
+	* Абсолютное значение рационального числа
+	*
+    * @return BigQ - абсолютное значение рационального числа
+	*
+	* @version 1
+	* @author Сычев Александр
+	*/
+	public BigQ abs()
+	{
+		BigQ result = this.clone();
+		result.p = result.p.abs();
+		result.q = result.q.abs();
+		return result;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

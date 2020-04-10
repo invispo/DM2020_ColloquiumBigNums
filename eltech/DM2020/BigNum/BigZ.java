@@ -89,6 +89,21 @@ public class BigZ
 	}
 	
 	/**
+	* Абсолютное значение целого числа
+	*
+    * @return BigZ - абсолютное значение целого числа
+	*
+	* @version 1
+	* @author Семен Дубенков
+	*/
+	public BigZ abs()
+	{
+		BigZ result = this.clone();
+		result.isPositive = true;
+		return result;
+	}
+	
+	/**
 	* Сложение 2-x больших целых чисел. Вернёт при сложении НОВОЕ большое целое число
 	*
     * @param BigN src - число, которое прибавляется к исходному
