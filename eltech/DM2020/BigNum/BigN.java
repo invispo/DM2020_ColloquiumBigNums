@@ -7,7 +7,7 @@ import java.util.*;
 	* @version 0.05
 	* @author Сычев Александр, Яловега Никита, Семенов Алексей, Деменьтев Дмитрий, Кашапова Ольга, Цветков Nван, Хайруллов Айрат, Муродов Ахмад
 	*/
-public class BigN extends BigNumber
+public class BigN
 {
 	/*Само число хранится в value - это список. В 0ой ячейке младший разряд, в 1 больше и т.д.
 	Например, число 36004256360, в 0ой - 360, в 1ой - 256, во 2ой - 4, в 3ей - 36*/
@@ -99,7 +99,7 @@ public class BigN extends BigNumber
     {
         int base = 1000;
         int i, j, carry, cur;
-        BigN result = this;
+        BigN result = new BigN(); //ALERT!
 
         if (this.isMoreOrEquals(other))
         {
@@ -300,7 +300,7 @@ public class BigN extends BigNumber
     */
     public BigN multiplyBy10x(int x)
     {
-		String buff = this.toString();;
+		String buff = this.toString();
 		if(x < 0) 
 		{
 			if(x*-1 >= buff.length())
@@ -414,7 +414,7 @@ public class BigN extends BigNumber
     {
 		BigN result = new BigN("0");
 		if (this.isLessThan(other)) 
-			return this;
+			return this.clone();
         else 
 			if (this.equals(other)) 
 				return result;

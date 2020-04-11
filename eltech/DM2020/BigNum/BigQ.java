@@ -7,7 +7,7 @@ import java.util.*;
 * @version 0.01
 * @author Аюпов Ренат, Сычев Александр
 */
-public class BigQ extends BigNumber
+public class BigQ
 {
 	private BigZ p; // Числитель
 	private BigZ q; // Знаменатель

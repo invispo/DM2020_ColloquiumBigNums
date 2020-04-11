@@ -6,7 +6,7 @@ import java.util.*;
 	* @version 0.02
 	* @author Сычев Александр, Цветков Иван, Хайруллов Айрат, Муродов Ахмад
 	*/
-public class BigZ extends BigNumber
+public class BigZ
 {
 	/*Целое число - это натуральное + {0}, но ещё есть знак. Само значение представлено в виде Number, а знак isPositive*/
 	private BigN Number;
