@@ -159,6 +159,23 @@ public class BigQ
 		return this.p.equals(other.p) && this.q.equals(other.q);
     }
 
+	/**
+	 * Умножение BigQ
+	 *
+	 * @param BigQ other - число на которое умножаем
+	 * @return BigQ result - результат умножения
+	 * @version 1
+	 *
+	 * @author Маймаева Анастасия
+	 *
+	 */
+	public BigQ multiply(BigQ other){
+		BigQ result = new BigQ();
+		result.p = this.p.multiply(other.p);
+		result.q = this.q.multiply(other.q);
+		return result;
+	}
+
    	//НЕ СДЕЛАН ПЕРЕХОД ИЗ Z в N
  //    /**
 	// * Сокращение дробей
