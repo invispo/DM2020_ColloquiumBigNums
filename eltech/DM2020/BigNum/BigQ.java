@@ -31,6 +31,7 @@ public class BigQ
 		this.q = q.clone();
 		if( q.isZero() )
 			throw new ArithmeticException("В знаменателе не может быть нуля\n");
+		this.reduceSelf();
 	}
 		
 	/**
@@ -73,6 +74,7 @@ public class BigQ
 		}
 		if( q.isZero() )
 			throw new ArithmeticException("В знаменателе не может быть нуля\n");
+		this.reduceSelf();
 	}
 	
 	/**
@@ -198,7 +200,7 @@ public class BigQ
 	/**
 	* Сокращение дробей
 	*
-	* @return BigQ - сокращенную дробь
+	* @return BigQ - новую сокращенную дробь
 	*
 	* @version 1
 	* @author Хамитов Абулкаир
@@ -210,6 +212,19 @@ public class BigQ
 		result.p = result.p.divide(gcd);
 		result.q = result.q.divide(gcd);
 		return result;
+	}
+	
+	/**
+	* Сокращение дробей
+	*
+	* @version 1
+	* @author Сычев Александр
+	*/
+	private void reduceSelf()
+	{
+		BigZ gcd = new BigZ( p.abs().toBigN().gcd( q.abs().toBigN() ) );
+		p = p.divide(gcd);
+		q = q.divide(gcd);
 	}
 
 	/**

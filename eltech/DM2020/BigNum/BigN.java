@@ -99,7 +99,7 @@ public class BigN
     {
         int base = 1000;
         int i, j, carry, cur;
-        BigN result = new BigN(); //ALERT!
+        BigN result = this.clone();
 
         if (this.isMoreOrEquals(other))
         {
@@ -540,6 +540,29 @@ public class BigN
     public BigZ toBigZ()
     {
 		return new BigZ(this);
+    }
+	
+    /**
+     * Вычисление первой цифры деления большего натурального на меньшее, домноженное на 10^k
+     *
+     * @param BigN other - делитель, домноженный на 10^k; int k - степень other
+     * @return BigN result - первая цифра результата деления числа на other, домноженного на 10^k
+     *
+     * @version 0.0002
+     * @author Соболев Матвей
+     */
+    public BigN divideByOtherTen(BigN other, int k) throws ArithmeticException
+    {
+        BigN newOther = other.multiplyBy10x(k);
+        if(this.compareTo(newOther) >= 0 )
+		{
+            BigN result = this.divide(newOther);
+            String resultString = result.toString().substring(0, 1);
+            result = new BigN(resultString);
+            return result;
+        }
+        else
+            throw new ArithmeticException("Результат деления равен 0!\n");
     }
 }
  
