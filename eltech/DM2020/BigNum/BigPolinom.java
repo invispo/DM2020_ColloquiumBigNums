@@ -24,18 +24,67 @@ public class BigPolinom
 	* @param String src - представление полинома в виде строки
 	*
 	* @version 1
-	* @author 
+	* @author Семенов Алексей
 	*/
 	public BigPolinom(String src)
 	{
+		int n, thisPower, maxpower = 0;
+		String substr;
+		String[] str, powers;
 		if(src == null)
 			throw new IllegalArgumentException("Неверный аргумент: строка не может быть не инициализированной\n");
 		if(src.equals(""))
 			throw new IllegalArgumentException("Неверный аргумент: строка не может быть пустой\n");
 		src = src.trim();
 		src = src.replace("*", "");
-		/*Прочитай описание к BigQ.toString(), конструктор BigQ(String src) и описание выше
-		...Building...*/
+		src = src.replace(")", "");
+		src = src.replace("(", "");
+		str = src.split("[+]");
+		for(n = 0; n < str.length; n++)
+		{
+			thisPower = 0;
+			if(str[n].indexOf("x^") != -1)
+			{
+				powers = str[n].split("x");
+				if(powers.length > 1)
+					thisPower = Integer.parseInt(powers[1].substring(1,powers[1].length()).trim());
+			}
+			else if(str[n].indexOf("x") != -1)
+				thisPower = 1;
+			if(thisPower > maxpower) maxpower = thisPower;
+			//System.out.println(thisPower);
+		}
+		for(n = 0; n < maxpower+1; n++) factors.add(null);
+		
+		//System.out.println(maxpower);
+		for(n = 0; n < str.length; n++)
+		{
+			thisPower = 0;
+			if(str[n].indexOf("x^") != -1)
+			{
+				powers = str[n].split("x");
+				if(powers.length > 1)
+					thisPower = Integer.parseInt(powers[1].substring(1,powers[1].length()).trim());
+				factors.set(thisPower, new BigQ(powers[0].trim()));
+			}
+			else if(str[n].indexOf("x") != -1)
+			{
+				powers = str[n].split("x");
+				thisPower = 1;
+				factors.set(thisPower, new BigQ(powers[0].trim()));
+			}
+			else
+				factors.set(0, new BigQ(str[n].trim()));
+		}
+		
+		for(n = 0; n < maxpower+1; n++)
+		{
+			if(factors.get(n) == null)
+				factors.set(n, new BigQ("0"));
+		}
+		
+		/*for(n = 0; n < maxpower+1; n++)			//Вывод степеней от 0 до maxpower
+			System.out.println(factors.get(n));*/
 	}
 	
 	/**
@@ -71,6 +120,36 @@ public class BigPolinom
 		...Building...*/
 		return "";
 	}
+/*
+	//Сложение двух полиномов
+	public BigPolinom add(BigPolinom other)
+	{
+		BigPolinom result = new(BigPolinom);
+		i = 0;
+		for (i = 0; i < factors.size() && i < other.factors.size() ; i++)
+			result(i) = this.factors.get(i).multyply(other.factors.get(i));
+		while (i < this.factors.size())
+		{
+			result(i) = this.factors.get(i);
+			i ++;
+		}
+		while (i < other.factors.size())
+		{
+			result(i) = other.factors.get(i);
+			i ++;
+		}
+		return result;
+	}
+
+	//Умножение полинома на число
+	public BigPolinom multyply(BigQ p)
+	{
+		BigPolinom result = new(BigPolinom);
+		for (int i = 0; i < factors.size(); i++)
+			result(i) = this.factors.get(i).multyply(p);
+		return result;
+	}
+*/
 }
 
 

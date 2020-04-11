@@ -548,21 +548,16 @@ public class BigN
      * @param BigN other - делитель, домноженный на 10^k; int k - степень other
      * @return BigN result - первая цифра результата деления числа на other, домноженного на 10^k
      *
-     * @version 0.0002
+     * @version 0.0003
      * @author Соболев Матвей
      */
-    public BigN divideByOtherTen(BigN other, int k) throws ArithmeticException
+    public BigN divideByOtherTen(BigN other, int k)
     {
         BigN newOther = other.multiplyBy10x(k);
-        if(this.compareTo(newOther) >= 0 )
-		{
-            BigN result = this.divide(newOther);
-            String resultString = result.toString().substring(0, 1);
-            result = new BigN(resultString);
-            return result;
-        }
-        else
-            throw new ArithmeticException("Результат деления равен 0!\n");
+        BigN result = this.divide(newOther);
+        String resultString = result.toString().substring(0, 1);
+        result = new BigN(resultString);
+        return result;
     }
 }
  
