@@ -89,6 +89,19 @@ public class BigZ
 	}
 	
 	/**
+	* Проверка на нуль
+	*
+    * @return boolean - если нуль - вернёт true, иначе - false.
+	*
+	* @version 1
+	* @author Сычев Александр
+	*/
+	public boolean isZero()
+	{
+		return this.Number.isZero();
+	}
+	
+	/**
 	* Абсолютное значение целого числа
 	*
     * @return BigZ - абсолютное значение целого числа
@@ -249,6 +262,22 @@ public class BigZ
 	{
 		return this.add( other.multiplyByMinusOne() );
 	}
+
+	/**
+    * Конвертация в BigN
+	* Если BigZ отрицательное, то бросает исключение
+    *
+    * @return BigZ result - целое число
+    *
+    * @version 1
+    * @author Николай Лускарёв
+    */
+    public BigN toBigN() throws ArithmeticException
+    {
+		if(checkPositive() == false)
+			throw new ArithmeticException("Нельзя перевести отрицательное число в натуральное + {0}\n");
+		return this.Number.clone();
+    }
 	
 	/**
 	* Сравнение BigZ, согласно спецификации Java
