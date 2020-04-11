@@ -11,17 +11,134 @@ import java.math.*;
 */
 public class Colloquium
 {
+	private static HashMap<String, Object> nums = new HashMap<String, Object>();
+	private static Scanner in = new Scanner(System.in);
+	private static final String SintaxisProblem = "Неверный синтаксис комманды";
+	private static final String NotBigNumInDictProblem = " нет в списке чисел (попробуйте использовать new)";
+	
 	public static void start()
 	{
-		BigN a = new BigN("1245215");
-		BigZ b = new BigZ("-21521");
-		BigQ c = new BigQ("145125/-2151323");
-		String buff = "";
-		Scanner in = new Scanner(System.in);
-		buff = in.nextLine();
-		BigQ res = c.multiply(new BigQ(buff));
-
-		System.out.println( new BigQ(buff) + "\n" + res + "\n" + c);
+		Object buffObj;
+		boolean EXIT = false;
+		int i;
+		String[] cm;
+		String buffS;
+		while(!EXIT)
+		{
+			System.out.print("Input: ");
+			cm = in.nextLine().split(" ");
+			if(!checkLegal(cm))
+				continue;
+			if(cm.length == 1)
+			{
+				buffS = cm[0];
+				cm = new String[2];
+				cm[1] = buffS;
+			}
+			switch(cm[1].toLowerCase())
+			{
+				case "exit":
+				{
+					EXIT = true;
+					break;
+				}
+				case "new": 
+				{
+					switch(cm[2])
+					{
+						case "BigN":
+						{
+							nums.put(cm[0], null);
+							break;
+						}
+						default:
+						{
+							System.out.println("Нет такого вида: " + cm[2]);
+							break;
+						}
+					}
+					break;
+				}
+				case "input":
+				{
+					System.out.println("Введите число: ");
+					buffS = in.nextLine();
+					nums.put(cm[0], new BigN(buffS)) ;
+					break;
+				}
+				case "output":
+				{
+					System.out.println(nums.get(cm[0]));
+					break;
+				}
+				default:
+				{
+					System.out.println("Нет такой комманды: " + cm[1]);
+					break;
+				}
+			}
+		}
+	}
+	
+	private static boolean checkLegal(String[] cm)
+	{
+		boolean result = true;
+		if(cm[0].equals("?") || cm[0].toLowerCase().equals("help"))
+		{
+			System.out.println(help());
+			return false;
+		}
+		if(cm.length < 2 )
+		{
+			if(!cm[0].toLowerCase().equals("exit") && !cm[0].toLowerCase().equals("list"))
+			{
+				System.out.println(SintaxisProblem);
+				return false;
+			}
+			else
+				return true;
+		}
+		if( cm[1].toLowerCase().equals("new") )
+		{
+			if(nums.containsKey(cm[0]))
+			{
+				System.out.println(cm[0] + " уже содержится в списке чисел");
+				return false;
+			}
+			if(cm.length != 3)
+			{
+				System.out.println(SintaxisProblem);
+				return false;
+			}
+			return true;
+		}
+		if(!nums.containsKey(cm[0]))
+		{
+			System.out.println(cm[0] + NotBigNumInDictProblem);
+			result = false;
+		}
+		if(cm.length > 2)
+		{
+			if( !nums.containsKey(cm[2]) )
+			{
+				System.out.println(cm[2] + NotBigNumInDictProblem);
+				result = false;
+			}
+			if(cm.length > 4)
+				if( !nums.containsKey(cm[4]) )
+				{
+					System.out.println(cm[4] + NotBigNumInDictProblem);
+					result = false;
+				}
+		}
+		
+		return result;
+	}
+	
+	private static String help()
+	{
+		String S = "Помощь?";
+		return S;
 	}
 }
 

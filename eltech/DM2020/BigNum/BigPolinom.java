@@ -71,3 +71,8 @@ public class BigPolinom
 		...Building...*/
 	}
 }
+
+
+
+
+

@@ -1,0 +1,19 @@
+list
+exit
+[] new {BigN, BigZ, BigQ, BigPolinom}
+[] rm
+[] input
+[] output
+[] isZero
+[] toBigN to []
+[] toBigZ to []
+[] toBigQ to []
+[] toBigPolinom to []
+[] add [] to []
+[] subtract [] to []
+[] multiply [] to []
+[] divide [] to []
+[] mod [] to []
+[] gcd [] to []
+[] lcm [] to []
+[] compare []
