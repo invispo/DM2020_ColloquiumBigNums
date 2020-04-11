@@ -1,8 +1,7 @@
 list
 exit
-[] new {BigN, BigZ, BigQ, BigPolinom}
 [] rm
-[] input
+[] input as {BigN, BigZ, BigQ, BigPolinom}
 [] output
 [] isZero
 [] toBigN to []

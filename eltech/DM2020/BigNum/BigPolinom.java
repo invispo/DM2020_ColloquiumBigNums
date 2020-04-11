@@ -7,7 +7,7 @@ import java.util.*;
 * @version 0.01
 * @author Ванеев Андрей, Сычев Александр
 */
-public class BigPolinom
+public class BigPolinom extends BigNumber
 {
 	/*Сами коэффициенты в полиноме - это рациональные числа и они хранятся в factors - это список. В 0ой ячейке младший коэффициент при x^0, в 1 - при x^1 и т. д.
 	Например: (-21521/261)x^3 + x^2 + 21121x + (16125/126), в 0ой - 16125/126, в 1ой - 21121, во 2ой - 1, в 3ей - -21521/261*/
@@ -33,7 +33,7 @@ public class BigPolinom
 		if(src.equals(""))
 			throw new IllegalArgumentException("Неверный аргумент: строка не может быть пустой\n");
 		src = src.trim();
-		src = src.replace("*", "")
+		src = src.replace("*", "");
 		/*Прочитай описание к BigQ.toString(), конструктор BigQ(String src) и описание выше
 		...Building...*/
 	}
@@ -69,6 +69,7 @@ public class BigPolinom
 	{
 		/*Прочитай описание к BigQ.toString(), конструктор BigQ(String src) и описание выше
 		...Building...*/
+		return "";
 	}
 }
 

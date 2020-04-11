@@ -11,18 +11,23 @@ import java.math.*;
 */
 public class Colloquium
 {
-	private static HashMap<String, Object> nums = new HashMap<String, Object>();
+	private static HashMap<String, BigNumber> nums = new HashMap<String, BigNumber>();
 	private static Scanner in = new Scanner(System.in);
 	private static final String SintaxisProblem = "Неверный синтаксис комманды";
-	private static final String NotBigNumInDictProblem = " нет в списке чисел (попробуйте использовать new)";
+	private static final String NotBigNumInDictProblem = " нет в списке чисел";
+	private static final String DifTypeProblem = " должны быть одного типа";
 	
 	public static void start()
 	{
-		Object buffObj;
+		BigNumber buffNum;
+		BigN buffBigN;
+		BigZ buffBigZ;
+		BigQ buffBigQ;
+		String buffS;
+		BigPolinom buffBigPolinom;
 		boolean EXIT = false;
 		int i;
 		String[] cm;
-		String buffS;
 		while(!EXIT)
 		{
 			System.out.print("Input: ");
@@ -42,33 +47,19 @@ public class Colloquium
 					EXIT = true;
 					break;
 				}
-				case "new": 
-				{
-					switch(cm[2])
-					{
-						case "BigN":
-						{
-							nums.put(cm[0], null);
-							break;
-						}
-						default:
-						{
-							System.out.println("Нет такого вида: " + cm[2]);
-							break;
-						}
-					}
-					break;
-				}
 				case "input":
 				{
-					System.out.println("Введите число: ");
-					buffS = in.nextLine();
-					nums.put(cm[0], new BigN(buffS)) ;
+					input(cm);
 					break;
 				}
 				case "output":
 				{
 					System.out.println(nums.get(cm[0]));
+					break;
+				}
+				case "add":
+				{
+					add(cm);
 					break;
 				}
 				default:
@@ -98,19 +89,17 @@ public class Colloquium
 			else
 				return true;
 		}
-		if( cm[1].toLowerCase().equals("new") )
+		if(cm[1].toLowerCase().equals("input"))
 		{
-			if(nums.containsKey(cm[0]))
+			if( cm.length == 4 && cm[2].toLowerCase().equals("as") && ( cm[3].equals("BigZ") || cm[3].equals("BigN") || cm[3].equals("BigQ") || cm[3].equals("BigPolinom") ) )
 			{
-				System.out.println(cm[0] + " уже содержится в списке чисел");
-				return false;
+				return true;
 			}
-			if(cm.length != 3)
+			else
 			{
 				System.out.println(SintaxisProblem);
 				return false;
 			}
-			return true;
 		}
 		if(!nums.containsKey(cm[0]))
 		{
@@ -118,19 +107,24 @@ public class Colloquium
 			result = false;
 		}
 		if(cm.length > 2)
-		{
+		{			
+			if( !nums.containsKey(cm[0]) )
+			{
+				System.out.println(cm[0] + NotBigNumInDictProblem);
+				return false;
+			}
 			if( !nums.containsKey(cm[2]) )
 			{
 				System.out.println(cm[2] + NotBigNumInDictProblem);
-				result = false;
+				return false;
 			}
-			if(cm.length > 4)
-				if( !nums.containsKey(cm[4]) )
-				{
-					System.out.println(cm[4] + NotBigNumInDictProblem);
-					result = false;
-				}
+			if( nums.get(cm[0]).getClass() != nums.get(cm[2]).getClass() )
+			{
+				System.out.println(cm[0] + ", " + cm[2] + DifTypeProblem);
+				return false;
+			}
 		}
+
 		
 		return result;
 	}
@@ -139,6 +133,43 @@ public class Colloquium
 	{
 		String S = "Помощь?";
 		return S;
+	}
+	
+	private static void input(String[] cm)
+	{
+		String buffS;
+		System.out.println("Введите число: ");
+		buffS = in.nextLine();
+		try {
+			if(cm[3].equals("BigZ"))
+				nums.put(cm[0], new BigZ(buffS));
+			else if (cm[3].equals("BigN"))
+				nums.put(cm[0], new BigN(buffS));
+			else if(cm[3].equals("BigQ"))
+				nums.put(cm[0], new BigQ(buffS));
+			else if(cm[3].equals("BigPolinom"))
+				nums.put(cm[0], new BigPolinom(buffS));
+			else
+				System.out.println("Error 404: Failed successfully...");
+		}
+		catch (Throwable t) 
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void add(String[] cm)
+	{
+		if(nums.get(cm[0]).getClass() == BigZ.class)
+			nums.put(cm[4], ( ( BigZ )nums.get(cm[0])).add( (BigZ)nums.get(cm[2]) ) ) ;
+		else if (nums.get(cm[0]).getClass() == BigN.class)
+			nums.put(cm[4], ( ( BigN )nums.get(cm[0])).add( (BigN)nums.get(cm[2]) ) ) ;
+		else if(nums.get(cm[0]).getClass() == BigQ.class)
+			nums.put(cm[4], ( ( BigQ )nums.get(cm[0])).add( (BigQ)nums.get(cm[2]) ) ) ;
+		//else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+			//nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).add( (BigPolinom)nums.get(cm[2]) ) ) ;
+		else
+			System.out.println("Error 404 in add: Failed successfully...");
 	}
 }
 
