@@ -120,36 +120,38 @@ public class BigPolinom
 		...Building...*/
 		return "";
 	}
-/*
+
 	//Сложение двух полиномов
 	public BigPolinom add(BigPolinom other)
 	{
-		BigPolinom result = new(BigPolinom);
+		int i;
+		BigPolinom result = new BigPolinom();
 		i = 0;
 		for (i = 0; i < factors.size() && i < other.factors.size() ; i++)
-			result(i) = this.factors.get(i).multyply(other.factors.get(i));
+			result.factors.set(i, this.factors.get(i).multiply(other.factors.get(i)) );
 		while (i < this.factors.size())
 		{
-			result(i) = this.factors.get(i);
-			i ++;
+			result.factors.set(i, this.factors.get(i) );
+			i++;
 		}
 		while (i < other.factors.size())
 		{
-			result(i) = other.factors.get(i);
-			i ++;
+			result.factors.set(i, other.factors.get(i) );
+			i++;
 		}
 		return result;
 	}
 
 	//Умножение полинома на число
-	public BigPolinom multyply(BigQ p)
+	public BigPolinom multiplyByK(BigQ p)
 	{
-		BigPolinom result = new(BigPolinom);
-		for (int i = 0; i < factors.size(); i++)
-			result(i) = this.factors.get(i).multyply(p);
+		int i;
+		BigPolinom result = new BigPolinom();
+		for (i = 0; i < factors.size(); i++)
+			result.factors.set(i, this.factors.get(i).multiply(p) );
 		return result;
 	}
-*/
+
 }
 
 
