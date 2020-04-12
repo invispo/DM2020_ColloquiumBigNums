@@ -280,6 +280,32 @@ public class BigZ
     }
 	
 	/**
+    * Конвертация в BigQ
+    *
+    * @return BigQ result - рациональное число
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public BigQ toBigQ()
+    {
+		return new BigQ(this.clone(), new BigZ("1"));
+    }
+	
+	/**
+    * Конвертация в BigPolinom
+    *
+    * @return BigPolinom result - полином 0-ой степени
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public BigPolinom toBigPolinom()
+    {
+		return new BigPolinom(this.toBigQ());
+    }
+	
+	/**
 	* Сравнение BigZ, согласно спецификации Java
 	*
     * @return эквивалентность

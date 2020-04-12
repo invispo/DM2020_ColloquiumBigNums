@@ -47,11 +47,13 @@ public class Colloquium
 			}
 			switch(cm[1].toLowerCase())
 			{
+				case "quit":{}
 				case "exit":
 				{
 					EXIT = true;
 					break;
 				}
+				case "in":{}
 				case "input":
 				{
 					input(cm);
@@ -89,6 +91,26 @@ public class Colloquium
 					mod(cm);
 					break;
 				}
+				case "tobign":
+				{
+					toBigN(cm);
+					break;
+				}
+				case "tobigz":
+				{
+					toBigZ(cm);
+					break;
+				}
+				case "tobigq":
+				{
+					toBigQ(cm);
+					break;
+				}
+				case "tobigpolinom":
+				{
+					toBigPolinom(cm);
+					break;
+				}
 				default:
 				{
 					System.out.println("Нет такой комманды: " + cm[1]);
@@ -111,7 +133,7 @@ public class Colloquium
 		}
 		if(cm.length < 2 )
 		{
-			if(!cm[0].toLowerCase().equals("exit") && !cm[0].toLowerCase().equals("list"))
+			if(!cm[0].toLowerCase().equals("exit") && !cm[0].toLowerCase().equals("list") && !cm[0].toLowerCase().equals("quit"))
 			{
 				System.out.println(SintaxisProblem);
 				return false;
@@ -119,7 +141,7 @@ public class Colloquium
 			else
 				return true;
 		}
-		if(cm[1].toLowerCase().equals("input"))
+		if(cm[1].toLowerCase().equals("input") || cm[1].toLowerCase().equals("in"))
 		{
 			if( cm.length == 4 && cm[2].toLowerCase().equals("as") && ( cm[3].equals("BigZ") || cm[3].equals("BigN") || cm[3].equals("BigQ") || cm[3].equals("BigPolinom") ) )
 			{
@@ -135,6 +157,16 @@ public class Colloquium
 		{
 			System.out.println(cm[0] + NotBigNumInDictProblem);
 			result = false;
+		}
+		if(cm[1].toLowerCase().equals("tobign") || cm[1].toLowerCase().equals("tobigz") || cm[1].toLowerCase().equals("tobigq") || cm[1].toLowerCase().equals("tobigpolinom"))
+		{
+			if(cm.length != 4)
+			{
+				System.out.println(SintaxisProblem);
+				return false;
+			}
+			else
+				return true;
 		}
 		if(cm.length > 2)
 		{			
@@ -161,7 +193,7 @@ public class Colloquium
 	
 	private static String help()
 	{
-		String S = "\nЧтобы ввести полином надо выполнить комманду:\na input as BigPolinom\nПосле этого можно ввести, напрмер это:\n(35255)*x^6 + 1524634x^4+ (732/-2612)x^5 +(2623/36324)x^3+(-52163/2521)x^7 + (-51268235)x^2 +132152*x + (-1513262/-15612)\nВведи ещё 1 полином\nb input as BigPolinom\nДалее можешь выполнять действия, например:\na add b to c\nили\na subtract b to c\nили\na multiply b to c\nили\na divide b to c\nили\na mod b to c\nПосле этого можно вывести результат:\nc output\n(в windows можно вставлять в консоль с помощью ПКМ или нажать в верхнем левом углу -> изменить -> вставить)\n exit = выйти\n\n";
+		String S = "\nЧтобы ввести полином надо выполнить комманду:\na input as BigPolinom\nПосле этого можно ввести, напрмер это:\n(35255)*x^6 + 1524634x^4+ (732/-2612)x^5 +(2623/36324)x^3+(-52163/2521)x^7 + (-51268235)x^2 +132152*x + (-1513262/-15612)\nВведи ещё 1 полином\nb input as BigPolinom\nДалее можешь выполнять действия, например:\na add b to c\nили\na subtract b to c\nили\na multiply b to c\nили\na divide b to c\nили\na mod b to c\nПосле этого можно вывести результат:\nc output\n(в windows можно вставлять в консоль с помощью ПКМ или нажать в верхнем левом углу -> изменить -> вставить)\nexit = выйти\n\n";
 		return S;
 	}
 	
@@ -213,8 +245,8 @@ public class Colloquium
 				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).subtract( (BigN)nums.get(cm[2]) ) ) ;
 			else if(nums.get(cm[0]).getClass() == BigQ.class)
 				nums.put(cm[4], ( ( BigQ )nums.get(cm[0])).subtract( (BigQ)nums.get(cm[2]) ) ) ;
-			//else if(nums.get(cm[0]).getClass() == BigPolinom.class)
-				//nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).subtract( (BigPolinom)nums.get(cm[2]) ) ) ;
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).subtract( (BigPolinom)nums.get(cm[2]) ) ) ;
 			else
 				System.out.println("Error 404 in subtract: Failed successfully...");
 		}
@@ -273,6 +305,90 @@ public class Colloquium
 				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).mod( (BigPolinom)nums.get(cm[2]) ) ) ;
 			else
 				System.out.println("Error 404 in mod: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+
+	private static void toBigN(String[] cm)
+	{
+		try
+		{
+			if(nums.get(cm[0]).getClass() == BigZ.class)
+				nums.put(cm[3], ( ( BigZ )nums.get(cm[0])).toBigN() ) ;
+			else if (nums.get(cm[0]).getClass() == BigN.class)
+				System.out.println("Число " + cm[0] + " уже BigN");
+			else if(nums.get(cm[0]).getClass() == BigQ.class)
+				nums.put(cm[3], ( ( BigQ )nums.get(cm[0])).toBigN() ) ;
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[3], ( ( BigPolinom )nums.get(cm[0])).toBigN() ) ;
+			else
+				System.out.println("Error 404 in toBigN: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void toBigZ(String[] cm)
+	{
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigZ.class)
+				System.out.println("Число " + cm[0] + " уже BigZ");
+			else if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[3], ( ( BigN )nums.get(cm[0])).toBigZ() ) ;
+			else if(nums.get(cm[0]).getClass() == BigQ.class)
+				nums.put(cm[3], ( ( BigQ )nums.get(cm[0])).toBigZ() ) ;
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[3], ( ( BigPolinom )nums.get(cm[0])).toBigZ() ) ;
+			else
+				System.out.println("Error 404 in toBigZ: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void toBigQ(String[] cm)
+	{
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigZ.class)
+				nums.put(cm[3], ( ( BigZ )nums.get(cm[0])).toBigQ() ) ;
+			else if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[3], ( ( BigN )nums.get(cm[0])).toBigQ() ) ;
+			else if(nums.get(cm[0]).getClass() == BigQ.class)
+				System.out.println("Число " + cm[0] + " уже BigQ");
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[3], ( ( BigPolinom )nums.get(cm[0])).toBigQ() ) ;
+			else
+				System.out.println("Error 404 in toBigQ: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void toBigPolinom(String[] cm)
+	{
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigZ.class)
+				nums.put(cm[3], ( ( BigZ )nums.get(cm[0])).toBigPolinom() ) ;
+			else if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[3], ( ( BigN )nums.get(cm[0])).toBigPolinom() ) ;
+			else if(nums.get(cm[0]).getClass() == BigQ.class)
+				nums.put(cm[3], ( ( BigQ )nums.get(cm[0])).toBigPolinom() ) ;
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				System.out.println("Многочлен " + cm[0] + " уже BigPolinom");
+			else
+				System.out.println("Error 404 in toBigPolinom: Failed successfully...");
 		}
 		catch (Throwable t)
 		{

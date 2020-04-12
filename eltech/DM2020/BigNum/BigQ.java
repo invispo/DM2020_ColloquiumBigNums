@@ -178,6 +178,61 @@ public class BigQ
 		BigQ other = (BigQ)otherObj;
 		return this.p.equals(other.p) && this.q.equals(other.q);
     }
+	
+	/**
+    * Конвертация в BigN
+	* Если BigQ отрицательное или знаменатель не равен единице, то бросает исключение
+    *
+    * @return BigN result - целое число
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public BigN toBigN() throws ArithmeticException
+    {
+		if(this.isZero())
+			return new BigN("0");
+		if(this.checkPositive() == false)
+			throw new ArithmeticException("Нельзя перевести отрицательное число в натуральное + {0}\n");
+		if( !this.q.abs().equals( new BigZ("1") ) )
+			throw new ArithmeticException("Нельзя перевести рациональное число со знаменателем не равным 1 в натуральное число + {0}\n");
+		return this.p.abs().toBigN();
+    }
+	
+	/**
+    * Конвертация в BigZ
+	* Если у BigQ знаменатель не равен единице, то бросает исключение
+    *
+    * @return BigZ result - целое число
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public BigZ toBigZ() throws ArithmeticException
+    {
+		if(this.isZero())
+			return new BigZ("0");
+		if( !this.q.abs().equals( new BigZ("1") ) )
+			throw new ArithmeticException("Нельзя перевести рациональное число со знаменателем не равным 1 в целое\n");
+		BigZ result = this.p.clone();
+		if( this.checkPositive() )
+			return result.abs();
+		else
+			return result.abs().multiplyByMinusOne();
+    }
+	
+	/**
+    * Конвертация в BigPolinom
+    *
+    * @return BigPolinom полином нулевой степени
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public BigPolinom toBigPolinom()
+    {
+		return new BigPolinom( this );
+    }
 
 	/**
 	 * Умножение BigQ

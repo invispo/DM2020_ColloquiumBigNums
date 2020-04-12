@@ -100,7 +100,7 @@ public class BigPolinom
 	{
 		if(one == null)
 			throw new IllegalArgumentException("Неверный аргумент: большое рациональное число должно быть инициализированно\n");
-		factors.add(one);
+		factors.add(one.clone());
 	}
 	
 	/**
@@ -131,7 +131,7 @@ public class BigPolinom
 				if(!factors.get(i).checkPositive() || buffS.indexOf("/") != -1)
 					buffS = "(" + buffS + ")";
 				if(n-i-1 == 0) //n-i-1 == 0
-					builder.append(buffS);
+					builder.append(buffS + " + ");
 				else if(n-i-1 == 1) //n-i-1 == 1
 					builder.append(buffS + "x" + " + ");
 				else
@@ -141,8 +141,57 @@ public class BigPolinom
 		if(NotZero == false)
 			return "0";
 		Collections.reverse(factors);
-		return builder.toString();
+		buffS = builder.toString();
+		return buffS.substring(0, buffS.length() - 3);
 	}
+	
+	/**
+    * Конвертация в BigN
+	* Если BigPolinom степени больше нуля или знаменатель коэффициента при нулевой степени не равен единице, или коэффициент при нулевой степени отрицательный, то бросит исключение
+    *
+    * @return BigN result - натуральное число
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public BigN toBigN() throws ArithmeticException
+    {
+		if(factors.size() > 1)
+			throw new ArithmeticException("Нельзя перевести полином степени большей 0 в натуральное + {0}\n");
+		return this.factors.get(0).toBigN();
+    }
+	
+	/**
+    * Конвертация в BigZ
+	* Если BigPolinom степени больше нуля или знаменатель коэффициента при нулевой степени не равен единице, то бросит исключение
+    *
+    * @return BigZ result - целое число
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public BigZ toBigZ()
+    {
+		if(factors.size() > 1)
+			throw new ArithmeticException("Нельзя перевести полином степени большей 0 в целое число\n");
+		return this.factors.get(0).toBigZ();
+    }
+	
+	/**
+    * Конвертация в BigQ
+	* Если BigPolinom степени больше нуля, то бросит исключение
+    *
+    * @return BigQ result - рациональное число
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public BigQ toBigQ()
+    {
+		if(factors.size() > 1)
+			throw new ArithmeticException("Нельзя перевести полином степени большей 0 в рациональное число\n");
+		return this.factors.get(0).clone();
+    }
 
 	//Сложение двух полиномов
 	public BigPolinom add(BigPolinom other)
