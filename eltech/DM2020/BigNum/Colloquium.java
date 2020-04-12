@@ -66,6 +66,11 @@ public class Colloquium
 					System.out.println(nums.get(cm[0]));
 					break;
 				}
+				case "list":
+				{
+					list();
+					break;
+				}
 				case "add":
 				{
 					add(cm);
@@ -122,7 +127,7 @@ public class Colloquium
 	
 /*
 За эту черту не надо заступать. Там не на что смотреть
-=========================================================================================================================================================================================*/
+========================================================================================================================================================================================*/
 	private static boolean checkLegal(String[] cm)
 	{
 		boolean result = true;
@@ -133,13 +138,15 @@ public class Colloquium
 		}
 		if(cm.length < 2 )
 		{
-			if(!cm[0].toLowerCase().equals("exit") && !cm[0].toLowerCase().equals("list") && !cm[0].toLowerCase().equals("quit"))
+			if(cm[0].toLowerCase().equals("exit") || cm[0].toLowerCase().equals("list") || cm[0].toLowerCase().equals("quit"))
+			{
+				return true;
+			}
+			else
 			{
 				System.out.println(SintaxisProblem);
 				return false;
 			}
-			else
-				return true;
 		}
 		if(cm[1].toLowerCase().equals("input") || cm[1].toLowerCase().equals("in"))
 		{
@@ -393,6 +400,23 @@ public class Colloquium
 		catch (Throwable t)
 		{
 			System.out.println(t);
+		}
+	}
+	
+	private static void list()
+	{
+		String buffS;
+		String buffSClass;
+		if(nums.isEmpty())
+		{
+			System.out.println("Введенный чисел пока что нет (используйте input)");
+			return;
+		}
+		for( String kkey : nums.keySet() )
+		{
+			buffS = nums.get(kkey).toString();
+			buffSClass = nums.get(kkey).getClass().toString();
+			System.out.println("Число " + kkey + " - это  " + buffSClass.substring(buffSClass.lastIndexOf(".")+1, buffSClass.length()) + ": " + (buffS.length() > 80 ? buffS.substring(0, 80) + "...": buffS) );
 		}
 	}
 }
