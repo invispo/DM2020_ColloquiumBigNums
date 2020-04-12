@@ -13,9 +13,9 @@ public class Colloquium
 {
 	private static HashMap<String, Object> nums = new HashMap<String, Object>();
 	private static Scanner in = new Scanner(System.in);
-	private static final String SintaxisProblem = "Неверный синтаксис комманды";
-	private static final String NotBigNumInDictProblem = " нет в списке чисел";
-	private static final String DifTypeProblem = " должны быть одного типа";
+	private static final String SintaxisProblem = "Неверный синтаксис комманды (попробуйте ввести help)";
+	private static final String NotBigNumInDictProblem = " нет в списке чисел (попробуйте использовать input as)";
+	private static final String DifTypeProblem = " должны быть одного типа (попробуйте использовать toBig[N, Z, Q, Polinom])";
 	
 	public static void start()
 	{
@@ -57,6 +57,8 @@ public class Colloquium
 					input(cm);
 					break;
 				}
+				case "out":{}
+				case "print":{}
 				case "output":
 				{
 					System.out.println(nums.get(cm[0]));
@@ -80,6 +82,11 @@ public class Colloquium
 				case "divide":
 				{
 					divide(cm);
+					break;
+				}
+				case "mod":
+				{
+					mod(cm);
 					break;
 				}
 				default:
@@ -154,7 +161,7 @@ public class Colloquium
 	
 	private static String help()
 	{
-		String S = "Помощь?";
+		String S = "\nЧтобы ввести полином надо выполнить комманду:\na input as BigPolinom\nПосле этого можно ввести, напрмер это:\n(35255)*x^6 + 1524634x^4+ (732/-2612)x^5 +(2623/36324)x^3+(-52163/2521)x^7 + (-51268235)x^2 +132152*x + (-1513262/-15612)\nВведи ещё 1 полином\nb input as BigPolinom\nДалее можешь выполнять действия, например:\na add b to c\nили\na subtract b to c\nили\na multiply b to c\nили\na divide b to c\nили\na mod b to c\nПосле этого можно вывести результат:\nc output\n(в windows можно вставлять в консоль с помощью ПКМ или нажать в верхнем левом углу -> изменить -> вставить)\n exit = выйти\n\n";
 		return S;
 	}
 	
@@ -190,8 +197,8 @@ public class Colloquium
 			nums.put(cm[4], ( ( BigN )nums.get(cm[0])).add( (BigN)nums.get(cm[2]) ) ) ;
 		else if(nums.get(cm[0]).getClass() == BigQ.class)
 			nums.put(cm[4], ( ( BigQ )nums.get(cm[0])).add( (BigQ)nums.get(cm[2]) ) ) ;
-		//else if(nums.get(cm[0]).getClass() == BigPolinom.class)
-			//nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).add( (BigPolinom)nums.get(cm[2]) ) ) ;
+		else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+			nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).add( (BigPolinom)nums.get(cm[2]) ) ) ;
 		else
 			System.out.println("Error 404 in add: Failed successfully...");
 	}
@@ -225,8 +232,8 @@ public class Colloquium
 			nums.put(cm[4], ( ( BigN )nums.get(cm[0])).multiply( (BigN)nums.get(cm[2]) ) ) ;
 		else if(nums.get(cm[0]).getClass() == BigQ.class)
 			nums.put(cm[4], ( ( BigQ )nums.get(cm[0])).multiply( (BigQ)nums.get(cm[2]) ) ) ;
-		//else if(nums.get(cm[0]).getClass() == BigPolinom.class)
-			//nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).multiply( (BigPolinom)nums.get(cm[2]) ) ) ;
+		else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+			nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).multiply( (BigPolinom)nums.get(cm[2]) ) ) ;
 		else
 			System.out.println("Error 404 in multiply: Failed successfully...");
 	}
@@ -241,10 +248,31 @@ public class Colloquium
 				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).divide( (BigN)nums.get(cm[2]) ) ) ;
 			else if(nums.get(cm[0]).getClass() == BigQ.class)
 				nums.put(cm[4], ( ( BigQ )nums.get(cm[0])).divide( (BigQ)nums.get(cm[2]) ) ) ;
-			//else if(nums.get(cm[0]).getClass() == BigPolinom.class)
-				//nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).divide( (BigPolinom)nums.get(cm[2]) ) ) ;
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).divide( (BigPolinom)nums.get(cm[2]) ) ) ;
 			else
 				System.out.println("Error 404 in divide: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void mod(String[] cm)
+	{
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigZ.class)
+				nums.put(cm[4], ( ( BigZ )nums.get(cm[0])).mod( (BigZ)nums.get(cm[2]) ) ) ;
+			else if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).mod( (BigN)nums.get(cm[2]) ) ) ;
+			else if(nums.get(cm[0]).getClass() == BigQ.class)
+				System.out.println("Операции взятия по модулю для BigQ нет");
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).mod( (BigPolinom)nums.get(cm[2]) ) ) ;
+			else
+				System.out.println("Error 404 in mod: Failed successfully...");
 		}
 		catch (Throwable t)
 		{

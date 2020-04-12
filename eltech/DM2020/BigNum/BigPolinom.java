@@ -111,14 +111,37 @@ public class BigPolinom
     * @return String - представление полинома в виде строки
 	* 
 	* @version 1
-	* @author 
+	* @author Сычев Александр
 	*/
 	@Override
 	public String toString()
 	{
-		/*Прочитай описание к BigQ.toString(), конструктор BigQ(String src) и описание выше
-		...Building...*/
-		return "";
+		StringBuilder builder = new StringBuilder();
+		int i, n;
+		boolean NotZero = false;
+		String buffS;
+		Collections.reverse(factors);
+		n = factors.size();
+		for(i = 0; i < n; i++)
+		{
+			if(!factors.get(i).isZero())
+			{
+				NotZero = true;
+				buffS = factors.get(i).toString();
+				if(!factors.get(i).checkPositive() || buffS.indexOf("/") != -1)
+					buffS = "(" + buffS + ")";
+				if(n-i-1 == 0) //n-i-1 == 0
+					builder.append(buffS);
+				else if(n-i-1 == 1) //n-i-1 == 1
+					builder.append(buffS + "x" + " + ");
+				else
+					builder.append(buffS + "x^" + (n-i-1) + " + ");
+			}
+		}
+		if(NotZero == false)
+			return "0";
+		Collections.reverse(factors);
+		return builder.toString();
 	}
 
 	//Сложение двух полиномов
@@ -140,6 +163,30 @@ public class BigPolinom
 			i++;
 		}
 		return result;
+	}
+	
+	//Вычитание двух полиномов
+	public BigPolinom subtract(BigPolinom other)
+	{
+		return null;
+	}
+	
+	//Умножение двух полиномов
+	public BigPolinom multiply(BigPolinom other)
+	{
+		return null;
+	}
+
+	//Деление двух полиномов
+	public BigPolinom divide(BigPolinom other)
+	{
+		return null;
+	}
+	
+	//Деление по модулю двух полиномов
+	public BigPolinom mod(BigPolinom other)
+	{
+		return null;
 	}
 
 	//Умножение полинома на число
