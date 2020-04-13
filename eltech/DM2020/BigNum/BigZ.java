@@ -88,6 +88,26 @@ public class BigZ
 		return isPositive;
 	}
 	
+    /**
+    * Сравнение двух больших целых чисел.
+    *
+    * @param BigZ other - второе число для сравнения с исходным
+    * @return int - 0 если равны, -1 если меньше other, 1 если больше other
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public int compareTo(BigZ other)
+    {
+		BigZ buff = this.subtract(other);
+		if(buff.isZero())
+			return 0;
+		else if (buff.checkPositive())
+			return 1;
+		else 
+			return -1;
+    }
+	
 	/**
 	* Проверка на нуль
 	*

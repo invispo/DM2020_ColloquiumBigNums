@@ -66,6 +66,7 @@ public class Colloquium
 					System.out.println(nums.get(cm[0]));
 					break;
 				}
+				case "ls":{}
 				case "list":
 				{
 					list();
@@ -94,6 +95,13 @@ public class Colloquium
 				case "mod":
 				{
 					mod(cm);
+					break;
+				}
+				case "compare":{}
+				case "cmp":{}
+				case "compareto":
+				{
+					compareTo(cm);
 					break;
 				}
 				case "tobign":
@@ -168,7 +176,7 @@ public class Colloquium
 		}
 		if(cm.length < 2 )
 		{
-			if(cm[0].toLowerCase().equals("exit") || cm[0].toLowerCase().equals("list") || cm[0].toLowerCase().equals("quit"))
+			if(cm[0].toLowerCase().equals("exit") || cm[0].toLowerCase().equals("list") || cm[0].toLowerCase().equals("ls") || cm[0].toLowerCase().equals("quit"))
 			{
 				return true;
 			}
@@ -388,6 +396,70 @@ public class Colloquium
 				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).mod( (BigPolinom)nums.get(cm[2]) ) ) ;
 			else
 				System.out.println("Error 404 in mod: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void compareTo(String[] cm)
+	{
+		int buff;
+		String buffS = "";
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigZ.class)
+			{
+				buff = (( BigZ )nums.get(cm[0])).compareTo( (BigZ)nums.get(cm[2]) );
+				buffS += cm[0];
+				if(buff == 0)
+					buffS += " равно ";
+				else if(buff >= 1)
+					buffS += " больше, чем ";
+				else if(buff <= -1)
+					buffS += " меньше, чем ";
+				buffS += cm[2];
+			}
+			else if (nums.get(cm[0]).getClass() == BigN.class)
+			{
+				buff = (( BigN )nums.get(cm[0])).compareTo( (BigN)nums.get(cm[2]) );
+				buffS += cm[0];
+				if(buff == 0)
+					buffS += " равно ";
+				else if(buff >= 1)
+					buffS += " больше, чем ";
+				else if(buff <= -1)
+					buffS += " меньше, чем ";
+				buffS += cm[2];
+			}
+			else if(nums.get(cm[0]).getClass() == BigQ.class)
+			{
+				buff = (( BigQ )nums.get(cm[0])).compareTo( (BigQ)nums.get(cm[2]) );
+				buffS += cm[0];
+				if(buff == 0)
+					buffS += " равно ";
+				else if(buff >= 1)
+					buffS += " больше, чем ";
+				else if(buff <= -1)
+					buffS += " меньше, чем ";
+				buffS += cm[2];
+			}
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+			{
+				buff = (( BigPolinom )nums.get(cm[0])).compareTo( (BigPolinom)nums.get(cm[2]) );
+				buffS += "Степень полинома " + cm[0];
+				if(buff == 0)
+					buffS += " равна степени полинома ";
+				else if(buff >= 1)
+					buffS += " больше, чем степень полинома ";
+				else if(buff <= -1)
+					buffS += " меньше, чем степень полинома ";
+				buffS += cm[2];
+			}
+			else
+				System.out.println("Error 404 in compareTo: Failed successfully...");
+			System.out.println(buffS);
 		}
 		catch (Throwable t)
 		{

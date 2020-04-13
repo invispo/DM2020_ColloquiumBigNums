@@ -206,6 +206,26 @@ public class BigPolinom
 		return this.factors.get(0).clone();
     }
 
+    /**
+    * Сравнение двух полиномов
+    *
+    * @param BigPolinom other - второй полином для сравнения с исходным
+    * @return int - 0 если степени полиномов равны, -1 если степень исходного полинома меньше other, иначе 1
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public int compareTo(BigPolinom other)
+    {
+		int buff = this.factors.size() - other.factors.size();
+		if(buff == 0)
+			return 0;
+		else if (buff > 0)
+			return 1;
+		else 
+			return -1;
+    }
+
 	//Сложение двух полиномов
 	public BigPolinom add(BigPolinom other)
 	{

@@ -179,6 +179,26 @@ public class BigQ
 		return this.p.equals(other.p) && this.q.equals(other.q);
     }
 	
+    /**
+    * Сравнение двух больших рациональных чисел.
+    *
+    * @param BigQ other - второе число для сравнения с исходным
+    * @return int - 0 если равны, -1 если меньше other, 1 если больше other
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public int compareTo(BigQ other)
+    {
+		BigQ buff = this.subtract(other);
+		if(buff.isZero())
+			return 0;
+		else if (buff.checkPositive())
+			return 1;
+		else 
+			return -1;
+    }
+	
 	/**
     * Конвертация в BigN
 	* Если BigQ отрицательное или знаменатель не равен единице, то бросает исключение
