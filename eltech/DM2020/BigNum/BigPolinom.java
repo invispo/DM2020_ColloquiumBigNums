@@ -335,6 +335,9 @@ public class BigPolinom
             result.factors.set(i, temp1.add(temp2));
         }
 
+        for (i = result.factors.size()-1; result.factors.get(i).isZero() && i > 0; --i)
+            result.factors.remove(i);
+
         return result;
     }
 
@@ -356,6 +359,9 @@ public class BigPolinom
             result.factors.set(i, temp1.subtract(temp2));
         }
 
+        for (i = result.factors.size()-1; result.factors.get(i).isZero() && i > 0; --i)
+            result.factors.remove(i);
+
         return result;
 	}
 
@@ -376,10 +382,39 @@ public class BigPolinom
 	}
 
 	//Деление двух полиномов
-	public BigPolinom divide(BigPolinom other)
+	public MyResult divide(BigPolinom other)
 	{
-		return null;
-	}
+        int i,j;
+        BigPolinom q = new BigPolinom();
+        BigPolinom temp_pol = new BigPolinom();
+        BigPolinom r = this.clone();
+        BigQ temp = new BigQ("0/1");
+        BigQ zero = new BigQ("0/1");
+
+        if (this.factors.size() >= other.factors.size())
+        {
+
+            for(i = 0; i <= this.factors.size()-other.factors.size(); ++i)
+                q.factors.add(zero);
+
+        	while (r.factors.size() > 0 && r.factors.size() >= other.factors.size())
+            {
+                temp = (r.factors.get(r.factors.size()-1)).divide(other.factors.get(other.factors.size()-1));
+
+                for(i = 0; i <= r.factors.size()-other.factors.size(); ++i)
+                    temp_pol.factors.add(zero);
+
+                temp_pol.factors.set(r.factors.size()-other.factors.size(), temp);
+
+                q = q.add(temp_pol);
+        		r = r.subtract(other.multiply(temp_pol));
+                temp_pol.factors.clear();
+        	}
+
+        }
+    	return new MyResult(q,r);
+    }
+
 
 	//Деление по модулю двух полиномов
 	public BigPolinom mod(BigPolinom other)
@@ -396,5 +431,4 @@ public class BigPolinom
 			result.factors.set(i, this.factors.get(i).multiply(p) );
 		return result;
 	}
-
 }
