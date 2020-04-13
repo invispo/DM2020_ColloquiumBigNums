@@ -138,7 +138,7 @@ public class BigQ
     * @return boolean - true, если числитель 0; false, если числитель не нуль
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author Афанасьева Антонина
 	*/
 	public boolean isZero()
 	{
@@ -189,7 +189,7 @@ public class BigQ
     * @return BigQ - абсолютное значение рационального числа
     *
     * @version 2
-    * @author Сычев Александр
+    * @author Влад Балаганский
     */
     public BigQ abs()
     {
