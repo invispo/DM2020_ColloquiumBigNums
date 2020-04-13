@@ -341,13 +341,39 @@ public class BigPolinom
 	//Вычитание двух полиномов
 	public BigPolinom subtract(BigPolinom other)
 	{
-		return null;
+        int i;
+        BigQ temp1 = new BigQ("0/1");
+        BigQ temp2 = new BigQ("0/1");
+        BigQ zero = new BigQ("0/1");
+		BigPolinom result = new BigPolinom();
+
+        for (i = 0; i < this.factors.size() || i < other.factors.size(); ++i)
+            result.factors.add(zero);
+
+        for (i = 0; i < this.factors.size() || i < other.factors.size(); i++)
+        {
+            temp1 = (i < this.factors.size() ? this.factors.get(i) : zero);
+            temp2 = (i < other.factors.size() ? other.factors.get(i) : zero);
+            result.factors.set(i, temp1.subtract(temp2));
+        }
+
+        return result;
 	}
 	
 	//Умножение двух полиномов
 	public BigPolinom multiply(BigPolinom other)
 	{
-		return null;
+        int i,j;
+        BigPolinom result = new BigPolinom();
+        BigQ zero = new BigQ("0/1");
+        for(i = 0; i < this.factors.size()+other.factors.size(); ++i)
+            result.factors.add(zero);
+
+        for(i = 0; i < this.factors.size(); ++i)
+            for(j = 0; j < other.factors.size(); ++j)
+                result.factors.set(i+j, result.factors.get(i+j).add(this.factors.get(i).multiply(other.factors.get(j))));
+
+        return result;
 	}
 
 	//Деление двух полиномов
