@@ -141,6 +141,11 @@ public class Colloquium
 					subtructByK(cm);
 					break;
 				}
+				case "dividebyotherten":
+				{
+					divideByOtherTen(cm);
+					break;
+				}
 				default:
 				{
 					System.out.println("Нет такой комманды: " + cm[1]);
@@ -200,7 +205,7 @@ public class Colloquium
 			else
 				return true;
 		}
-		if( cm[1].toLowerCase().equals("gcd") || cm[1].toLowerCase().equals("lcm") || cm[1].toLowerCase().equals("multiplyby10x") || cm[1].toLowerCase().equals("subtructbyk") )
+		if( cm[1].toLowerCase().equals("gcd") || cm[1].toLowerCase().equals("lcm") || cm[1].toLowerCase().equals("multiplyby10x") || cm[1].toLowerCase().equals("subtructbyk") || cm[1].toLowerCase().equals("dividebyotherten"))
 		{
 			if(cm[1].toLowerCase().equals("multiplyby10x")) // a multiplyBy10x [число] to c
 			{
@@ -228,6 +233,16 @@ public class Colloquium
 			if(result && cm[1].toLowerCase().equals("subtructbyk"))
 			{
 				if(cm.length == 6 && nums.containsKey(cm[2]) && nums.containsKey(cm[3]) && nums.get(cm[0]).getClass() == nums.get(cm[2]).getClass() && nums.get(cm[0]).getClass() == nums.get(cm[3]).getClass()) //a subtructByK b d to c
+					return true;
+				else
+				{
+					System.out.println(SintaxisProblem);
+					return false;
+				}
+			}
+			if(result && cm[1].toLowerCase().equals("dividebyotherten"))
+			{
+				if(cm.length == 6 && nums.containsKey(cm[2]) && nums.get(cm[0]).getClass() == nums.get(cm[2]).getClass() ) //a divideByOtherTen b [число] to c
 					return true;
 				else
 				{
@@ -540,6 +555,21 @@ public class Colloquium
 		}
 	}
 	
+	private static void divideByOtherTen(String[] cm) //a divideByOtherTen b [число] to c
+	{
+		try 
+		{
+			if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[5], ( ( BigN )nums.get(cm[0])).divideByOtherTen( (BigN)nums.get(cm[2]), Integer.valueOf(cm[3]) ) ) ;
+			else
+				System.out.println("Error 404 in divideByOtherTen: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+
 	private static void list()
 	{
 		String buffS;
