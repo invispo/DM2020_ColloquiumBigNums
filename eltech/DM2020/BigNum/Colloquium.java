@@ -166,6 +166,29 @@ public class Colloquium
 					checkPositive(cm);
 					break;
 				}
+				case"getcoefathighestdegree":
+				{
+					getCoefAtHighestDegree(cm);
+					break;
+				}
+				case"derivative":
+				{
+					derivative(cm);
+					break;
+				}
+				case "multiplybyxpowk":
+				{
+					multiplyByXpowK(cm);
+					break;
+				}
+				case "getdegree":
+				{
+					if(nums.get(cm[0]).getClass() == BigPolinom.class)
+						System.out.println( ((BigPolinom)nums.get(cm[0])).getDegree() );
+					else
+						System.out.println(cm[1] + " только для полиномов");
+					break;
+				}
 				default:
 				{
 					System.out.println("Нет такой комманды: " + cm[1]);
@@ -271,6 +294,24 @@ public class Colloquium
 				}
 			}
 		}
+		if(cm[1].toLowerCase().equals("multiplybyxpowk")) // a multiplyByXpowK [число] to c
+		{
+			if(nums.get(cm[0]).getClass() == BigPolinom.class)
+			{
+				if(cm.length == 5)
+					return true;
+				else
+				{
+					System.out.println(SintaxisProblem);
+					return false;
+				}
+			}
+			else
+			{
+				System.out.println("Комманда " + cm[1] + " только для полиномов (BigPolinom)");
+				return false;
+			}
+		}
 		if(cm.length > 2)
 		{
 			if( !nums.containsKey(cm[0]) )
@@ -300,8 +341,14 @@ public class Colloquium
 		String[] result;
 		if(cm.length == 1)
 			result = cm;
-		else if(cm[1].toLowerCase().equals("abs")) // a abs to c ---> a abs a to c
+		else if(cm[1].toLowerCase().equals("abs") || cm[1].toLowerCase().equals("getcoefathighestdegree") || cm[1].toLowerCase().equals("derivative")) // a abs to c ---> a abs a to c
 		{
+			if(cm.length != 4)
+			{
+				cm[1] = "None";
+				System.out.println(SintaxisProblem);
+				return cm;
+			}
 			result = new String[5];
 			result[0] = cm[0]; result[1] = cm[1]; result[2] = cm[0]; result[3] = cm[2]; result[4] = cm[3];
 		}
@@ -319,7 +366,7 @@ public class Colloquium
 	private static void input(String[] cm)
 	{
 		String buffS;
-		System.out.println("Введите число: ");
+		System.out.println("Вводите: ");
 		buffS = in.nextLine();
 		try
 		{
@@ -631,6 +678,36 @@ public class Colloquium
 		}
 	}
 	
+	private static void derivative(String[] cm) // a derivative a to c
+	{
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).derivative() ) ;
+			else
+				System.out.println(cm[1] + " только для полиномов");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void getCoefAtHighestDegree(String[] cm) // a getCoefAtHighestDegree a to c
+	{
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).getCoefAtHighestDegree() ) ;
+			else
+				System.out.println(cm[1] + " только для полиномов");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
 	private static void gcd(String[] cm)
 	{
 		try 
@@ -669,6 +746,21 @@ public class Colloquium
 				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).multiplyBy10x( Integer.valueOf(cm[2]) ) ) ;
 			else
 				System.out.println("Error 404 in multiplyBy10x: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void multiplyByXpowK(String[] cm)
+	{
+		try 
+		{
+			if (nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).multiplyByXpowK( Integer.valueOf(cm[2]) ) ) ;
+			else
+				System.out.println("Error 404 in multiplyByXpowK: Failed successfully...");
 		}
 		catch (Throwable t)
 		{
