@@ -146,22 +146,6 @@ public class BigQ
 	}
 	
 	/**
-	* Абсолютное значение рационального числа
-	*
-    * @return BigQ - абсолютное значение рационального числа
-	*
-	* @version 1
-	* @author Сычев Александр
-	*/
-	public BigQ abs()
-	{
-		BigQ result = this.clone();
-		result.p = result.p.abs();
-		result.q = result.q.abs();
-		return result;
-	}
-	
-	/**
 	* Сравнение BigQ, согласно спецификации Java
 	*
     * @return эквивалентность
@@ -197,6 +181,19 @@ public class BigQ
 			return 1;
 		else 
 			return -1;
+    }
+	
+    /**
+    * Абсолютное значение рационального числа
+    *
+    * @return BigQ - абсолютное значение рационального числа
+    *
+    * @version 2
+    * @author Сычев Александр
+    */
+    public BigQ abs()
+    {
+		return new BigQ( this.p.abs(), this.q.abs() );
     }
 	
 	/**

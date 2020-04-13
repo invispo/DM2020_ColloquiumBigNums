@@ -37,6 +37,7 @@ public class Colloquium
 		{
 			System.out.print("Input: ");
 			cm = in.nextLine().split(" ");
+			cm = format(cm);
 			if(!checkLegal(cm))
 				continue;
 			if(cm.length == 1)
@@ -154,6 +155,17 @@ public class Colloquium
 					divideByOtherTen(cm);
 					break;
 				}
+				case "abs":
+				{
+					abs(cm);
+					break;
+				}
+				case "ispositive":{}
+				case "checkpositive":
+				{
+					checkPositive(cm);
+					break;
+				}
 				default:
 				{
 					System.out.println("Нет такой комманды: " + cm[1]);
@@ -260,7 +272,7 @@ public class Colloquium
 			}
 		}
 		if(cm.length > 2)
-		{			
+		{
 			if( !nums.containsKey(cm[0]) )
 			{
 				System.out.println(cm[0] + NotBigNumInDictProblem);
@@ -279,6 +291,22 @@ public class Colloquium
 		}
 
 		
+		return result;
+	}
+
+	private static String[] format(String[] cm)
+	{
+		String buffS;
+		String[] result;
+		if(cm.length == 1)
+			result = cm;
+		else if(cm[1].toLowerCase().equals("abs")) // a abs to c ---> a abs a to c
+		{
+			result = new String[5];
+			result[0] = cm[0]; result[1] = cm[1]; result[2] = cm[0]; result[3] = cm[2]; result[4] = cm[3];
+		}
+		else
+			result = cm;
 		return result;
 	}
 	
@@ -567,6 +595,42 @@ public class Colloquium
 		System.out.println( buff );
 	}
 	
+	private static void checkPositive(String[] cm)
+	{
+		boolean buff = false;
+		if(nums.get(cm[0]).getClass() == BigZ.class)
+			System.out.println( (( BigZ )nums.get(cm[0])).checkPositive() );
+		else if (nums.get(cm[0]).getClass() == BigN.class)
+			System.out.println( true );
+		else if(nums.get(cm[0]).getClass() == BigQ.class)
+			System.out.println( (( BigQ )nums.get(cm[0])).checkPositive() );
+		else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+			System.out.println("Для полиномов такое не делается");
+		else
+			System.out.println("Error 404 in checkPositive: Failed successfully...");
+	}
+	
+	private static void abs(String[] cm) // a abs a to c
+	{
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigZ.class)
+				nums.put(cm[4], ( ( BigZ )nums.get(cm[0])).abs() ) ;
+			else if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).clone() ) ;
+			else if(nums.get(cm[0]).getClass() == BigQ.class)
+				nums.put(cm[4], ( ( BigQ )nums.get(cm[0])).abs() ) ;
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				System.out.println("Для полиномов такое не делается");
+			else
+				System.out.println("Error 404 in abs: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
 	private static void gcd(String[] cm)
 	{
 		try 
@@ -658,6 +722,7 @@ public class Colloquium
 			System.out.println("Число " + kkey + " - это  " + buffSClass.substring(buffSClass.lastIndexOf(".")+1, buffSClass.length()) + ": " + (buffS.length() > 80 ? buffS.substring(0, 80) + "...": buffS) );
 		}
 	}
+	
 }
 
 
