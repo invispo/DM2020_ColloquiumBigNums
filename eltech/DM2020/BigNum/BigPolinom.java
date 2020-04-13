@@ -225,6 +225,97 @@ public class BigPolinom
 		else
 			return -1;
     }
+	
+    /**
+    * Получение старшей степени полинома
+    *
+    * @return int - 0 максимальная степень полинома
+    *
+    * @version 1
+    * @author Батищев Игорь
+    */
+    public int getDegree()
+    {
+		return this.factors.size()-1;
+    }
+	
+    /**
+    * Получение коэффициента при старшей степени полинома
+    *
+    * @return BigQ - коэффициент при старшей степени полинома
+    *
+    * @version 1
+    * @author Батищев Игорь
+    */
+    public BigQ getCoefAtHighestDegree()
+    {
+		return this.factors.get(this.getDegree()).clone();
+    }
+	
+	/**
+    * Производная многочлена
+    *
+    * @return BigPolinom result - производная
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public BigPolinom derivative()
+    {
+		int i, n;
+		BigPolinom result = new BigPolinom();
+		n = this.factors.size();
+		if(n == 1)
+		{
+			result.factors.add(new BigQ("0"));
+			return result;
+		}
+		for (i = 1; i < n; i++)
+			result.factors.add( this.factors.get(i).multiply( new BigQ( Integer.valueOf(i).toString() ) ) );
+		return result;
+    }
+	
+	/**
+    * Умножение многочлена на x^k
+    *
+    * @return BigPolinom result - полином, умноженный на x^k
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+    public BigPolinom multiplyByXpowK(int k) throws ArithmeticException
+    {
+		
+		int i, n, j;
+		if(k < 0)
+			throw new ArithmeticException("Полином нельзя умножать на x^k, где k = " + k + " - отрицательное число\n");
+		BigPolinom result = new BigPolinom();
+		n = this.factors.size();
+		for(i = 0; i < k; i++)
+			result.factors.add( new BigQ("0") );
+		for (j = 0; j < n; j++)
+			result.factors.add( this.factors.get(j).clone() );
+		return result;
+    }
+	
+	/**
+    * Клонирование объекта
+	*
+    * @return копию BigPolinom
+    *
+    * @version 1
+    * @author Сычев Александр
+    */
+	@Override
+	public BigPolinom clone() 
+	{
+		int i, n;
+		BigPolinom result = new BigPolinom();
+		n = this.factors.size();
+		for(i = 0; i < n; i++)
+			result.factors.add( this.factors.get(i).clone() );
+		return result;
+	}
 
     /**
     * Получение старшей степени полинома
@@ -332,6 +423,7 @@ public class BigPolinom
         {
             temp1 = (i < this.factors.size() ? this.factors.get(i) : zero);
             temp2 = (i < other.factors.size() ? other.factors.get(i) : zero);
+<<<<<<< HEAD
             result.factors.set(i, temp1.add(temp2));
         }
 
@@ -362,6 +454,11 @@ public class BigPolinom
         for (i = result.factors.size()-1; result.factors.get(i).isZero() && i > 0; --i)
             result.factors.remove(i);
 
+=======
+            result.factors.set(i, temp1.subtract(temp2));
+        }
+
+>>>>>>> upstream/master
         return result;
 	}
 
