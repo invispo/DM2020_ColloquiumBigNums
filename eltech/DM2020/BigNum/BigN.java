@@ -328,8 +328,9 @@ public class BigN
 	*/
 	public BigN subtructByK(BigN other, BigN k) throws ArithmeticException
 	{
-		if(this.compareTo(other.multiply(k)) >= 0 ){
-			BigN result = this.subtract(other.multiply(k));
+		BigN buff = other.multiply(k);
+		if(this.compareTo( buff ) >= 0 ){
+			BigN result = this.subtract( buff );
             return result;
 		}
 		else

@@ -116,6 +116,31 @@ public class Colloquium
 					toBigPolinom(cm);
 					break;
 				}
+				case "iszero":
+				{
+					isZero(cm);
+					break;
+				}
+				case "gcd":
+				{
+					gcd(cm);
+					break;
+				}
+				case "lcm":
+				{
+					lcm(cm);
+					break;
+				}
+				case "multiplyby10x":
+				{
+					multiplyBy10x(cm);
+					break;
+				}
+				case "subtructbyk":
+				{
+					subtructByK(cm);
+					break;
+				}
 				default:
 				{
 					System.out.println("Нет такой комманды: " + cm[1]);
@@ -174,6 +199,26 @@ public class Colloquium
 			}
 			else
 				return true;
+		}
+		if( cm[1].toLowerCase().equals("gcd") || cm[1].toLowerCase().equals("lcm") || cm[1].toLowerCase().equals("multiplyby10x") || cm[1].toLowerCase().equals("subtructbyk") )
+		{
+			if( nums.get(cm[0]).getClass() != BigN.class || nums.get(cm[2]).getClass() != BigN.class )
+			{
+				result = false;
+				System.out.println("Комманда " + cm[1] + " только для натуральных чисел + {0} (BigN)");
+			}
+			if(result && cm[1].toLowerCase().equals("multiplyby10x"))
+				return true;
+			if(result && cm[1].toLowerCase().equals("subtructbyk"))
+			{
+				if(cm.length == 6 && nums.containsKey(cm[2]) && nums.containsKey(cm[3]) && nums.get(cm[0]).getClass() == nums.get(cm[2]).getClass() && nums.get(cm[0]).getClass() == nums.get(cm[3]).getClass()) //a subtructByK b d to c
+					return true;
+				else
+				{
+					System.out.println(SintaxisProblem);
+					return false;
+				}
+			}
 		}
 		if(cm.length > 2)
 		{			
@@ -396,6 +441,82 @@ public class Colloquium
 				System.out.println("Многочлен " + cm[0] + " уже BigPolinom");
 			else
 				System.out.println("Error 404 in toBigPolinom: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void isZero(String[] cm)
+	{
+		boolean buff = false;
+		if(nums.get(cm[0]).getClass() == BigZ.class)
+			buff = (( BigZ )nums.get(cm[0])).isZero();
+		else if (nums.get(cm[0]).getClass() == BigN.class)
+			buff = (( BigN )nums.get(cm[0])).isZero();
+		else if(nums.get(cm[0]).getClass() == BigQ.class)
+			buff = (( BigQ )nums.get(cm[0])).isZero();
+		else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+			buff = (( BigPolinom )nums.get(cm[0])).isZero();
+		else
+			System.out.println("Error 404 in isZero: Failed successfully...");
+		System.out.println( buff );
+	}
+	
+	private static void gcd(String[] cm)
+	{
+		try 
+		{
+			if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).gcd( (BigN)nums.get(cm[2]) ) ) ;
+			else
+				System.out.println("Error 404 in gcd: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void lcm(String[] cm)
+	{
+		try 
+		{
+			if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).lcm( (BigN)nums.get(cm[2]) ) ) ;
+			else
+				System.out.println("Error 404 in lcm: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void multiplyBy10x(String[] cm)
+	{
+		try 
+		{
+			if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).multiplyBy10x( Integer.valueOf(cm[2]) ) ) ;
+			else
+				System.out.println("Error 404 in multiplyBy10x: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
+	private static void subtructByK(String[] cm) //a subtructByK b d to c
+	{
+		try 
+		{
+			if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[5], ( ( BigN )nums.get(cm[0])).subtructByK( (BigN)nums.get(cm[2]), (BigN)nums.get(cm[3]) ) ) ;
+			else
+				System.out.println("Error 404 in subtructByK: Failed successfully...");
 		}
 		catch (Throwable t)
 		{
