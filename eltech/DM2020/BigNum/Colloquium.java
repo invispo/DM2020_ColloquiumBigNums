@@ -202,13 +202,29 @@ public class Colloquium
 		}
 		if( cm[1].toLowerCase().equals("gcd") || cm[1].toLowerCase().equals("lcm") || cm[1].toLowerCase().equals("multiplyby10x") || cm[1].toLowerCase().equals("subtructbyk") )
 		{
+			if(cm[1].toLowerCase().equals("multiplyby10x")) // a multiplyBy10x [число] to c
+			{
+				if(nums.get(cm[0]).getClass() == BigN.class)
+				{
+					if(cm.length == 5)
+						return true;
+					else
+					{
+						System.out.println(SintaxisProblem);
+						return false;
+					}
+				}
+				else
+				{
+					System.out.println("Комманда " + cm[1] + " только для натуральных чисел + {0} (BigN)");
+					return false;
+				}
+			}
 			if( nums.get(cm[0]).getClass() != BigN.class || nums.get(cm[2]).getClass() != BigN.class )
 			{
 				result = false;
 				System.out.println("Комманда " + cm[1] + " только для натуральных чисел + {0} (BigN)");
 			}
-			if(result && cm[1].toLowerCase().equals("multiplyby10x"))
-				return true;
 			if(result && cm[1].toLowerCase().equals("subtructbyk"))
 			{
 				if(cm.length == 6 && nums.containsKey(cm[2]) && nums.containsKey(cm[3]) && nums.get(cm[0]).getClass() == nums.get(cm[2]).getClass() && nums.get(cm[0]).getClass() == nums.get(cm[3]).getClass()) //a subtructByK b d to c
