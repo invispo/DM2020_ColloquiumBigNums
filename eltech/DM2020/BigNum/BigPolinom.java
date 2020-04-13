@@ -226,27 +226,26 @@ public class BigPolinom
 			return -1;
     }
 
-	//Сложение двух полиномов
-	public BigPolinom add(BigPolinom other)
+    public BigPolinom add(BigPolinom other)
 	{
-		int i;
+        int i;
+        BigQ temp1 = new BigQ("0/1");
+        BigQ temp2 = new BigQ("0/1");
+        BigQ zero = new BigQ("0/1");
 		BigPolinom result = new BigPolinom();
-		i = 0;
-		for (i = 0; i < factors.size() && i < other.factors.size() ; i++)
-			result.factors.set(i, this.factors.get(i).multiply(other.factors.get(i)) );
-		while (i < this.factors.size())
-		{
-			result.factors.set(i, this.factors.get(i) );
-			i++;
-		}
-		while (i < other.factors.size())
-		{
-			result.factors.set(i, other.factors.get(i) );
-			i++;
-		}
-		return result;
-	}
 
+        for (i = 0; i < this.factors.size() || i < other.factors.size(); ++i)
+            result.factors.add(zero);
+
+        for (i = 0; i < this.factors.size() || i < other.factors.size(); i++)
+        {
+            temp1 = (i < this.factors.size() ? this.factors.get(i) : zero);
+            temp2 = (i < other.factors.size() ? other.factors.get(i) : zero);
+            result.factors.set(i, temp1.add(temp2));
+        }
+
+        return result;
+    }
 
     public BigPolinom subtract(BigPolinom other)
 	{
@@ -280,7 +279,7 @@ public class BigPolinom
 
         for(i = 0; i < this.factors.size(); ++i)
             for(j = 0; j < other.factors.size(); ++j)
-                result.factors.set(i+j, result.factors.get(i+j).add(this.factors.get(i).multiply(other.factors.get(j))));
+                result.factors.set(i+j, result.factors.get(i+j).add(this.factors.get(i).multiply(other.factors.get(j)));
 
         return result;
 	}
