@@ -506,7 +506,7 @@ public class BigN
     * @version 1
     * @author Ручкин Даниил
     */
-	public boolean checkParity() 
+	public boolean isEven() 
 	{
 		if( this.value.get(0) % 2 == 0)
 			return true;
