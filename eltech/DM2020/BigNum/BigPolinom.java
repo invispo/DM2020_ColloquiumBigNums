@@ -248,8 +248,7 @@ public class BigPolinom
 	}
 
 
-    //Вычитание двух полиномов
-	public BigPolinom subtract(BigPolinom other)
+    public BigPolinom subtract(BigPolinom other)
 	{
         int i;
         BigQ temp1 = new BigQ("0/1");
@@ -281,7 +280,7 @@ public class BigPolinom
 
         for(i = 0; i < this.factors.size(); ++i)
             for(j = 0; j < other.factors.size(); ++j)
-                result.factors.set(i+j, this.factors.get(i).multiply(other.factors.get(j)));
+                result.factors.set(i+j, result.factors.get(i+j).add(this.factors.get(i).multiply(other.factors.get(j))));
 
         return result;
 	}
