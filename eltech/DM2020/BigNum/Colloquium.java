@@ -2,6 +2,10 @@ package eltech.DM2020.BigNum;
 
 import java.util.*;
 import java.math.*;
+import java.lang.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
 
 /**
 * Класс, который содержит интерфейс
@@ -166,12 +170,12 @@ public class Colloquium
 					checkPositive(cm);
 					break;
 				}
-				case"getcoefathighestdegree":
+				case "getcoefathighestdegree":
 				{
 					getCoefAtHighestDegree(cm);
 					break;
 				}
-				case"derivative":
+				case "derivative":
 				{
 					derivative(cm);
 					break;
@@ -206,7 +210,7 @@ public class Colloquium
 		boolean result = true;
 		if(cm[0].equals("?") || cm[0].toLowerCase().equals("help"))
 		{
-			System.out.println(help());
+			help();
 			return false;
 		}
 		if(cm.length < 2 )
@@ -357,10 +361,18 @@ public class Colloquium
 		return result;
 	}
 	
-	private static String help()
+	private static void help()
 	{
-		String S = "\nЧтобы ввести полином надо выполнить комманду:\na input as BigPolinom\nПосле этого можно ввести, напрмер это:\n(35255)*x^6 + 1524634x^4+ (732/-2612)x^5 +(2623/36324)x^3+(-52163/2521)x^7 + (-51268235)x^2 +132152*x + (-1513262/-15612)\nВведи ещё 1 полином\nb input as BigPolinom\nДалее можешь выполнять действия, например:\na add b to c\nили\na subtract b to c\nили\na multiply b to c\nили\na divide b to c\nили\na mod b to c\nПосле этого можно вывести результат:\nc output\n(в windows можно вставлять в консоль с помощью ПКМ или нажать в верхнем левом углу -> изменить -> вставить)\nexit = выйти\n\n";
-		return S;
+		String line;
+		try (BufferedReader inFile = new BufferedReader(new InputStreamReader( new FileInputStream("ReadMe.txt"), "UTF-8")))
+		{
+			while ( (line = inFile.readLine()) != null )
+				System.out.println(line);
+		}
+		catch(Throwable t)
+		{
+			System.out.println(t);
+		}
 	}
 	
 	private static void input(String[] cm)

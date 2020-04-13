@@ -39,13 +39,13 @@
 4.1)BigPolinom.сложение
 4.2)BigPolinom.вычитание
 4.3)BigPolinom.УмножениеНаРацЧисло
-4.4)BigPolinom.УмножитьНа x^k -
-4.5)BigPolinom.getСтаршийКоефициент -
-4.6)BigPolinom.getСтепень -
+4.4)BigPolinom.УмножитьНа x^k +
+4.5)BigPolinom.getСтаршийКоефициент +
+4.6)BigPolinom.getСтепень +
 4.7)BigPolinom.умножение
 4.8)BigPolinom.деление
 4.9)BigPolinom.mod
 4.10)BigPolinom.НОД
-4.11)BigPolinom.Производная -
+4.11)BigPolinom.Производная +
 4.12)BigPolinom.Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей
 4.13)BigPolinom.Преобразование многочлена — кратные корни в простые
