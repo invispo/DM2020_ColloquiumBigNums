@@ -1,4 +1,4 @@
-package eltech.DM2020.BigNum;
+package BigNum;
 
 import java.util.*;
 
@@ -225,99 +225,7 @@ public class BigPolinom
 		else
 			return -1;
     }
-	
-    /**
-    * Получение старшей степени полинома
-    *
-    * @return int - 0 максимальная степень полинома
-    *
-    * @version 1
-    * @author Батищев Игорь
-    */
-    public int getDegree()
-    {
-		return this.factors.size()-1;
-    }
-	
-    /**
-    * Получение коэффициента при старшей степени полинома
-    *
-    * @return BigQ - коэффициент при старшей степени полинома
-    *
-    * @version 1
-    * @author Батищев Игорь
-    */
-    public BigQ getCoefAtHighestDegree()
-    {
-		return this.factors.get(this.getDegree()).clone();
-    }
-	
-	/**
-    * Производная многочлена
-    *
-    * @return BigPolinom result - производная
-    *
-    * @version 1
-    * @author
-    */
-    public BigPolinom derivative()
-    {
-		int i, n;
-		BigPolinom result = new BigPolinom();
-		n = this.factors.size();
-		if(n == 1)
-		{
-			result.factors.add(new BigQ("0"));
-			return result;
-		}
-		for (i = 1; i < n; i++)
-			result.factors.add( this.factors.get(i).multiply( new BigQ( Integer.valueOf(i).toString() ) ) );
-		return result;
-    }
-	
-	/**
-    * Умножение многочлена на x^k
-    *
-    * @return BigPolinom result - полином, умноженный на x^k
-    *
-    * @version 1
-    * @author
-    */
-    public BigPolinom multiplyByXpowK(int k) throws ArithmeticException
-    {
-		
-		int i, n, j;
-		if(k < 0)
-			throw new ArithmeticException("Полином нельзя умножать на x^k, где k = " + k + " - отрицательное число\n");
-		BigPolinom result = new BigPolinom();
-		n = this.factors.size();
-		for(i = 0; i < k; i++)
-			result.factors.add( new BigQ("0") );
-		for (j = 0; j < n; j++)
-			result.factors.add( this.factors.get(j).clone() );
-		return result;
-    }
-	
-	/**
-    * Клонирование объекта
-	*
-    * @return копию BigPolinom
-    *
-    * @version 1
-    * @author
-    */
-	@Override
-	public BigPolinom clone() 
-	{
-		int i, n;
-		BigPolinom result = new BigPolinom();
-		n = this.factors.size();
-		for(i = 0; i < n; i++)
-			result.factors.add( this.factors.get(i).clone() );
-		return result;
-	}
 
-<<<<<<< HEAD
     /**
     * Получение старшей степени полинома
     *
@@ -350,7 +258,7 @@ public class BigPolinom
     * @return BigPolinom result - производная
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigPolinom derivative()
     {
@@ -373,7 +281,7 @@ public class BigPolinom
     * @return BigPolinom result - полином, умноженный на x^k
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigPolinom multiplyByXpowK(int k) throws ArithmeticException
     {
@@ -396,7 +304,7 @@ public class BigPolinom
     * @return копию BigPolinom
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
 	@Override
 	public BigPolinom clone()
@@ -409,33 +317,6 @@ public class BigPolinom
 		return result;
 	}
 
-    public BigPolinom add(BigPolinom other)
-	{
-        int i;
-        BigQ temp1 = new BigQ("0/1");
-        BigQ temp2 = new BigQ("0/1");
-        BigQ zero = new BigQ("0/1");
-		BigPolinom result = new BigPolinom();
-
-        for (i = 0; i < this.factors.size() || i < other.factors.size(); ++i)
-            result.factors.add(zero);
-
-        for (i = 0; i < this.factors.size() || i < other.factors.size(); i++)
-        {
-            temp1 = (i < this.factors.size() ? this.factors.get(i) : zero);
-            temp2 = (i < other.factors.size() ? other.factors.get(i) : zero);
-<<<<<<< HEAD
-            result.factors.set(i, temp1.add(temp2));
-        }
-
-        for (i = result.factors.size()-1; result.factors.get(i).isZero() && i > 0; --i)
-            result.factors.remove(i);
-
-        return result;
-    }
-
-    public BigPolinom subtract(BigPolinom other)
-=======
 	/**
     * Сложение полиномов
 	*
@@ -469,7 +350,7 @@ public class BigPolinom
 
         return result;
 	}
-	
+
 	/**
     * Вычитания полиномов
 	*
@@ -481,39 +362,10 @@ public class BigPolinom
     * @author Яловега Никита
     */
 	public BigPolinom subtract(BigPolinom other)
->>>>>>> upstream/master
 	{
-        int i;
-        BigQ temp1 = new BigQ("0/1");
-        BigQ temp2 = new BigQ("0/1");
-        BigQ zero = new BigQ("0/1");
-		BigPolinom result = new BigPolinom();
-
-        for (i = 0; i < this.factors.size() || i < other.factors.size(); ++i)
-            result.factors.add(zero);
-
-        for (i = 0; i < this.factors.size() || i < other.factors.size(); i++)
-        {
-            temp1 = (i < this.factors.size() ? this.factors.get(i) : zero);
-            temp2 = (i < other.factors.size() ? other.factors.get(i) : zero);
-            result.factors.set(i, temp1.subtract(temp2));
-        }
-
-        for (i = result.factors.size()-1; result.factors.get(i).isZero() && i > 0; --i)
-            result.factors.remove(i);
-
-=======
-            result.factors.set(i, temp1.subtract(temp2));
-        }
-
->>>>>>> upstream/master
-        return result;
+        return this.add(other.multiplyByK(new BigQ("-1")));
 	}
-<<<<<<< HEAD
 
-	//Умножение двух полиномов
-=======
-	
 	/**
     * Умножение полиномов
 	*
@@ -524,7 +376,6 @@ public class BigPolinom
     * @version 1
     * @author Яловега Никита
     */
->>>>>>> upstream/master
 	public BigPolinom multiply(BigPolinom other)
 	{
         int i,j;
@@ -540,44 +391,6 @@ public class BigPolinom
         return result;
 	}
 
-<<<<<<< HEAD
-	//Деление двух полиномов
-	public MyResult divide(BigPolinom other)
-	{
-        int i,j;
-        BigPolinom q = new BigPolinom();
-        BigPolinom temp_pol = new BigPolinom();
-        BigPolinom r = this.clone();
-        BigQ temp = new BigQ("0/1");
-        BigQ zero = new BigQ("0/1");
-
-        if (this.factors.size() >= other.factors.size())
-        {
-
-            for(i = 0; i <= this.factors.size()-other.factors.size(); ++i)
-                q.factors.add(zero);
-
-        	while (r.factors.size() > 0 && r.factors.size() >= other.factors.size())
-            {
-                temp = (r.factors.get(r.factors.size()-1)).divide(other.factors.get(other.factors.size()-1));
-
-                for(i = 0; i <= r.factors.size()-other.factors.size(); ++i)
-                    temp_pol.factors.add(zero);
-
-                temp_pol.factors.set(r.factors.size()-other.factors.size(), temp);
-
-                q = q.add(temp_pol);
-        		r = r.subtract(other.multiply(temp_pol));
-                temp_pol.factors.clear();
-        	}
-
-        }
-    	return new MyResult(q,r);
-    }
-
-
-	//Деление по модулю двух полиномов
-=======
 	/**
     * Метод, который необходим для методов divide и mod
 	*
@@ -613,14 +426,14 @@ public class BigPolinom
                 temp_pol.factors.set(r.factors.size()-other.factors.size(), temp);
 
                 q = q.add(temp_pol);
-        		r = r.subtract(other.multiply(temp_pol));
+        		    r = r.subtract(other.multiply(temp_pol));
                 temp_pol.factors.clear();
         	}
 
         }
     	return new Case(q, r);
 	}
-	
+
 	/**
     * Деление полиномов с остатком
 	*
@@ -635,7 +448,7 @@ public class BigPolinom
 	{
 		return this.divideUniversal(other).getFirst();
 	}
-	
+
 	/**
     * Вычисление остатка при делении полиномов
 	*
@@ -646,7 +459,6 @@ public class BigPolinom
     * @version 1
     * @author Яловега Никита
     */
->>>>>>> upstream/master
 	public BigPolinom mod(BigPolinom other)
 	{
 		return this.divideUniversal(other).getSecond();
@@ -671,8 +483,6 @@ public class BigPolinom
 			result.factors.add(this.factors.get(i).multiply(x) );
 		return result;
 	}
-<<<<<<< HEAD
-=======
 
 	/**
     * Класс, который необходим для метода divideUniversal
@@ -680,28 +490,28 @@ public class BigPolinom
     * @version 1
     * @author Яловега Никита
     */
-	private class Case 
+	private class Case
 	{
 		private BigPolinom first;
 		private BigPolinom second;
 
-		public Case(BigPolinom first, BigPolinom second) 
+		public Case(BigPolinom first, BigPolinom second)
 		{
 			this.first = first;
 			this.second = second;
 		}
 
-		public BigPolinom getFirst() 
+		public BigPolinom getFirst()
 		{
 			return first;
 		}
 
-		public BigPolinom getSecond() 
+		public BigPolinom getSecond()
 		{
 			return second;
 		}
 	}
-	
+
 	public String gcdAndLcm()
 	{
 		int i;
@@ -711,7 +521,7 @@ public class BigPolinom
 		BigPolinom result = this.clone();
 		for (i = 0; i < factors.size(); i++)
 		{
-			if(temp.isZero() && !this.factors.get(i).isZero()) 
+			if(temp.isZero() && !this.factors.get(i).isZero())
 			{
 				temp.getP().setNumber(this.factors.get(i).getP().getNumber());
 				temp.getQ().setNumber(this.factors.get(i).getQ().getNumber());
@@ -730,5 +540,4 @@ public class BigPolinom
 		resultString = temp.toString() + "(" + result.toString() + ")";
 		return resultString;
 	}
->>>>>>> upstream/master
 }
