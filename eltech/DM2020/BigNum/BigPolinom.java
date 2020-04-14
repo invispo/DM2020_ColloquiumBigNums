@@ -325,7 +325,7 @@ public class BigPolinom
     * @return BigPolinom result - результат сложения
     *
     * @version 3
-    * @author Яловега Николай, Ванеев Андрей, Семенов Алексей
+    * @author Яловега Никита, Ванеев Андрей, Семенов Алексей
     */
 	public BigPolinom add(BigPolinom other)
 	{
@@ -359,7 +359,7 @@ public class BigPolinom
     * @return BigPolinom result - результат вычитания
     *
     * @version 1
-    * @author Яловега Николай
+    * @author Яловега Никита
     */
 	public BigPolinom subtract(BigPolinom other)
 	{
@@ -390,7 +390,7 @@ public class BigPolinom
     * @return BigPolinom result - результат вычитания
     *
     * @version 1
-    * @author Яловега Николай
+    * @author Яловега Никита
     */
 	public BigPolinom multiply(BigPolinom other)
 	{
@@ -415,7 +415,7 @@ public class BigPolinom
     * @return BigPolinom result - результат деления
     *
     * @version 1
-    * @author Яловега Николай
+    * @author Яловега Никита
     */
 	private Case divideUniversal(BigPolinom other)
 	{
@@ -458,7 +458,7 @@ public class BigPolinom
     * @return BigPolinom result - результат деления
     *
     * @version 1
-    * @author Яловега Николай
+    * @author Яловега Никита
     */
 	public BigPolinom divide(BigPolinom other)
 	{
@@ -473,7 +473,7 @@ public class BigPolinom
     * @return BigPolinom result - остаток от деления
     *
     * @version 1
-    * @author Яловега Николай
+    * @author Яловега Никита
     */
 	public BigPolinom mod(BigPolinom other)
 	{
@@ -504,7 +504,7 @@ public class BigPolinom
     * Класс, который необходим для метода divideUniversal
 	*
     * @version 1
-    * @author Яловега Николай
+    * @author Яловега Никита
     */
 	private class Case 
 	{
