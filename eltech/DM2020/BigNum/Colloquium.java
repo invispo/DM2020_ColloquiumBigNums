@@ -204,6 +204,14 @@ public class Colloquium
 							System.out.println(cm[1] + " только для полиномов");
 						break;
 					}
+					case "gcdandlcm":
+					{
+						if(nums.get(cm[0]).getClass() == BigPolinom.class)
+							System.out.println( ((BigPolinom)nums.get(cm[0])).gcdAndLcm() );
+						else
+							System.out.println(cm[1] + " только для полиномов");
+						break;
+					}
 					default:
 					{
 						System.out.println("Нет такой комманды: " + cm[1]);
