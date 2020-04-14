@@ -94,7 +94,7 @@ public class BigPolinom
 	* @param BigQ one - большое рациональное число
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	public BigPolinom(BigQ one) throws IllegalArgumentException
 	{
@@ -111,7 +111,7 @@ public class BigPolinom
     * @return String - представление полинома в виде строки
 	* 
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	@Override
 	public String toString()
@@ -151,7 +151,7 @@ public class BigPolinom
     * @return boolean - true, если числитель многочлен имеет степень 0 и коэффициент при нулевой степени равен нулю; иначе false
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	public boolean isZero()
 	{
@@ -165,7 +165,7 @@ public class BigPolinom
     * @return BigN result - натуральное число
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigN toBigN() throws ArithmeticException
     {
@@ -181,7 +181,7 @@ public class BigPolinom
     * @return BigZ result - целое число
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigZ toBigZ() throws ArithmeticException
     {
@@ -197,7 +197,7 @@ public class BigPolinom
     * @return BigQ result - рациональное число
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigQ toBigQ() throws ArithmeticException
     {
@@ -213,7 +213,7 @@ public class BigPolinom
     * @return int - 0 если степени полиномов равны, -1 если степень исходного полинома меньше other, иначе 1
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public int compareTo(BigPolinom other)
     {
@@ -258,7 +258,7 @@ public class BigPolinom
     * @return BigPolinom result - производная
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigPolinom derivative()
     {
@@ -281,7 +281,7 @@ public class BigPolinom
     * @return BigPolinom result - полином, умноженный на x^k
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigPolinom multiplyByXpowK(int k) throws ArithmeticException
     {
@@ -304,7 +304,7 @@ public class BigPolinom
     * @return копию BigPolinom
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
 	@Override
 	public BigPolinom clone() 

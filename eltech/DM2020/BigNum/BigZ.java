@@ -62,7 +62,7 @@ public class BigZ
     * @return Представление числа в виде строки
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	@Override
 	public String toString()
@@ -95,7 +95,7 @@ public class BigZ
     * @return int - 0 если равны, -1 если меньше other, 1 если больше other
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public int compareTo(BigZ other)
     {
@@ -114,7 +114,7 @@ public class BigZ
     * @return boolean - если нуль - вернёт true, иначе - false.
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	public boolean isZero()
 	{
@@ -183,7 +183,7 @@ public class BigZ
     * @return копию BigZ
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
 	@Override
 	public BigZ clone() 
@@ -260,7 +260,7 @@ public class BigZ
     * @return BigZ result - результат деления
 	*
 	* @version 1
-	* @author Пурин Артём, Семенов Алексей, Сычев Александр
+	* @author Пурин Артём, Семенов Алексей
 	*/
 	public BigZ multiply(BigZ other)
 	{
@@ -276,7 +276,7 @@ public class BigZ
     * @return BigZ result - результат деления
 	*
 	* @version 1
-	* @author Степовик Виктор, Логинова Алина, Сычев Александр
+	* @author Степовик Виктор, Логинова Алина
 	*/
 	public BigZ subtract(BigZ other)
 	{
@@ -305,7 +305,7 @@ public class BigZ
     * @return BigQ result - рациональное число
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigQ toBigQ()
     {
@@ -318,7 +318,7 @@ public class BigZ
     * @return BigPolinom result - полином 0-ой степени
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigPolinom toBigPolinom()
     {
@@ -331,7 +331,7 @@ public class BigZ
     * @return эквивалентность
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	@Override
     public boolean equals(Object otherObj) 

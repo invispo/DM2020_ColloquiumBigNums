@@ -129,7 +129,7 @@ public class BigN
     * @return Представление числа в виде строки
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author 
 	*/
 	@Override
 	public String toString()
@@ -262,7 +262,7 @@ public class BigN
     * @return эквивалентность
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author 
 	*/
 	@Override
     public boolean equals(Object otherObj) 
@@ -296,7 +296,7 @@ public class BigN
     * @return BigN result - результат умножения
     *
     * @version 1.1
-    * @author Семенов Алексей, Сычев Александр, Деменьтев Дмитрий
+    * @author Семенов Алексей, Деменьтев Дмитрий
     */
     public BigN multiplyBy10x(int x)
     {
@@ -343,7 +343,7 @@ public class BigN
     * @return исходное BigN, увеличенное на 1
     *
     * @version 2
-    * @author Семенов Алексей, Сычев Александр
+    * @author Семенов Алексей
     */
     public BigN increment()
     {
@@ -520,7 +520,7 @@ public class BigN
     * @return копию BigN
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
 	@Override
 	public BigN clone() 
@@ -549,7 +549,7 @@ public class BigN
     * @return BigQ result - рациональное число
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigQ toBigQ()
     {
@@ -562,7 +562,7 @@ public class BigN
     * @return BigPolinom result - полином 0-ой степени
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigPolinom toBigPolinom()
     {
