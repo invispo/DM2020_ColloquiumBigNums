@@ -23,6 +23,7 @@ public class Colloquium
 	
 	public static void start()
 	{
+		System.out.println("\tЕсли вы запускаете программу впервые, то советуем ввести комманду \"help\" или \"?\"");
 		InterFace();
 	}
 	
