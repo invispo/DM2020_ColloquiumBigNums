@@ -527,6 +527,35 @@ public class BigPolinom
 			return second;
 		}
 	}
+	
+	public String gcdAndLcm()
+	{
+		int i;
+		String resultString = "";
+		BigQ temp = new BigQ("0/1");
+		BigQ temp2 = new BigQ("0/1");
+		BigPolinom result = this.clone();
+		for (i = 0; i < factors.size(); i++)
+		{
+			if(temp.isZero() && !this.factors.get(i).isZero()) 
+			{
+				temp.getP().setNumber(this.factors.get(i).getP().getNumber());
+				temp.getQ().setNumber(this.factors.get(i).getQ().getNumber());
+			}
+			else
+			{
+				temp.getP().setNumber(temp.getP().getNumber().gcd(this.factors.get(i).getP().getNumber()));
+				temp.getQ().setNumber(temp.getQ().getNumber().lcm(this.factors.get(i).getQ().getNumber()));
+			}
+		}
+		for (i = 0; i < factors.size(); i++)
+		{
+			temp2 = this.factors.get(i).divide(temp);
+			result.factors.set(i,temp2.reduce());
+		}
+		resultString = temp.toString() + "(" + result.toString() + ")";
+		return resultString;
+	}
 }
 
 
