@@ -125,7 +125,7 @@ public class BigQ
     * @return boolean - знак рационального числа
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	public boolean checkPositive()
 	{
@@ -151,7 +151,7 @@ public class BigQ
     * @return эквивалентность
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	@Override
     public boolean equals(Object otherObj) 
@@ -170,7 +170,7 @@ public class BigQ
     * @return int - 0 если равны, -1 если меньше other, 1 если больше other
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public int compareTo(BigQ other)
     {
@@ -203,7 +203,7 @@ public class BigQ
     * @return BigN result - целое число
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigN toBigN() throws ArithmeticException
     {
@@ -223,7 +223,7 @@ public class BigQ
     * @return BigZ result - целое число
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigZ toBigZ() throws ArithmeticException
     {
@@ -244,7 +244,7 @@ public class BigQ
     * @return BigPolinom полином нулевой степени
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
     public BigPolinom toBigPolinom()
     {
@@ -352,6 +352,26 @@ public class BigQ
 		result.p = this.p.multiply(other.q);
 		result.reduce();
 		return result;
+	}
+	
+	public BigZ getP()
+	{
+		return p;
+	}
+	
+	public BigZ getQ()
+	{
+		return q;
+	}
+	
+	public void setP(BigZ other)
+	{
+		this.p = other;
+	}
+	
+	public void setQ(BigZ other)
+	{
+		this.q = other;
 	}
 }
 

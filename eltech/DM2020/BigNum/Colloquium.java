@@ -23,9 +23,17 @@ public class Colloquium
 	
 	public static void start()
 	{
+		System.out.println("\tЕсли вы запускаете программу впервые, то советуем ввести комманду \"help\" или \"?\"");
 		InterFace();
 	}
 	
+	/**
+	* Интерфес
+	*
+	* @version 0.00000000000000000000000000000000000000000000000000000052681921
+	*
+	* @author не важно
+	*/
 	private static void InterFace()
 	{
 		Object buffNum;
@@ -41,163 +49,179 @@ public class Colloquium
 		{
 			System.out.print("Input: ");
 			cm = in.nextLine().split(" ");
-			cm = format(cm);
-			if(!checkLegal(cm))
-				continue;
-			if(cm.length == 1)
+			try
 			{
-				buffS = cm[0];
-				cm = new String[2];
-				cm[1] = buffS;
+			
+				cm = format(cm);
+				if(!checkLegal(cm))
+					continue;
+				if(cm.length == 1)
+				{
+					buffS = cm[0];
+					cm = new String[2];
+					cm[1] = buffS;
+				}
+				switch(cm[1].toLowerCase())
+				{
+					case "quit":{}
+					case "exit":
+					{
+						EXIT = true;
+						break;
+					}
+					case "in":{}
+					case "input":
+					{
+						input(cm);
+						break;
+					}
+					case "out":{}
+					case "print":{}
+					case "output":
+					{
+						System.out.println(nums.get(cm[0]));
+						break;
+					}
+					case "ls":{}
+					case "list":
+					{
+						list();
+						break;
+					}
+					case "add":
+					{
+						add(cm);
+						break;
+					}
+					case "subtract":
+					{
+						subtract(cm);
+						break;
+					}
+					case "multiply":
+					{
+						multiply(cm);
+						break;
+					}
+					case "divide":
+					{
+						divide(cm);
+						break;
+					}
+					case "mod":
+					{
+						mod(cm);
+						break;
+					}
+					case "compare":{}
+					case "cmp":{}
+					case "compareto":
+					{
+						compareTo(cm);
+						break;
+					}
+					case "tobign":
+					{
+						toBigN(cm);
+						break;
+					}
+					case "tobigz":
+					{
+						toBigZ(cm);
+						break;
+					}
+					case "tobigq":
+					{
+						toBigQ(cm);
+						break;
+					}
+					case "tobigpolinom":
+					{
+						toBigPolinom(cm);
+						break;
+					}
+					case "iszero":
+					{
+						isZero(cm);
+						break;
+					}
+					case "gcd":
+					{
+						gcd(cm);
+						break;
+					}
+					case "lcm":
+					{
+						lcm(cm);
+						break;
+					}
+					case "multiplyby10x":
+					{
+						multiplyBy10x(cm);
+						break;
+					}
+					case "subtructbyk":
+					{
+						subtructByK(cm);
+						break;
+					}
+					case "dividebyotherten":
+					{
+						divideByOtherTen(cm);
+						break;
+					}
+					case "abs":
+					{
+						abs(cm);
+						break;
+					}
+					case "ispositive":{}
+					case "checkpositive":
+					{
+						checkPositive(cm);
+						break;
+					}
+					case "getcoefathighestdegree":
+					{
+						getCoefAtHighestDegree(cm);
+						break;
+					}
+					case "derivative":
+					{
+						derivative(cm);
+						break;
+					}
+					case "multiplybyxpowk":
+					{
+						multiplyByXpowK(cm);
+						break;
+					}
+					case "getdegree":
+					{
+						if(nums.get(cm[0]).getClass() == BigPolinom.class)
+							System.out.println( ((BigPolinom)nums.get(cm[0])).getDegree() );
+						else
+							System.out.println(cm[1] + " только для полиномов");
+						break;
+					}
+					case "gcdandlcm":
+					{
+						if(nums.get(cm[0]).getClass() == BigPolinom.class)
+							System.out.println( ((BigPolinom)nums.get(cm[0])).gcdAndLcm() );
+						else
+							System.out.println(cm[1] + " только для полиномов");
+						break;
+					}
+					default:
+					{
+						System.out.println("Нет такой комманды: " + cm[1]);
+						break;
+					}
+				}
 			}
-			switch(cm[1].toLowerCase())
+			catch(Throwable t)
 			{
-				case "quit":{}
-				case "exit":
-				{
-					EXIT = true;
-					break;
-				}
-				case "in":{}
-				case "input":
-				{
-					input(cm);
-					break;
-				}
-				case "out":{}
-				case "print":{}
-				case "output":
-				{
-					System.out.println(nums.get(cm[0]));
-					break;
-				}
-				case "ls":{}
-				case "list":
-				{
-					list();
-					break;
-				}
-				case "add":
-				{
-					add(cm);
-					break;
-				}
-				case "subtract":
-				{
-					subtract(cm);
-					break;
-				}
-				case "multiply":
-				{
-					multiply(cm);
-					break;
-				}
-				case "divide":
-				{
-					divide(cm);
-					break;
-				}
-				case "mod":
-				{
-					mod(cm);
-					break;
-				}
-				case "compare":{}
-				case "cmp":{}
-				case "compareto":
-				{
-					compareTo(cm);
-					break;
-				}
-				case "tobign":
-				{
-					toBigN(cm);
-					break;
-				}
-				case "tobigz":
-				{
-					toBigZ(cm);
-					break;
-				}
-				case "tobigq":
-				{
-					toBigQ(cm);
-					break;
-				}
-				case "tobigpolinom":
-				{
-					toBigPolinom(cm);
-					break;
-				}
-				case "iszero":
-				{
-					isZero(cm);
-					break;
-				}
-				case "gcd":
-				{
-					gcd(cm);
-					break;
-				}
-				case "lcm":
-				{
-					lcm(cm);
-					break;
-				}
-				case "multiplyby10x":
-				{
-					multiplyBy10x(cm);
-					break;
-				}
-				case "subtructbyk":
-				{
-					subtructByK(cm);
-					break;
-				}
-				case "dividebyotherten":
-				{
-					divideByOtherTen(cm);
-					break;
-				}
-				case "abs":
-				{
-					abs(cm);
-					break;
-				}
-				case "ispositive":{}
-				case "checkpositive":
-				{
-					checkPositive(cm);
-					break;
-				}
-				case "getcoefathighestdegree":
-				{
-					getCoefAtHighestDegree(cm);
-					break;
-				}
-				case "derivative":
-				{
-					derivative(cm);
-					break;
-				}
-				case "multiplybyxpowk":
-				{
-					multiplyByXpowK(cm);
-					break;
-				}
-				case "getdegree":
-				{
-					if(nums.get(cm[0]).getClass() == BigPolinom.class)
-						System.out.println( ((BigPolinom)nums.get(cm[0])).getDegree() );
-					else
-						System.out.println(cm[1] + " только для полиномов");
-					break;
-				}
-				default:
-				{
-					System.out.println("Нет такой комманды: " + cm[1]);
-					break;
-				}
+				System.out.println(SintaxisProblem);
 			}
 		}
 	}
