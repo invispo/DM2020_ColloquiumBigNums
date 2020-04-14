@@ -353,6 +353,26 @@ public class BigQ
 		result.reduce();
 		return result;
 	}
+	
+	public BigZ getP()
+	{
+		return p;
+	}
+	
+	public BigZ getQ()
+	{
+		return q;
+	}
+	
+	public void setP(BigZ other)
+	{
+		this.p = other;
+	}
+	
+	public void setQ(BigZ other)
+	{
+		this.q = other;
+	}
 }
 
 

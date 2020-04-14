@@ -342,6 +342,16 @@ public class BigZ
 		BigZ other = (BigZ)otherObj;
 		return this.Number.equals(other.Number) && this.checkPositive() == other.checkPositive();
     } 
+	
+	public BigN getNumber()
+	{
+		return Number;
+	}
+	
+	public void setNumber(BigN other)
+	{
+		this.Number = other;
+	}
 }
 
 
