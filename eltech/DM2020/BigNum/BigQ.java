@@ -125,7 +125,7 @@ public class BigQ
     * @return boolean - знак рационального числа
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	public boolean checkPositive()
 	{
@@ -138,27 +138,11 @@ public class BigQ
     * @return boolean - true, если числитель 0; false, если числитель не нуль
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author Афанасьева Антонина
 	*/
 	public boolean isZero()
 	{
 		return this.p.isZero();
-	}
-	
-	/**
-	* Абсолютное значение рационального числа
-	*
-    * @return BigQ - абсолютное значение рационального числа
-	*
-	* @version 1
-	* @author Сычев Александр
-	*/
-	public BigQ abs()
-	{
-		BigQ result = this.clone();
-		result.p = result.p.abs();
-		result.q = result.q.abs();
-		return result;
 	}
 	
 	/**
@@ -167,7 +151,7 @@ public class BigQ
     * @return эквивалентность
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	@Override
     public boolean equals(Object otherObj) 
@@ -177,6 +161,94 @@ public class BigQ
 		if( this.getClass() != otherObj.getClass() ) return false;
 		BigQ other = (BigQ)otherObj;
 		return this.p.equals(other.p) && this.q.equals(other.q);
+    }
+	
+    /**
+    * Сравнение двух больших рациональных чисел.
+    *
+    * @param BigQ other - второе число для сравнения с исходным
+    * @return int - 0 если равны, -1 если меньше other, 1 если больше other
+    *
+    * @version 1
+    * @author
+    */
+    public int compareTo(BigQ other)
+    {
+		BigQ buff = this.subtract(other);
+		if(buff.isZero())
+			return 0;
+		else if (buff.checkPositive())
+			return 1;
+		else 
+			return -1;
+    }
+	
+    /**
+    * Абсолютное значение рационального числа
+    *
+    * @return BigQ - абсолютное значение рационального числа
+    *
+    * @version 2
+    * @author Влад Балаганский
+    */
+    public BigQ abs()
+    {
+		return new BigQ( this.p.abs(), this.q.abs() );
+    }
+	
+	/**
+    * Конвертация в BigN
+	* Если BigQ отрицательное или знаменатель не равен единице, то бросает исключение
+    *
+    * @return BigN result - целое число
+    *
+    * @version 1
+    * @author
+    */
+    public BigN toBigN() throws ArithmeticException
+    {
+		if(this.isZero())
+			return new BigN("0");
+		if(this.checkPositive() == false)
+			throw new ArithmeticException("Нельзя перевести отрицательное число в натуральное + {0}\n");
+		if( !this.q.abs().equals( new BigZ("1") ) )
+			throw new ArithmeticException("Нельзя перевести рациональное число со знаменателем не равным 1 в натуральное число + {0}\n");
+		return this.p.abs().toBigN();
+    }
+	
+	/**
+    * Конвертация в BigZ
+	* Если у BigQ знаменатель не равен единице, то бросает исключение
+    *
+    * @return BigZ result - целое число
+    *
+    * @version 1
+    * @author
+    */
+    public BigZ toBigZ() throws ArithmeticException
+    {
+		if(this.isZero())
+			return new BigZ("0");
+		if( !this.q.abs().equals( new BigZ("1") ) )
+			throw new ArithmeticException("Нельзя перевести рациональное число со знаменателем не равным 1 в целое\n");
+		BigZ result = this.p.clone();
+		if( this.checkPositive() )
+			return result.abs();
+		else
+			return result.abs().multiplyByMinusOne();
+    }
+	
+	/**
+    * Конвертация в BigPolinom
+    *
+    * @return BigPolinom полином нулевой степени
+    *
+    * @version 1
+    * @author
+    */
+    public BigPolinom toBigPolinom()
+    {
+		return new BigPolinom( this );
     }
 
 	/**
@@ -280,6 +352,26 @@ public class BigQ
 		result.p = this.p.multiply(other.q);
 		result.reduce();
 		return result;
+	}
+	
+	public BigZ getP()
+	{
+		return p;
+	}
+	
+	public BigZ getQ()
+	{
+		return q;
+	}
+	
+	public void setP(BigZ other)
+	{
+		this.p = other;
+	}
+	
+	public void setQ(BigZ other)
+	{
+		this.q = other;
 	}
 }
 

@@ -62,7 +62,7 @@ public class BigZ
     * @return Представление числа в виде строки
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	@Override
 	public String toString()
@@ -88,13 +88,33 @@ public class BigZ
 		return isPositive;
 	}
 	
+    /**
+    * Сравнение двух больших целых чисел.
+    *
+    * @param BigZ other - второе число для сравнения с исходным
+    * @return int - 0 если равны, -1 если меньше other, 1 если больше other
+    *
+    * @version 1
+    * @author
+    */
+    public int compareTo(BigZ other)
+    {
+		BigZ buff = this.subtract(other);
+		if(buff.isZero())
+			return 0;
+		else if (buff.checkPositive())
+			return 1;
+		else 
+			return -1;
+    }
+	
 	/**
 	* Проверка на нуль
 	*
     * @return boolean - если нуль - вернёт true, иначе - false.
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	public boolean isZero()
 	{
@@ -163,7 +183,7 @@ public class BigZ
     * @return копию BigZ
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
 	@Override
 	public BigZ clone() 
@@ -240,7 +260,7 @@ public class BigZ
     * @return BigZ result - результат деления
 	*
 	* @version 1
-	* @author Пурин Артём, Семенов Алексей, Сычев Александр
+	* @author Пурин Артём, Семенов Алексей
 	*/
 	public BigZ multiply(BigZ other)
 	{
@@ -256,7 +276,7 @@ public class BigZ
     * @return BigZ result - результат деления
 	*
 	* @version 1
-	* @author Степовик Виктор, Логинова Алина, Сычев Александр
+	* @author Степовик Виктор, Логинова Алина
 	*/
 	public BigZ subtract(BigZ other)
 	{
@@ -280,12 +300,38 @@ public class BigZ
     }
 	
 	/**
+    * Конвертация в BigQ
+    *
+    * @return BigQ result - рациональное число
+    *
+    * @version 1
+    * @author
+    */
+    public BigQ toBigQ()
+    {
+		return new BigQ(this.clone(), new BigZ("1"));
+    }
+	
+	/**
+    * Конвертация в BigPolinom
+    *
+    * @return BigPolinom result - полином 0-ой степени
+    *
+    * @version 1
+    * @author
+    */
+    public BigPolinom toBigPolinom()
+    {
+		return new BigPolinom(this.toBigQ());
+    }
+	
+	/**
 	* Сравнение BigZ, согласно спецификации Java
 	*
     * @return эквивалентность
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author
 	*/
 	@Override
     public boolean equals(Object otherObj) 
@@ -296,6 +342,16 @@ public class BigZ
 		BigZ other = (BigZ)otherObj;
 		return this.Number.equals(other.Number) && this.checkPositive() == other.checkPositive();
     } 
+	
+	public BigN getNumber()
+	{
+		return Number;
+	}
+	
+	public void setNumber(BigN other)
+	{
+		this.Number = other;
+	}
 }
 
 

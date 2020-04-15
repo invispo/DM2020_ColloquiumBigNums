@@ -129,7 +129,7 @@ public class BigN
     * @return Представление числа в виде строки
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author 
 	*/
 	@Override
 	public String toString()
@@ -262,7 +262,7 @@ public class BigN
     * @return эквивалентность
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author 
 	*/
 	@Override
     public boolean equals(Object otherObj) 
@@ -296,7 +296,7 @@ public class BigN
     * @return BigN result - результат умножения
     *
     * @version 1.1
-    * @author Семенов Алексей, Сычев Александр, Деменьтев Дмитрий
+    * @author Семенов Алексей, Деменьтев Дмитрий
     */
     public BigN multiplyBy10x(int x)
     {
@@ -328,8 +328,9 @@ public class BigN
 	*/
 	public BigN subtructByK(BigN other, BigN k) throws ArithmeticException
 	{
-		if(this.compareTo(other.multiply(k)) >= 0 ){
-			BigN result = this.subtract(other.multiply(k));
+		BigN buff = other.multiply(k);
+		if(this.compareTo( buff ) >= 0 ){
+			BigN result = this.subtract( buff );
             return result;
 		}
 		else
@@ -342,7 +343,7 @@ public class BigN
     * @return исходное BigN, увеличенное на 1
     *
     * @version 2
-    * @author Семенов Алексей, Сычев Александр
+    * @author Семенов Алексей
     */
     public BigN increment()
     {
@@ -505,7 +506,7 @@ public class BigN
     * @version 1
     * @author Ручкин Даниил
     */
-	public boolean checkParity() 
+	public boolean isEven() 
 	{
 		if( this.value.get(0) % 2 == 0)
 			return true;
@@ -519,7 +520,7 @@ public class BigN
     * @return копию BigN
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
 	@Override
 	public BigN clone() 
@@ -541,7 +542,33 @@ public class BigN
     {
 		return new BigZ(this);
     }
-	
+
+	/**
+    * Конвертация в BigQ
+    *
+    * @return BigQ result - рациональное число
+    *
+    * @version 1
+    * @author
+    */
+    public BigQ toBigQ()
+    {
+		return new BigQ(this.toBigZ(), new BigZ("1"));
+    }
+
+	/**
+    * Конвертация в BigPolinom
+    *
+    * @return BigPolinom result - полином 0-ой степени
+    *
+    * @version 1
+    * @author
+    */
+    public BigPolinom toBigPolinom()
+    {
+		return new BigPolinom(this.toBigQ());
+    }
+
     /**
      * Вычисление первой цифры деления большего натурального на меньшее, домноженное на 10^k
      *
