@@ -30,7 +30,7 @@ public class Colloquium
 	/**
 	* Интерфес
 	*
-	* @version 0.00000000000000000000000000000000000000000000000000000052681921
+	* @version 0.00000000000000000000000000000000000000000000000000000052681922
 	*
 	* @author не важно
 	*/
@@ -276,7 +276,7 @@ public class Colloquium
 			else
 				return true;
 		}
-		if( cm[1].toLowerCase().equals("gcd") || cm[1].toLowerCase().equals("lcm") || cm[1].toLowerCase().equals("multiplyby10x") || cm[1].toLowerCase().equals("subtructbyk") || cm[1].toLowerCase().equals("dividebyotherten"))
+		if( cm[1].toLowerCase().equals("lcm") || cm[1].toLowerCase().equals("multiplyby10x") || cm[1].toLowerCase().equals("subtructbyk") || cm[1].toLowerCase().equals("dividebyotherten"))
 		{
 			if(cm[1].toLowerCase().equals("multiplyby10x")) // a multiplyBy10x [число] to c
 			{
@@ -750,6 +750,10 @@ public class Colloquium
 		{
 			if (nums.get(cm[0]).getClass() == BigN.class)
 				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).gcd( (BigN)nums.get(cm[2]) ) ) ;
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).gcd( (BigPolinom)nums.get(cm[2]) ) ) ;
+			else if(nums.get(cm[0]).getClass() == BigZ.class || nums.get(cm[0]).getClass() == BigQ.class)
+				System.out.println("Это только для BigN или для BigPolinom");
 			else
 				System.out.println("Error 404 in gcd: Failed successfully...");
 		}

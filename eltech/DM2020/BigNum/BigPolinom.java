@@ -23,68 +23,116 @@ public class BigPolinom
 	*
 	* @param String src - представление полинома в виде строки
 	*
-	* @version 1
+	* @version 2
 	* @author Семенов Алексей
 	*/
 	public BigPolinom(String src)
 	{
-		int n, thisPower, maxpower = 0;
-		String substr;
-		String[] str, powers;
+		int n, thisPower, maxpower = 0, i;
+		String[] str, powers, temp;
+		ArrayList<String> arrStr = new ArrayList<String>();
 		if(src == null)
 			throw new IllegalArgumentException("Неверный аргумент: строка не может быть не инициализированной\n");
 		if(src.equals(""))
 			throw new IllegalArgumentException("Неверный аргумент: строка не может быть пустой\n");
 		src = src.trim();
+		if(src.charAt(src.length()-1) == 'x')
+			src += " ";
 		src = src.replace("*", "");
 		src = src.replace(")", "");
 		src = src.replace("(", "");
+		src = src.replace("-", "+-");
+		src = src.replace("++", "+");
+		src = src.replace("/+", "/");
 		str = src.split("[+]");
 		for(n = 0; n < str.length; n++)
 		{
-			thisPower = 0;
-			if(str[n].indexOf("x^") != -1)
+			if(!str[n].trim().equals(""))
 			{
 				powers = str[n].split("x");
-				if(powers.length > 1)
-					thisPower = Integer.parseInt(powers[1].substring(1,powers[1].length()).trim());
+				if(powers.length == 1)
+				{
+					if(powers[0].trim().equals("") && str[n].indexOf("x") != -1)
+						arrStr.add("1x");
+					else if(str[n].indexOf("x") != -1)
+						arrStr.add(powers[0] + "x");
+					else
+						arrStr.add(powers[0]);
+				}
+				else if(powers[0].trim().equals("") && powers[1].trim().equals(""))
+					arrStr.add("1x");
+				else if(powers.length > 1)
+				{
+					if(powers[1].indexOf("-") == -1) arrStr.add(powers[0] + "x" + powers[1]);
+					else
+					{
+						arrStr.add(powers[0] + "x" + powers[1].substring(0,powers[1].indexOf("-")));
+						if(powers.length > 2)
+							arrStr.add(powers[1].substring(powers[1].indexOf("-"),powers[1].length()) + "x" + powers[2]);
+						else
+							arrStr.add(powers[1].substring(powers[1].indexOf("-"),powers[1].length()));
+					}
+				}
 			}
-			else if(str[n].indexOf("x") != -1)
-				thisPower = 1;
-			if(thisPower > maxpower) maxpower = thisPower;
-			//System.out.println(thisPower);
 		}
-		for(n = 0; n < maxpower+1; n++) factors.add(null);
-
-		//System.out.println(maxpower);
-		for(n = 0; n < str.length; n++)
+		for(n = 0; n < arrStr.size(); n++)
 		{
 			thisPower = 0;
-			if(str[n].indexOf("x^") != -1)
+			if(arrStr.get(n).indexOf("x^") != -1)
 			{
-				powers = str[n].split("x");
+				powers = arrStr.get(n).split("x");
 				if(powers.length > 1)
-					thisPower = Integer.parseInt(powers[1].substring(1,powers[1].length()).trim());
+				{
+					if(powers.length > 2)
+					{
+						temp = powers[1].split("-");
+						thisPower = Integer.parseInt(temp[0].substring(1,temp[0].length()).trim());
+						powers = str.clone();
+						
+					}
+					else
+						thisPower = Integer.parseInt(powers[1].substring(1,powers[1].length()).trim());
+				}
+			}
+			else if(arrStr.get(n).indexOf("x") != -1)
+				thisPower = 1;
+			if(thisPower > maxpower) maxpower = thisPower;
+		}
+		for(n = 0; n < maxpower+1; n++) factors.add(null);
+		
+		for(n = 0; n < arrStr.size(); n++)
+		{
+			thisPower = 0;
+			if(arrStr.get(n).indexOf("x^") != -1)
+			{
+				powers = arrStr.get(n).split("x");
+				if(powers.length > 1)
+				{
+					if(powers.length > 2)
+					{
+						temp = powers[1].split("[-]");
+						thisPower = Integer.parseInt(temp[0].substring(1,temp[0].length()).trim());
+					}
+					else
+						thisPower = Integer.parseInt(powers[1].substring(1,powers[1].length()).trim());
+				}
 				factors.set(thisPower, new BigQ( ( powers[0].trim().equals("") ? "1" : powers[0].trim() ) ));
 			}
-			else if(str[n].indexOf("x") != -1)
+			else if(arrStr.get(n).indexOf("x") != -1)
 			{
-				powers = str[n].split("x");
+				powers = arrStr.get(n).split("x");
 				thisPower = 1;
 				factors.set(thisPower, new BigQ(powers[0].trim()));
 			}
 			else
-				factors.set(0, new BigQ(str[n].trim()));
+				factors.set(0, new BigQ(arrStr.get(n).trim()));
 		}
-
+		
 		for(n = 0; n < maxpower+1; n++)
 		{
 			if(factors.get(n) == null)
 				factors.set(n, new BigQ("0"));
 		}
-
-		/*for(n = 0; n < maxpower+1; n++)			//Вывод степеней от 0 до maxpower
-			System.out.println(factors.get(n));*/
 	}
 
 	/**
@@ -539,5 +587,39 @@ public class BigPolinom
 		}
 		resultString = temp.toString() + "(" + result.toString() + ")";
 		return resultString;
+	}
+	
+	/**
+    * НОД многочленов
+	*
+	* @param BigPolinom other - второй многочлен, для поиска НОД с первым
+	*
+	* @return BigPolinom result - НОД многочленов
+	*
+    * @version 1
+    * @author 
+    */
+	public BigPolinom gcd(BigPolinom other)
+	{
+		BigPolinom buffThis = this.clone();
+        BigPolinom buffOther = other.clone();
+		while (!buffThis.isZero() && !buffOther.isZero())
+        {
+            if (buffThis.compareTo(buffOther) > 0) 
+			{
+				if(buffOther.factors.size() == 1)
+					return buffOther;
+                buffThis = buffThis.mod(buffOther);
+			}
+            else if(buffThis.compareTo(buffOther) < 0)
+			{
+				if(buffThis.factors.size() == 1)
+					return buffThis;
+                buffOther = buffOther.mod(buffThis);
+			}
+			else
+				buffThis = new BigPolinom("0");
+        }
+		return buffThis.add(buffOther);
 	}
 }
