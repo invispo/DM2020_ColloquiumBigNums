@@ -12,7 +12,7 @@ public class BigPolinom
 	/*Сами коэффициенты в полиноме - это рациональные числа и они хранятся в factors - это список. В 0ой ячейке младший коэффициент при x^0, в 1 - при x^1 и т. д.
 	Например: (-21521/261)x^3 + x^2 + 21121x + (16125/126), в 0ой - 16125/126, в 1ой - 21121, во 2ой - 1, в 3ей - -21521/261*/
 	private ArrayList<BigQ> factors = new ArrayList<BigQ>();
-	
+
 	private BigPolinom() {}
 
 	/**
@@ -55,7 +55,7 @@ public class BigPolinom
 			//System.out.println(thisPower);
 		}
 		for(n = 0; n < maxpower+1; n++) factors.add(null);
-		
+
 		//System.out.println(maxpower);
 		for(n = 0; n < str.length; n++)
 		{
@@ -76,17 +76,17 @@ public class BigPolinom
 			else
 				factors.set(0, new BigQ(str[n].trim()));
 		}
-		
+
 		for(n = 0; n < maxpower+1; n++)
 		{
 			if(factors.get(n) == null)
 				factors.set(n, new BigQ("0"));
 		}
-		
+
 		/*for(n = 0; n < maxpower+1; n++)			//Вывод степеней от 0 до maxpower
 			System.out.println(factors.get(n));*/
 	}
-	
+
 	/**
 	* Конструктор, с помощью которого можно инициализировать полином
 	* Если рациональное число one == null, то бросит исключение
@@ -102,14 +102,14 @@ public class BigPolinom
 			throw new IllegalArgumentException("Неверный аргумент: большое рациональное число должно быть инициализированно\n");
 		factors.add(one.clone());
 	}
-	
+
 	/**
 	* Вывод полинома в виде строки
 	* Выводиться должно так:
 	* (15123/2152)x^4 + (-1512/623)x^3 + 152623x^2 + (-21512)x + 12516
 	*
     * @return String - представление полинома в виде строки
-	* 
+	*
 	* @version 1
 	* @author
 	*/
@@ -144,7 +144,7 @@ public class BigPolinom
 		buffS = builder.toString();
 		return buffS.substring(0, buffS.length() - 3);
 	}
-	
+
 	/**
 	* Проверяет является ли многочлен нулём
 	*
@@ -157,7 +157,7 @@ public class BigPolinom
 	{
 		return factors.size() == 1 && factors.get(0).isZero();
 	}
-	
+
 	/**
     * Конвертация в BigN
 	* Если BigPolinom степени больше нуля или знаменатель коэффициента при нулевой степени не равен единице, или коэффициент при нулевой степени отрицательный, то бросит исключение
@@ -173,7 +173,7 @@ public class BigPolinom
 			throw new ArithmeticException("Нельзя перевести полином степени большей 0 в натуральное + {0}\n");
 		return this.factors.get(0).toBigN();
     }
-	
+
 	/**
     * Конвертация в BigZ
 	* Если BigPolinom степени больше нуля или знаменатель коэффициента при нулевой степени не равен единице, то бросит исключение
@@ -222,10 +222,10 @@ public class BigPolinom
 			return 0;
 		else if (buff > 0)
 			return 1;
-		else 
+		else
 			return -1;
     }
-	
+
     /**
     * Получение старшей степени полинома
     *
@@ -238,7 +238,7 @@ public class BigPolinom
     {
 		return this.factors.size()-1;
     }
-	
+
     /**
     * Получение коэффициента при старшей степени полинома
     *
@@ -251,7 +251,7 @@ public class BigPolinom
     {
 		return this.factors.get(this.getDegree()).clone();
     }
-	
+
 	/**
     * Производная многочлена
     *
@@ -274,7 +274,7 @@ public class BigPolinom
 			result.factors.add( this.factors.get(i).multiply( new BigQ( Integer.valueOf(i).toString() ) ) );
 		return result;
     }
-	
+
 	/**
     * Умножение многочлена на x^k
     *
@@ -285,7 +285,7 @@ public class BigPolinom
     */
     public BigPolinom multiplyByXpowK(int k) throws ArithmeticException
     {
-		
+
 		int i, n, j;
 		if(k < 0)
 			throw new ArithmeticException("Полином нельзя умножать на x^k, где k = " + k + " - отрицательное число\n");
@@ -297,7 +297,7 @@ public class BigPolinom
 			result.factors.add( this.factors.get(j).clone() );
 		return result;
     }
-	
+
 	/**
     * Клонирование объекта
 	*
@@ -307,7 +307,7 @@ public class BigPolinom
     * @author
     */
 	@Override
-	public BigPolinom clone() 
+	public BigPolinom clone()
 	{
 		int i, n;
 		BigPolinom result = new BigPolinom();
@@ -350,7 +350,7 @@ public class BigPolinom
 
         return result;
 	}
-	
+
 	/**
     * Вычитания полиномов
 	*
@@ -363,25 +363,9 @@ public class BigPolinom
     */
 	public BigPolinom subtract(BigPolinom other)
 	{
-        int i;
-        BigQ temp1 = new BigQ("0/1");
-        BigQ temp2 = new BigQ("0/1");
-        BigQ zero = new BigQ("0/1");
-		BigPolinom result = new BigPolinom();
-
-        for (i = 0; i < this.factors.size() || i < other.factors.size(); ++i)
-            result.factors.add(zero);
-
-        for (i = 0; i < this.factors.size() || i < other.factors.size(); i++)
-        {
-            temp1 = (i < this.factors.size() ? this.factors.get(i) : zero);
-            temp2 = (i < other.factors.size() ? other.factors.get(i) : zero);
-            result.factors.set(i, temp1.subtract(temp2));
-        }
-
-        return result;
+        return this.add(other.multiplyByK(new BigQ("-1")));
 	}
-	
+
 	/**
     * Умножение полиномов
 	*
@@ -442,14 +426,14 @@ public class BigPolinom
                 temp_pol.factors.set(r.factors.size()-other.factors.size(), temp);
 
                 q = q.add(temp_pol);
-        		r = r.subtract(other.multiply(temp_pol));
+        		    r = r.subtract(other.multiply(temp_pol));
                 temp_pol.factors.clear();
         	}
 
         }
     	return new Case(q, r);
 	}
-	
+
 	/**
     * Деление полиномов с остатком
 	*
@@ -464,7 +448,7 @@ public class BigPolinom
 	{
 		return this.divideUniversal(other).getFirst();
 	}
-	
+
 	/**
     * Вычисление остатка при делении полиномов
 	*
@@ -506,28 +490,28 @@ public class BigPolinom
     * @version 1
     * @author Яловега Никита
     */
-	private class Case 
+	private class Case
 	{
 		private BigPolinom first;
 		private BigPolinom second;
 
-		public Case(BigPolinom first, BigPolinom second) 
+		public Case(BigPolinom first, BigPolinom second)
 		{
 			this.first = first;
 			this.second = second;
 		}
 
-		public BigPolinom getFirst() 
+		public BigPolinom getFirst()
 		{
 			return first;
 		}
 
-		public BigPolinom getSecond() 
+		public BigPolinom getSecond()
 		{
 			return second;
 		}
 	}
-	
+
 	public String gcdAndLcm()
 	{
 		int i;
@@ -537,7 +521,7 @@ public class BigPolinom
 		BigPolinom result = this.clone();
 		for (i = 0; i < factors.size(); i++)
 		{
-			if(temp.isZero() && !this.factors.get(i).isZero()) 
+			if(temp.isZero() && !this.factors.get(i).isZero())
 			{
 				temp.getP().setNumber(this.factors.get(i).getP().getNumber());
 				temp.getQ().setNumber(this.factors.get(i).getQ().getNumber());
@@ -557,8 +541,3 @@ public class BigPolinom
 		return resultString;
 	}
 }
-
-
-
-
-
