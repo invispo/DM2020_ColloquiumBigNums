@@ -318,9 +318,24 @@ public class BigN
     }
     
 	/**
+	 * умножение BigN на число k
+	 *
+	 * @param BigN k - множитель
+	 * @return BigN result - результат умножения BigN на k
+	 *
+	 * @version 1
+	 * @author Кашапова Ольга
+	*/
+	public BigN multiplyByK(BigN k)
+	{
+		BigN result = this.multiply(k);
+		return result;
+	}
+	
+	/**
 	 * вычитание из BigN другого BigN, умноженного на k(если получится положительный результат)
 	 *
-	 * @param BigN other - вычитаемое, BigN k - коофициент домножения other
+	 * @param BigN other - вычитаемое, BigN k - коэффициент домножения other
 	 * @return BigN result - результат вычитания из this other*k
 	 *
 	 * @version 1
