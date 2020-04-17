@@ -18,5 +18,5 @@ https://jdk.java.net/14/
 
 
 Если всё перечисленное выше лень делать, то можно скачать программу с портированной java, и тогда не надо ничего устанавливать. Но будет весить намного больше (~150 Мб), т.к. в архив включен jdk. Скачайте:
-https://drive.google.com/open?id=1AEehxI_Lk46kbSKWPNQ3Hq5Dt1eGi3y3 
+https://drive.google.com/open?id=1EreEkuQBUCudnJ_9XL35tbBLHDm5GwfE
 И просто запустите Start.bat
