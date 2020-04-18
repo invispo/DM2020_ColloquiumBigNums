@@ -5,7 +5,6 @@ import java.util.*;
 /**
 * Класс, который позволяет манипулировать с полиномами с рациональными коэффициентами
 * @version 0.01
-* @author Ванеев Андрей, Сычев Александр
 */
 public class BigPolinom
 {
@@ -49,12 +48,14 @@ public class BigPolinom
 		{
 			if(!str[n].trim().equals(""))
 			{
+				if(str[n].trim().equals("x"))
+					str[n] = "1x";
 				powers = str[n].split("x");
+				if(powers[0].trim().equals("-") || powers[0].trim().equals(""))
+					powers[0] += "1";
 				if(powers.length == 1)
 				{
-					if(powers[0].trim().equals("") && str[n].indexOf("x") != -1)
-						arrStr.add("1x");
-					else if(str[n].indexOf("x") != -1)
+					if(str[n].indexOf("x") != -1)
 						arrStr.add(powers[0] + "x");
 					else
 						arrStr.add(powers[0]);
@@ -62,17 +63,7 @@ public class BigPolinom
 				else if(powers[0].trim().equals("") && powers[1].trim().equals(""))
 					arrStr.add("1x");
 				else if(powers.length > 1)
-				{
-					if(powers[1].indexOf("-") == -1) arrStr.add(powers[0] + "x" + powers[1]);
-					else
-					{
-						arrStr.add(powers[0] + "x" + powers[1].substring(0,powers[1].indexOf("-")));
-						if(powers.length > 2)
-							arrStr.add(powers[1].substring(powers[1].indexOf("-"),powers[1].length()) + "x" + powers[2]);
-						else
-							arrStr.add(powers[1].substring(powers[1].indexOf("-"),powers[1].length()));
-					}
-				}
+					arrStr.add(powers[0] + "x" + powers[1].trim());
 			}
 		}
 		for(n = 0; n < arrStr.size(); n++)
@@ -83,15 +74,7 @@ public class BigPolinom
 				powers = arrStr.get(n).split("x");
 				if(powers.length > 1)
 				{
-					if(powers.length > 2)
-					{
-						temp = powers[1].split("-");
-						thisPower = Integer.parseInt(temp[0].substring(1,temp[0].length()).trim());
-						powers = str.clone();
-						
-					}
-					else
-						thisPower = Integer.parseInt(powers[1].substring(1,powers[1].length()).trim());
+					thisPower = Integer.parseInt(powers[1].substring(1, powers[1].trim().length()));
 				}
 			}
 			else if(arrStr.get(n).indexOf("x") != -1)
@@ -108,15 +91,9 @@ public class BigPolinom
 				powers = arrStr.get(n).split("x");
 				if(powers.length > 1)
 				{
-					if(powers.length > 2)
-					{
-						temp = powers[1].split("[-]");
-						thisPower = Integer.parseInt(temp[0].substring(1,temp[0].length()).trim());
-					}
-					else
-						thisPower = Integer.parseInt(powers[1].substring(1,powers[1].length()).trim());
+					thisPower = Integer.parseInt(powers[1].substring(1,powers[1].trim().length()));
 				}
-				factors.set(thisPower, new BigQ( ( powers[0].trim().equals("") ? "1" : powers[0].trim() ) ));
+				factors.set(thisPower, new BigQ( powers[0].trim() ));
 			}
 			else if(arrStr.get(n).indexOf("x") != -1)
 			{
@@ -621,5 +598,33 @@ public class BigPolinom
 				buffThis = new BigPolinom("0");
         }
 		return buffThis.add(buffOther);
+	}
+	
+	/**
+    * Метод перевода кратных корней в простые
+	*
+    * @version 1
+    * @author 
+    */
+	public BigPolinom rootsToSimple()
+	{
+		BigPolinom result = new BigPolinom();
+		BigQ zero = new BigQ("0/1");
+		int minPower = this.factors.size(), n;
+		for(n = 0; n < minPower; n++)
+		{
+			if(!this.factors.get(n).isZero())
+				minPower = n;
+		}
+		if(minPower > 1)
+		{
+			for(n = 0; n < this.factors.size()-minPower+1; n++)
+				result.factors.add(zero);
+			for(n = minPower; n < this.factors.size(); n++)
+				result.factors.set(n-minPower+1, this.factors.get(n));
+		}
+		else
+			result = this.clone();
+		return result;
 	}
 }

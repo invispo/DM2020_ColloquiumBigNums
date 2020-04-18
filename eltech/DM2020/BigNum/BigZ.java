@@ -253,6 +253,20 @@ public class BigZ
 		return result;
 	}
 	
+    /**
+    * НОД
+    *
+    * @param BigZ other - второе число для нахождения нод
+    * @return BigZ result - нод(this; other)
+    *
+    * @version 1
+    * @author Деменьтев Дмитрий
+    */
+    public BigZ gcd(BigZ other)
+    {
+		return new BigZ( this.Number.gcd(other.Number) );
+    }
+	
 	/**
 	* Умножение целых чисел
 	*

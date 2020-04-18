@@ -47,7 +47,7 @@ public class Colloquium
 		String[] cm;
 		while(!EXIT)
 		{
-			System.out.print("Input: ");
+			System.out.print("> ");
 			cm = in.nextLine().split(" ");
 			try
 			{
@@ -63,6 +63,7 @@ public class Colloquium
 				}
 				switch(cm[1].toLowerCase())
 				{
+					case "q":{}
 					case "quit":{}
 					case "exit":
 					{
@@ -88,26 +89,31 @@ public class Colloquium
 						list();
 						break;
 					}
+					case "+":{}
 					case "add":
 					{
 						add(cm);
 						break;
 					}
+					case "-":{}
 					case "subtract":
 					{
 						subtract(cm);
 						break;
 					}
+					case "*":{}
 					case "multiply":
 					{
 						multiply(cm);
 						break;
 					}
+					case "/":{}
 					case "divide":
 					{
 						divide(cm);
 						break;
 					}
+					case "%":{}
 					case "mod":
 					{
 						mod(cm);
@@ -212,6 +218,11 @@ public class Colloquium
 							System.out.println(cm[1] + " только для полиномов");
 						break;
 					}
+					case "rootstosimple":
+					{
+						rootsToSimple(cm);
+						break;
+					}
 					default:
 					{
 						System.out.println("Нет такой комманды: " + cm[1]);
@@ -239,7 +250,7 @@ public class Colloquium
 		}
 		if(cm.length < 2 )
 		{
-			if(cm[0].toLowerCase().equals("exit") || cm[0].toLowerCase().equals("list") || cm[0].toLowerCase().equals("ls") || cm[0].toLowerCase().equals("quit"))
+			if(cm[0].toLowerCase().equals("exit") || cm[0].toLowerCase().equals("list") || cm[0].toLowerCase().equals("ls") || cm[0].toLowerCase().equals("quit") || cm[0].toLowerCase().equals("q"))
 			{
 				return true;
 			}
@@ -369,7 +380,7 @@ public class Colloquium
 		String[] result;
 		if(cm.length == 1)
 			result = cm;
-		else if(cm[1].toLowerCase().equals("abs") || cm[1].toLowerCase().equals("getcoefathighestdegree") || cm[1].toLowerCase().equals("derivative")) // a abs to c ---> a abs a to c
+		else if(cm[1].toLowerCase().equals("abs") || cm[1].toLowerCase().equals("getcoefathighestdegree") || cm[1].toLowerCase().equals("derivative") || cm[1].toLowerCase().equals("rootstosimple")) // a abs to c ---> a abs a to c
 		{
 			if(cm.length != 4)
 			{
@@ -729,6 +740,21 @@ public class Colloquium
 		}
 	}
 	
+	private static void rootsToSimple(String[] cm) // a rootsToSimple a to c
+	{
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).rootsToSimple() ) ;
+			else
+				System.out.println(cm[1] + " только для полиномов");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+	
 	private static void getCoefAtHighestDegree(String[] cm) // a getCoefAtHighestDegree a to c
 	{
 		try 
@@ -752,8 +778,10 @@ public class Colloquium
 				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).gcd( (BigN)nums.get(cm[2]) ) ) ;
 			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
 				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).gcd( (BigPolinom)nums.get(cm[2]) ) ) ;
-			else if(nums.get(cm[0]).getClass() == BigZ.class || nums.get(cm[0]).getClass() == BigQ.class)
-				System.out.println("Это только для BigN или для BigPolinom");
+			else if(nums.get(cm[0]).getClass() == BigZ.class)
+				nums.put(cm[4], ( ( BigZ )nums.get(cm[0])).gcd( (BigZ)nums.get(cm[2]) ) ) ;
+			else if (nums.get(cm[0]).getClass() == BigQ.class)
+				System.out.println("Не определено для рациональных чисел");
 			else
 				System.out.println("Error 404 in gcd: Failed successfully...");
 		}
