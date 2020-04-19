@@ -370,7 +370,7 @@ public class BigPolinom
             result.factors.set(i, temp1.add(temp2));
         }
 
-        for (i = result.factors.size()-1; result.factors.get(i).isZero() && i > 0; --i)
+        for (i = result.factors.size()-1; i >= 0 && result.factors.get(i).isZero(); i--)
             result.factors.remove(i);
 
         return result;
