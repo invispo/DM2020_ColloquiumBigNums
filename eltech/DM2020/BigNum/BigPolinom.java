@@ -580,24 +580,23 @@ public class BigPolinom
 	{
 		BigPolinom buffThis = this.clone();
         BigPolinom buffOther = other.clone();
-		while (!buffThis.isZero() && !buffOther.isZero())
+		BigPolinom result = buffOther;
+		String resString;
+		if(buffThis.compareTo(buffOther) < 0)
+		{
+			result = buffThis.clone();
+			buffThis = buffOther;
+			buffOther = result;
+		}
+		while (buffOther.factors.size() != 0)
         {
-            if (buffThis.compareTo(buffOther) > 0) 
-			{
-				if(buffOther.factors.size() == 1)
-					return buffOther;
-                buffThis = buffThis.mod(buffOther);
-			}
-            else if(buffThis.compareTo(buffOther) < 0)
-			{
-				if(buffThis.factors.size() == 1)
-					return buffThis;
-                buffOther = buffOther.mod(buffThis);
-			}
-			else
-				buffThis = new BigPolinom("0");
+            result = buffOther.clone();
+			buffOther = buffThis.mod(buffOther);
+			buffThis = result;
         }
-		return buffThis.add(buffOther);
+		resString = result.gcdAndLcm();
+		result = new BigPolinom( resString.substring(resString.indexOf("("), resString.length()) );
+		return result;
 	}
 	
 	/**
